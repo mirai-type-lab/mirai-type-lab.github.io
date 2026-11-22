@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mirai-type-lab.github.io/sitemap.xml
