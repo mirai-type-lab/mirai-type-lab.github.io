@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
-"""ネタぴよニュースを作る。news/data.json を読み、一覧・記事ページ・画像・RSS・サイトマップ・llms.txt を作る。
+"""ネタぴよニュースを作る。画像は無い時だけ作る（作れない機械では、ひよこの絵で代わりにする）。
+news/data.json を読み、一覧・記事ページ・画像・RSS・サイトマップ・llms.txt を作る。
 使い方：mirai-type-lab.github.io の中で  python3 news/build.py"""
 import json, os, html, datetime
-from PIL import Image, ImageDraw, ImageFont
+try:
+    from PIL import Image, ImageDraw, ImageFont
+except Exception:
+    Image=None
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE='https://mirai-type-lab.github.io'
 SITE='ネタぴよニュース'
@@ -61,7 +65,11 @@ def jp(dt): y,m,dd=dt.split('-'); return f'{int(y)}年{int(m)}月{int(dd)}日'
 os.makedirs(os.path.join(ROOT,'share','news'),exist_ok=True)
 for n in D:
     url=f"{BASE}/news/{n['id']}/"; img=f"{BASE}/share/news/{n['id']}.png"
-    ogp(n,os.path.join(ROOT,'share','news',n['id']+'.png'))
+    out=os.path.join(ROOT,'share','news',n['id']+'.png')
+    if not os.path.exists(out):
+        try: ogp(n,out)
+        except Exception as ex: print('画像は作れなかった（文字の形が無い等）:',n['id'],ex)
+    if not os.path.exists(out): img=f"{BASE}/share/netapiyo/chick.png"
     desc=n['sum'][:110]
     faq=[{"@type":"Question","name":q['q'],"acceptedAnswer":{"@type":"Answer","text":"答えによって、次のどれかになります："+" ／ ".join(a['t'] for a in n['as'])}} for q in n['qs']]
     faq+=[{"@type":"Question","name":f"{n['title']}、今やることは？（{a['t']}）","acceptedAnswer":{"@type":"Answer","text":a['b']}} for a in n['as']]
