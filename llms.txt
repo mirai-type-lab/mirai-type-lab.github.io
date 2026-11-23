@@ -4,6 +4,7 @@
 
 ## 診断
 - [未来タイプ診断](https://mirai-type-lab.github.io/): 50問で、ふだんのクセから未来のタイプと行動のクセがわかる無料の診断
+- [恋愛のクセ診断](https://mirai-type-lab.github.io/shindan/love/): 12問で、恋愛での自分のクセを6タイプで占うあそびの診断（結果ごとに今やること1つ）
 
 ## ネタぴよニュース
 - [記事の一覧](https://mirai-type-lab.github.io/news/): 毎日の気になるニュースと、はい・いいえで出る「今やること」
