@@ -45,6 +45,23 @@ h1{font-size:22px;line-height:1.4;margin-top:6px}
 .cta a{display:block;margin-top:12px;background:#fff;color:#2F6FE0;border:3px solid #3A2A1A;border-radius:14px;padding:12px;text-align:center;font-weight:700;text-decoration:none}
 footer{font-size:12px;color:#8A7A6A;line-height:1.7;text-align:center;margin-top:20px}
 </style>
+<script>
+  (function(){
+    try{
+      var q=new URLSearchParams(location.search).get('me');
+      if(q==='1') localStorage.setItem('mirai-me','1');
+      if(q==='0') localStorage.removeItem('mirai-me');
+      if(localStorage.getItem('mirai-me')==='1') window['ga-disable-G-PSHZSB36VV']=true;
+    }catch(e){}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PSHZSB36VV', { allow_google_signals: false, allow_ad_personalization_signals: false });
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -112,11 +129,11 @@ function list(){
 }
 function find(id){for(var i=0;i<NEWS.length;i++)if(NEWS[i].id===id)return NEWS[i]}
 function head(n){return '<span class="tag">'+esc(n.tag)+'</span><h2>'+esc(n.title)+'</h2><p class="sum">'+esc(n.sum)+'</p><p class="src">出どころ：'+n.src.map(function(s){return '<a href="'+s[1]+'" target="_blank" rel="noopener">'+esc(s[0])+'</a>'}).join('／')+'（'+esc(n.date)+'）</p>'}
-function start(id){var n=find(id);if(!n)return list();history.replaceState(null,'','?n='+id);ask(n,0,1);window.scrollTo(0,0)}
+function start(id){var n=find(id);if(!n)return list();try{gtag('event','news_start',{news_id:id});}catch(e){}history.replaceState(null,'','?n='+id);ask(n,0,1);window.scrollTo(0,0)}
 function next(id,v,k){var n=find(id);if(typeof v==='string'&&v.indexOf('a:')===0)return answer(n,+v.slice(2));ask(n,v,k+1)}
 function ask(n,i,k){var q=n.qs[i];
  app.innerHTML='<div class="card">'+head(n)+'</div><div class="card"><p class="step">しつもん '+k+'</p><p class="q">'+esc(q.q)+'</p><div class="btns"><button class="yes" onclick="next(\''+n.id+'\','+JSON.stringify(q.yes).replace(/"/g,"&quot;")+','+k+')">はい</button><button class="no" onclick="next(\''+n.id+'\','+JSON.stringify(q.no).replace(/"/g,"&quot;")+','+k+')">いいえ</button></div><button class="back" onclick="list()">ほかのニュースを見る</button></div>';}
-function answer(n,j){var a=n.as[j];var u=encodeURIComponent(url(n)+'&utm_source=share');var tx=encodeURIComponent('「'+n.title+'」にYES/NOで答えたら、今やることがわかった #ネタぴよニュース #ニュース');
+function answer(n,j){var a=n.as[j];try{gtag('event','news_answer',{news_id:n.id,answer_no:j});}catch(e){}var u=encodeURIComponent(url(n)+'&utm_source=share');var tx=encodeURIComponent('「'+n.title+'」にYES/NOで答えたら、今やることがわかった #ネタぴよニュース #ニュース');
  app.innerHTML='<div class="card">'+head(n)+'</div><div class="card"><p class="step">あなたが今やること</p><div class="ans"><b>'+esc(a.t)+'</b>'+esc(a.b)+'</div>'+(a.l.length?'<div class="links">'+a.l.map(function(l){return '▶ <a href="'+l[1]+'" target="_blank" rel="noopener">'+esc(l[0])+'</a>'}).join('<br>')+'</div>':'')+'<div class="row"><a href="https://x.com/intent/post?text='+tx+'&url='+u+'" target="_blank" rel="noopener">Xでシェア</a><a href="https://social-plugins.line.me/lineit/share?url='+u+'" target="_blank" rel="noopener">LINEで送る</a></div><div class="row"><button onclick="start(\''+n.id+'\')">もう一回</button><button onclick="list()">ほかのニュース</button></div></div>';window.scrollTo(0,0)}
 var p=new URLSearchParams(location.search).get('n');p&&find(p)?start(p):list();
 </script>
