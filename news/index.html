@@ -123,19 +123,23 @@ var NEWS = [
 var app=document.getElementById('app');
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function url(n){return location.origin+location.pathname+'?n='+n.id}
-function list(){
- history.replaceState(null,'',location.pathname);
+function go(st,push){var u=location.pathname+(st.v==='list'?'':'?n='+st.id);if(push)history.pushState(st,'',u);else history.replaceState(st,'',u);render(st)}
+function render(st){if(!st||st.v==='list')return drawList();var n=find(st.id);if(!n)return drawList();if(st.v==='q')return drawAsk(n,st.i,st.k);if(st.v==='a')return drawAnswer(n,st.j)}
+window.addEventListener('popstate',function(e){render(e.state||{v:'list'});window.scrollTo(0,0)});
+function list(){go({v:'list'},true);window.scrollTo(0,0)}
+function drawList(){
  app.innerHTML=NEWS.map(function(n){return '<div class="card"><span class="tag">'+esc(n.tag)+'</span><span class="date">'+esc(n.date)+'</span><h2>'+esc(n.title)+'</h2><p class="sum">'+esc(n.sum)+'</p><button class="go" onclick="start(\''+n.id+'\')">はい・いいえで答える</button></div>'}).join('');
 }
 function find(id){for(var i=0;i<NEWS.length;i++)if(NEWS[i].id===id)return NEWS[i]}
 function head(n){return '<span class="tag">'+esc(n.tag)+'</span><h2>'+esc(n.title)+'</h2><p class="sum">'+esc(n.sum)+'</p><p class="src">出どころ：'+n.src.map(function(s){return '<a href="'+s[1]+'" target="_blank" rel="noopener">'+esc(s[0])+'</a>'}).join('／')+'（'+esc(n.date)+'）</p>'}
-function start(id){var n=find(id);if(!n)return list();try{gtag('event','news_start',{news_id:id});}catch(e){}history.replaceState(null,'','?n='+id);ask(n,0,1);window.scrollTo(0,0)}
-function next(id,v,k){var n=find(id);if(typeof v==='string'&&v.indexOf('a:')===0)return answer(n,+v.slice(2));ask(n,v,k+1)}
-function ask(n,i,k){var q=n.qs[i];
+function start(id){var n=find(id);if(!n)return list();try{gtag('event','news_start',{news_id:id});}catch(e){}go({v:'q',id:id,i:0,k:1},true);window.scrollTo(0,0)}
+function next(id,v,k){var n=find(id);if(typeof v==='string'&&v.indexOf('a:')===0)return answer(n,+v.slice(2));go({v:'q',id:id,i:v,k:k+1},true);window.scrollTo(0,0)}
+function drawAsk(n,i,k){var q=n.qs[i];
  app.innerHTML='<div class="card">'+head(n)+'</div><div class="card"><p class="step">しつもん '+k+'</p><p class="q">'+esc(q.q)+'</p><div class="btns"><button class="yes" onclick="next(\''+n.id+'\','+JSON.stringify(q.yes).replace(/"/g,"&quot;")+','+k+')">はい</button><button class="no" onclick="next(\''+n.id+'\','+JSON.stringify(q.no).replace(/"/g,"&quot;")+','+k+')">いいえ</button></div><button class="back" onclick="list()">ほかのニュースを見る</button></div>';}
-function answer(n,j){var a=n.as[j];try{gtag('event','news_answer',{news_id:n.id,answer_no:j});}catch(e){}var u=encodeURIComponent(url(n)+'&utm_source=share');var tx=encodeURIComponent('「'+n.title+'」にYES/NOで答えたら、今やることがわかった #ネタぴよニュース #ニュース');
+function answer(n,j){try{gtag('event','news_answer',{news_id:n.id,answer_no:j});}catch(e){}go({v:'a',id:n.id,j:j},true);window.scrollTo(0,0)}
+function drawAnswer(n,j){var a=n.as[j];var u=encodeURIComponent(url(n)+'&utm_source=share');var tx=encodeURIComponent('「'+n.title+'」にYES/NOで答えたら、今やることがわかった #ネタぴよニュース #ニュース');
  app.innerHTML='<div class="card">'+head(n)+'</div><div class="card"><p class="step">あなたが今やること</p><div class="ans"><b>'+esc(a.t)+'</b>'+esc(a.b)+'</div>'+(a.l.length?'<div class="links">'+a.l.map(function(l){return '▶ <a href="'+l[1]+'" target="_blank" rel="noopener">'+esc(l[0])+'</a>'}).join('<br>')+'</div>':'')+'<div class="row"><a href="https://x.com/intent/post?text='+tx+'&url='+u+'" target="_blank" rel="noopener">Xでシェア</a><a href="https://social-plugins.line.me/lineit/share?url='+u+'" target="_blank" rel="noopener">LINEで送る</a></div><div class="row"><button onclick="start(\''+n.id+'\')">もう一回</button><button onclick="list()">ほかのニュース</button></div></div>';window.scrollTo(0,0)}
-var p=new URLSearchParams(location.search).get('n');p&&find(p)?start(p):list();
+var p=new URLSearchParams(location.search).get('n');if(p&&find(p)){history.replaceState({v:'list'},'',location.pathname);go({v:'q',id:p,i:0,k:1},true)}else go({v:'list'},false);
 </script>
 </body>
 </html>
