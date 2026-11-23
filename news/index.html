@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ネタぴよニュース｜はい・いいえで「今やること」がわかるニュースサイト</title>
+<meta name="description" content="毎日の気になるニュースを、ひよこのネタぴよがやさしく紹介。記事ごとに、はい・いいえで答えると、あなたが今やることがわかります。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/news/">
+<meta property="og:title" content="ネタぴよニュース｜はい・いいえで「今やること」がわかる">
+<meta property="og:description" content="気になるニュースに、はい・いいえで答えるだけ。">
+<meta property="og:image" content="https://mirai-type-lab.github.io/share/netapiyo/01-shurijo.png">
+<meta property="og:url" content="https://mirai-type-lab.github.io/news/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#FFF6E0;color:#3A2A1A;min-height:100vh;padding:20px 14px 40px}
+.wrap{max-width:520px;margin:0 auto}
+header{text-align:center;margin-bottom:18px}
+header img{width:84px;height:84px}
+h1{font-size:22px;line-height:1.4;margin-top:6px}
+.lead{font-size:14px;color:#7A6A5A;margin-top:6px}
+.card{background:#fff;border:3px solid #3A2A1A;border-radius:22px;padding:18px;margin-bottom:16px}
+.date{font-size:12px;color:#8A7A6A;margin-left:8px}
+.tag{display:inline-block;background:#E5484D;color:#fff;font-weight:700;font-size:12px;border-radius:999px;padding:4px 12px}
+.card h2{font-size:19px;line-height:1.45;margin:10px 0 8px}
+.sum{font-size:14px;line-height:1.75}
+.src{font-size:12px;color:#8A7A6A;margin-top:8px;line-height:1.6}
+.src a{color:#8A7A6A}
+.go{display:block;width:100%;margin-top:14px;background:#FFC928;border:3px solid #3A2A1A;border-radius:14px;padding:12px;font-size:16px;font-weight:700;color:#3A2A1A;cursor:pointer}
+.q{font-size:18px;font-weight:700;line-height:1.5;margin:6px 0 14px}
+.btns{display:flex;gap:10px}
+.btns button{flex:1;border:3px solid #3A2A1A;border-radius:14px;padding:14px 0;font-size:18px;font-weight:700;cursor:pointer}
+.yes{background:#4CC38A;color:#fff}.no{background:#fff;color:#3A2A1A}
+.step{font-size:12px;color:#8A7A6A;margin-bottom:4px}
+.ans{background:#FFF6E0;border-radius:14px;padding:14px;font-size:15px;line-height:1.8;margin-top:6px}
+.ans b{display:block;font-size:17px;margin-bottom:6px;color:#E5484D}
+.links{margin-top:12px;font-size:13px;line-height:1.8}
+.links a{color:#2F6FE0}
+.row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.row a,.row button{flex:1;min-width:120px;text-align:center;border:2px solid #3A2A1A;border-radius:12px;padding:10px;font-size:14px;font-weight:700;text-decoration:none;color:#3A2A1A;background:#fff;cursor:pointer}
+.back{background:none;border:none;color:#7A6A5A;font-size:14px;margin-top:10px;cursor:pointer;text-decoration:underline}
+.cta{background:#4C8DFF;color:#fff;border-color:#3A2A1A}
+.cta h3{font-size:17px;margin-bottom:6px}
+.cta p{font-size:14px;line-height:1.7}
+.cta a{display:block;margin-top:12px;background:#fff;color:#2F6FE0;border:3px solid #3A2A1A;border-radius:14px;padding:12px;text-align:center;font-weight:700;text-decoration:none}
+footer{font-size:12px;color:#8A7A6A;line-height:1.7;text-align:center;margin-top:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<img src="../share/netapiyo/chick.png" alt="ネタぴよ">
+<h1>ネタぴよニュース</h1>
+<p class="lead">毎日の気になるニュースを、やさしく1分で。<br>記事ごとに「はい・いいえ」で答えると、あなたが今やることがわかるよ。</p>
+</header>
+<main id="app"></main>
+<div class="card cta">
+<h3>ついでに、未来の自分もチェック</h3>
+<p>ふだんのクセから、これからのあなたのタイプと行動のクセがわかる無料の診断（50問）。</p>
+<a href="https://mirai-type-lab.github.io/?utm_source=news&utm_medium=site&utm_campaign=yesno">未来タイプ診断をやってみる</a>
+</div>
+<footer>
+ここにあるのは一般的な情報です。困った時は、書いてある公的な窓口に相談してね。<br>
+運営：ネタぴよ（未来タイプ診断ラボ）
+</footer>
+</div>
+<script>
+// ニュースの中身。足す時はこの並びに1件ずつ足す（出どころは必ず確かめた記事か公的な発表）。
+// 問いの形：q（問い） yes/no（次の問いの番号 か "a:答えの番号"）
+var NEWS = [
+ {
+  id:"shurijo", tag:"今日のネタ", date:"2026年11月23日",
+  title:"首里城の正殿、11月23日から一般公開",
+  sum:"2019年10月の火事で焼けてから約7年。復元された首里城の正殿の中が、11月23日から一般公開。正殿を見るには事前予約が要るようになり、入場料も大人400円から1000円に変わった。",
+  src:[["琉球新報","https://ryukyushimpo.jp/national/entry-5550312.html"],["トラベル Watch","https://travel.watch.impress.co.jp/docs/news/2133105.html"],["タイムアウト東京","https://www.timeout.jp/tokyo/ja/news/shuri-castle-reopen-102126"]],
+  qs:[
+   {q:"近いうちに沖縄へ行く予定ある？", yes:1, no:2},
+   {q:"正殿の中も見たい？", yes:"a:0", no:"a:1"},
+   {q:"いつか行ってみたい？", yes:"a:2", no:"a:3"}
+  ],
+  as:[
+   {t:"行く日を決めたら、先に予約！", b:"正殿の中を見るには事前予約が要るよ。行く日が決まったら、首里城公園のホームページの「正殿内観覧予約」から予約しておこう（10人未満の場合）。入場料は大人1000円（11月23日から）。", l:[["予約の決まり（琉球新報）","https://ryukyushimpo.jp/national/entry-5550312.html"]]},
+   {t:"予約なしでもOKな所があるよ", b:"正殿の中を除く有料の区域は、予約なしで入れるよ。気軽に寄るならこっちでOK。正殿の外側も予約なしで見られるよ。", l:[["予約の決まり（琉球新報）","https://ryukyushimpo.jp/national/entry-5550312.html"]]},
+   {t:"公式をブックマークしとこ", b:"今は正殿の中が人気で、予約がいる形。行きたくなった時のために、「首里城公園 正殿内観覧予約」で調べられるようにしておくとラク。", l:[["予約の決まり（琉球新報）","https://ryukyushimpo.jp/national/entry-5550312.html"]]},
+   {t:"話のネタに1つだけ覚えとこ", b:"「焼けてから約7年で、正殿がよみがえった」。全国の職人さんの技で復元されたんだって。だれかとの話のネタにどうぞ。", l:[]}
+  ]
+ },
+ {
+  id:"npa-sms", tag:"注意ネタ", date:"2026年11月",
+  title:"「警察庁推奨アプリ」を名乗る偽サイトに注意",
+  sum:"「NPA（警察庁）」を名乗るSMSで、詐欺対策アプリを入れるよう求め、偽の警察庁のサイトに誘う手口が見つかっている。警察が個人にSMSやメッセージアプリでアプリを入れるよう求めることはない。",
+  src:[["INTERNET Watch（トビラシステムズの注意喚起）","https://internet.watch.impress.co.jp/docs/news/2155633.html"],["警察庁「ニセ警察詐欺に注意」","https://www.npa.go.jp/bureau/safetylife/sos47/"]],
+  qs:[
+   {q:"最近「警察」や「NPA」を名乗るSMSが来た？", yes:1, no:"a:3"},
+   {q:"そのSMSのリンクを押した？", yes:2, no:"a:0"},
+   {q:"アプリを入れたり、カード番号・パスワード・暗証番号を入れたりした？", yes:"a:2", no:"a:1"}
+  ],
+  as:[
+   {t:"押さずに、そのまま消してOK", b:"警察がSMSでアプリを入れてと言うことはないよ。リンクは押さずにメッセージを消そう。", l:[["警察庁「ニセ警察詐欺に注意」","https://www.npa.go.jp/bureau/safetylife/sos47/"]]},
+   {t:"何も入れてなければ、閉じて消そう", b:"ページを開いただけで何も入れていなければ、閉じてSMSを消そう。不安なら警察の相談電話「#9110」に相談できるよ。", l:[["警察庁「ニセ警察詐欺に注意」","https://www.npa.go.jp/bureau/safetylife/sos47/"]]},
+   {t:"今すぐ相談して！", b:"カード会社・銀行にすぐ連絡して止めてもらおう。入れたパスワードは変えて、入れたアプリは消す。そのうえで警察の相談電話「#9110」か、近くの警察署に相談してね。", l:[["警察庁「ニセ警察詐欺に注意」","https://www.npa.go.jp/bureau/safetylife/sos47/"]]},
+   {t:"家族に1言だけ伝えよ", b:"「警察はSMSでアプリを入れてとは言わないよ」。これを親や家族に伝えておくだけで、だまされにくくなるよ。", l:[]}
+  ]
+ }
+];
+var app=document.getElementById('app');
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function url(n){return location.origin+location.pathname+'?n='+n.id}
+function list(){
+ history.replaceState(null,'',location.pathname);
+ app.innerHTML=NEWS.map(function(n){return '<div class="card"><span class="tag">'+esc(n.tag)+'</span><span class="date">'+esc(n.date)+'</span><h2>'+esc(n.title)+'</h2><p class="sum">'+esc(n.sum)+'</p><button class="go" onclick="start(\''+n.id+'\')">はい・いいえで答える</button></div>'}).join('');
+}
+function find(id){for(var i=0;i<NEWS.length;i++)if(NEWS[i].id===id)return NEWS[i]}
+function head(n){return '<span class="tag">'+esc(n.tag)+'</span><h2>'+esc(n.title)+'</h2><p class="sum">'+esc(n.sum)+'</p><p class="src">出どころ：'+n.src.map(function(s){return '<a href="'+s[1]+'" target="_blank" rel="noopener">'+esc(s[0])+'</a>'}).join('／')+'（'+esc(n.date)+'）</p>'}
+function start(id){var n=find(id);if(!n)return list();history.replaceState(null,'','?n='+id);ask(n,0,1);window.scrollTo(0,0)}
+function next(id,v,k){var n=find(id);if(typeof v==='string'&&v.indexOf('a:')===0)return answer(n,+v.slice(2));ask(n,v,k+1)}
+function ask(n,i,k){var q=n.qs[i];
+ app.innerHTML='<div class="card">'+head(n)+'</div><div class="card"><p class="step">しつもん '+k+'</p><p class="q">'+esc(q.q)+'</p><div class="btns"><button class="yes" onclick="next(\''+n.id+'\','+JSON.stringify(q.yes).replace(/"/g,"&quot;")+','+k+')">はい</button><button class="no" onclick="next(\''+n.id+'\','+JSON.stringify(q.no).replace(/"/g,"&quot;")+','+k+')">いいえ</button></div><button class="back" onclick="list()">ほかのニュースを見る</button></div>';}
+function answer(n,j){var a=n.as[j];var u=encodeURIComponent(url(n)+'&utm_source=share');var tx=encodeURIComponent('「'+n.title+'」にYES/NOで答えたら、今やることがわかった #ネタぴよニュース #ニュース');
+ app.innerHTML='<div class="card">'+head(n)+'</div><div class="card"><p class="step">あなたが今やること</p><div class="ans"><b>'+esc(a.t)+'</b>'+esc(a.b)+'</div>'+(a.l.length?'<div class="links">'+a.l.map(function(l){return '▶ <a href="'+l[1]+'" target="_blank" rel="noopener">'+esc(l[0])+'</a>'}).join('<br>')+'</div>':'')+'<div class="row"><a href="https://x.com/intent/post?text='+tx+'&url='+u+'" target="_blank" rel="noopener">Xでシェア</a><a href="https://social-plugins.line.me/lineit/share?url='+u+'" target="_blank" rel="noopener">LINEで送る</a></div><div class="row"><button onclick="start(\''+n.id+'\')">もう一回</button><button onclick="list()">ほかのニュース</button></div></div>';window.scrollTo(0,0)}
+var p=new URLSearchParams(location.search).get('n');p&&find(p)?start(p):list();
+</script>
+</body>
+</html>
