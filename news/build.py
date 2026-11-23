@@ -7,7 +7,7 @@ ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE='https://mirai-type-lab.github.io'
 SITE='ネタぴよニュース'
 D=json.load(open(os.path.join(ROOT,'news','data.json'),encoding='utf-8'))
-D.sort(key=lambda n:n['published'],reverse=True)
+D=[n for _,n in sorted(enumerate(D),key=lambda x:(x[1]['published'],x[0]),reverse=True)]  # 新しい日付→後から足した記事が上
 e=html.escape
 GA='''<script>(function(){try{var q=new URLSearchParams(location.search).get('me');if(q==='1')localStorage.setItem('mirai-me','1');if(q==='0')localStorage.removeItem('mirai-me');if(localStorage.getItem('mirai-me')==='1')window['ga-disable-G-PSHZSB36VV']=true;}catch(e){}})();</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
