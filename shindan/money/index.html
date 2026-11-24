@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お金のクセ診断｜12問でお金の使い方のクセが6タイプでわかる無料のあそび診断</title>
+<meta name="description" content="12の質問に答えるだけで、お金の使い方のクセを6つのタイプで占う無料のあそび診断です。結果ごとに「今やること」を1つお届け。登録なし・約2分。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/shindan/money/">
+<meta property="og:title" content="お金のクセ診断｜12問でお金の使い方のクセがわかる">
+<meta property="og:description" content="12の質問から、お金の使い方のクセを6タイプで占います。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/shindan/money/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "Hiragino Sans", "Noto Sans JP", sans-serif; background: #f7f9fd; color: #222; min-height: 100vh; display: flex; justify-content: center; padding: 24px 16px; }
+.wrap { width: 100%; max-width: 400px; }
+h1 { font-size: 22px; text-align: center; font-weight: 700; letter-spacing: .12em; margin-top: 16px; }
+.sub { text-align: center; color: #888; font-size: 12px; margin: 8px 0 24px; }
+.desc { font-size: 13px; color: #666; line-height: 1.9; text-align: center; margin-bottom: 8px; }
+.go { width: 100%; margin-top: 28px; padding: 15px; border: none; border-radius: 8px; background: #222; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; letter-spacing: .2em; }
+#quiz { display: none; }
+.prog { font-size: 12px; color: #999; text-align: center; letter-spacing: .2em; }
+.bar { height: 4px; background: #eee; border-radius: 2px; margin: 10px 0 34px; }
+.bar i { display: block; height: 100%; background: #1f9d6b; border-radius: 2px; transition: width .3s; }
+.qq { font-size: 18px; font-weight: 700; line-height: 1.7; margin-bottom: 24px; min-height: 60px; }
+.opt { display: block; width: 100%; text-align: left; padding: 15px 16px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #222; font-size: 15px; cursor: pointer; }
+.opt:active { border-color: #1f9d6b; background: #e9f7f0; }
+.back { display: block; margin: 8px auto 0; border: none; background: none; color: #999; font-size: 12px; cursor: pointer; }
+#divine { display: none; text-align: center; padding: 70px 0; }
+.hearts { font-size: 34px; color: #1f9d6b; letter-spacing: .3em; animation: beat 0.9s ease-in-out infinite; }
+@keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+.dtext { margin-top: 28px; font-size: 14px; color: #888; letter-spacing: .3em; }
+#result { display: none; }
+.card { position: relative; background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 34px 24px 28px; text-align: center; box-shadow: 0 4px 24px rgba(0,0,0,.05); animation: flipin .7s ease-out; }
+@keyframes flipin { from { transform: rotateY(70deg); opacity: 0; } to { transform: rotateY(0); opacity: 1; } }
+.card .title { font-size: 12px; letter-spacing: .4em; color: #999; }
+.card .code { margin-top: 22px; font-size: 52px; font-weight: 800; letter-spacing: .05em; line-height: 1; }
+.card .tname { margin-top: 10px; font-size: 21px; font-weight: 700; color: #1f9d6b; }
+.card .catch { margin-top: 14px; font-size: 14px; font-weight: 700; line-height: 1.8; }
+.card .text { margin-top: 12px; font-size: 13px; line-height: 1.9; color: #555; text-align: left; }
+.card .todo { margin-top: 18px; font-size: 13px; line-height: 1.8; color: #333; background: #e9f7f0; border-radius: 8px; padding: 12px 14px; text-align: left; }
+.card .todo b { display: block; font-size: 12px; color: #1f9d6b; margin-bottom: 2px; }
+.card .pair { margin-top: 16px; font-size: 12px; line-height: 1.8; color: #444; }
+.card .pair b { color: #1f9d6b; font-size: 13px; }
+.card .tags { margin-top: 14px; font-size: 12px; color: #1f9d6b; }
+.card .note { margin-top: 8px; font-size: 10px; color: #aaa; line-height: 1.6; }
+.more { margin-top: 14px; background: #fff; border: 1px solid #eee; border-radius: 12px; }
+.more summary { padding: 14px 16px; font-size: 14px; font-weight: 700; color: #1f9d6b; cursor: pointer; text-align: center; list-style: none; }
+.more summary::-webkit-details-marker { display: none; }
+.more-body { padding: 0 18px 16px; }
+.m-item { padding: 12px 0; border-top: 1px solid #f3f3f3; font-size: 13px; line-height: 1.8; color: #444; }
+.m-item b { display: block; font-size: 12px; color: #999; margin-bottom: 2px; }
+.sharebox { display: flex; gap: 8px; margin-top: 16px; }
+.sh { flex: 1; padding: 13px 4px; border: none; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; }
+.sh.x { background: #000; } .sh.th { background: #333; } .sh.ln { background: #06c755; }
+.again { width: 100%; margin-top: 8px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #666; font-size: 13px; cursor: pointer; }
+.links { margin-top: 26px; font-size: 13px; line-height: 2; text-align: center; }
+.links a { color: #6c5ce7; }
+footer { margin-top: 26px; font-size: 11px; color: #aaa; line-height: 1.8; text-align: center; }
+</style>
+<script>(function(){try{var q=new URLSearchParams(location.search).get('me');if(q==='1')localStorage.setItem('mirai-me','1');if(q==='0')localStorage.removeItem('mirai-me');if(localStorage.getItem('mirai-me')==='1')window['ga-disable-G-PSHZSB36VV']=true;}catch(e){}})();</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>お金のクセ診断</h1>
+<p class="sub">12の質問から、お金の使い方のクセを占います</p>
+
+<div id="form">
+<p class="desc">おこづかいでも、お給料でも、家計でも大丈夫。<br>「自分ならこうしそう」と思う答えを選んでください。<br>登録なし・約2分。答えはこの画面の中だけで使います。</p>
+<button class="go" id="start">診断をはじめる</button>
+</div>
+
+<div id="quiz">
+<p class="prog"><span id="qn">1</span> / <span id="qt">12</span></p>
+<div class="bar"><i id="bar" style="width:8%"></i></div>
+<p class="qq" id="qq"></p>
+<div id="opts"></div>
+<button class="back" id="back">← ひとつ前に戻る</button>
+</div>
+
+<div id="divine">
+<div class="hearts">◆◆◆</div>
+<p class="dtext">あなたのクセを占っています</p>
+</div>
+
+<div id="result">
+<div class="card">
+<div class="title">お金のクセ診断</div>
+<div class="code" id="r-code"></div>
+<div class="tname" id="r-tname"></div>
+<div class="catch" id="r-catch"></div>
+<div class="text" id="r-text"></div>
+<div class="todo"><b>今やること（1つだけ）</b><span id="r-todo"></span></div>
+<div class="pair" id="r-pair"></div>
+<div class="tags">#お金のクセ診断</div>
+<div class="note">※あそびの診断です。性格を決めつけるものではなく、お金の運用や投資をすすめるものでもありません。</div>
+</div>
+<details class="more">
+<summary>くわしく見る</summary>
+<div class="more-body">
+<div class="m-item"><b>いいところ</b><span id="r-good"></span></div>
+<div class="m-item"><b>気をつけたいクセ</b><span id="r-care"></span></div>
+<div class="m-item"><b>相性がいい理由</b><span id="r-pairwhy"></span></div>
+<div class="m-item"><b>あなたの答えの内訳</b><span id="r-mix"></span></div>
+</div>
+</details>
+<div class="sharebox">
+<button class="sh x" id="sh-x">Xで</button>
+<button class="sh th" id="sh-th">Threadsで</button>
+<button class="sh ln" id="sh-ln">LINEで</button>
+</div>
+<button class="again" id="again">もう一度診断する</button>
+</div>
+
+<div class="links">
+<a href="/shindan/love/?src=money">「恋愛のクセ診断」もやってみる</a><br>
+<a href="/shindan/work/?src=money">「仕事のクセ診断」もやってみる</a><br>
+<a href="/?src=money">50問の「未来タイプ診断」もやってみる</a><br>
+<a href="/news/?src=money">ネタぴよニュース（今日の「今やること」）</a>
+</div>
+<footer>運営：未来タイプ診断ラボ／この診断はあそびです。答えは送られず、この画面の中だけで判定します。</footer>
+</div>
+
+<script>
+// ===== 6タイプ =====
+const TYPES = {
+SAVE: { tname:"コツコツ貯め名人", catch:"まず残す。使うのはそのあと派",
+  text:"入ったお金から先に少し残せるタイプ。急な出費があっても慌てにくく、気持ちに余裕を持ちやすいです。",
+  good:"小さな積み重ねを続けられる。ムダづかいが少ない。",
+  care:"がまんが続きすぎて、楽しむためのお金まで削りがち。",
+  todo:"今月の予定に「自分へのごほうび」を1つ、金額を決めて入れておく。",
+  pair:"TREAT", why:"残す人と楽しむ人。おたがいの良さを少しずつ取り入れると、ちょうどよくなる。" },
+NOTE: { tname:"家計簿ナビゲーター", catch:"何にいくら使ったか、ちゃんと知りたい派",
+  text:"お金の出入りを見える形にするのが得意なタイプ。数字で分かるので、ムリのない計画を立てられます。",
+  good:"使いすぎに早く気づける。先の予定も立てやすい。",
+  care:"記録が細かすぎて、続けるのがしんどくなることも。",
+  todo:"記録は「食べ物・日用品・その他」の3つだけに分けて、1週間だけ試す。",
+  pair:"EXP", why:"記録の人と体験の人。やりたいことに使うお金を、先に計画に入れられる。" },
+TREAT: { tname:"ごほうびアーティスト", catch:"がんばった日は、自分をちゃんとほめたい派",
+  text:"お金を気分を上げるために上手に使えるタイプ。好きな物を知っているので、満足度の高い使い方ができます。",
+  good:"使ったお金で元気になれる。好きな物を選ぶ目がある。",
+  care:"「今日くらいは」が続くと、月末にあわてることも。",
+  todo:"ごほうびを買う前に、1晩だけ「本当にほしい？」と寝かせてみる。",
+  pair:"SAVE", why:"楽しむ人と残す人。楽しみ方を知る人と、続け方を知る人で釣り合う。" },
+DEAL: { tname:"お得ハンター", catch:"同じ物なら、少しでも安く手に入れたい派",
+  text:"値段をくらべたり、ポイントやセールを使ったりするのが得意なタイプ。同じ買い物でも、手元に残るお金が増えやすいです。",
+  good:"情報を集めるのが早く、ムダなく買える。",
+  care:"「安いから」と、いらない物まで買ってしまうことも。",
+  todo:"次のセールの前に、買う物を3つまでメモしてから見にいく。",
+  pair:"GIFT", why:"お得な人と人のために使う人。浮いたお金で、だれかを笑顔にできる。" },
+GIFT: { tname:"おすそわけサンタ", catch:"自分より、だれかが喜ぶことに使いたい派",
+  text:"家族や友だちのためにお金を使うのが好きなタイプ。気持ちのこもった使い方で、まわりとの関係を深められます。",
+  good:"人を喜ばせるのが上手で、信頼される。",
+  care:"人のための出費が重なって、自分の分があとまわしになりがち。",
+  todo:"今月の「人のため」の予算を先に決めて、その中で選ぶ。",
+  pair:"DEAL", why:"人のために使う人とお得な人。同じ気持ちを、ムリのない金額で届けられる。" },
+EXP: { tname:"思い出コレクター", catch:"物より、行った・見た・やったに使いたい派",
+  text:"旅行やイベント、学びなど「体験」にお金を使うのが好きなタイプ。経験が増えるので、話題も世界も広がります。",
+  good:"お金を思い出や学びに変えられる。行動力がある。",
+  care:"行きたい所が多すぎて、計画なしに出費が重なることも。",
+  todo:"今年やりたい体験を1つ選び、毎月いくら取っておくか決める。",
+  pair:"NOTE", why:"体験の人と記録の人。やりたいことに、ちゃんと道すじがつく。" }
+};
+const ORDER = ["SAVE","NOTE","TREAT","DEAL","GIFT","EXP"];
+
+// ===== 12問（各選択肢がどれか1タイプに2点。どのタイプも合計8回ずつ出る） =====
+const QUESTIONS = [
+{ q:"おこづかい・お給料が入ったら、まずどうする？", opts:[["先に少しだけ別にしておく","SAVE"],["今月の使い道をざっと決める","NOTE"],["気になっていた物を見にいく","TREAT"],["行きたい所の予定を立てる","EXP"]] },
+{ q:"買い物の前にすることは？", opts:[["ほかの店やネットと値段をくらべる","DEAL"],["いる物をメモしていく","NOTE"],["だれかの分も買おうか考える","GIFT"],["本当に必要か、もう一度考える","SAVE"]] },
+{ q:"思いがけず5千円もらったら？", opts:[["そのまま取っておく","SAVE"],["ちょっといいごはんを食べる","TREAT"],["家族や友だちに何か買う","GIFT"],["ちょっとしたお出かけに使う","EXP"]] },
+{ q:"言われていちばんうれしいのは？", opts:[["「しっかりしてるね」","NOTE"],["「センスいいね」","TREAT"],["「よくそんな安く買えたね」","DEAL"],["「いつもありがとう」","GIFT"]] },
+{ q:"財布やアプリの中は？", opts:[["ポイントカードやクーポンが多い","DEAL"],["レシートはすぐ記録して捨てる","NOTE"],["使っていない口座やお金がある","SAVE"],["イベントやライブのチケット","EXP"]] },
+{ q:"セールの時期になると？", opts:[["前から目をつけていた物を買う","DEAL"],["気分が上がって、つい見にいく","TREAT"],["プレゼント用を探す","GIFT"],["特に気にしない","SAVE"]] },
+{ q:"友だちとの旅行、あなたの役は？", opts:[["行き先やしたいことを決める","EXP"],["かかるお金をまとめる","NOTE"],["安い宿や切符を探す","DEAL"],["おみやげ係","GIFT"]] },
+{ q:"どちらかといえば苦手なのは？", opts:[["毎日お金を記録すること","EXP"],["ほしい物をがまんすること","TREAT"],["人の誘いを断ること","GIFT"],["定価で買うこと","DEAL"]] },
+{ q:"お金のことでよく考えるのは？", opts:[["今いくら残っているか","SAVE"],["今月あといくら使えるか","NOTE"],["次に何を買おうか","TREAT"],["次にどこへ行こうか","EXP"]] },
+{ q:"「買ってよかった」と思うのは？", opts:[["半額で手に入れた物","DEAL"],["人にあげて喜ばれた物","GIFT"],["行ってよかった旅やイベント","EXP"],["長く使えている物","SAVE"]] },
+{ q:"月末になると？", opts:[["予定どおりに残っていて安心","NOTE"],["思ったより残っていなくて、あれ？","TREAT"],["残った分を別にしておく","SAVE"],["ポイントの期限を確かめる","DEAL"]] },
+{ q:"お金であとから思いがちなのは？", opts:[["つい買いすぎたかも","TREAT"],["記録が続かなかった","NOTE"],["人のために使いすぎたかも","GIFT"],["予定を入れすぎたかも","EXP"]] }
+];
+
+function hashStr(s){ let h=0; for(let i=0;i<s.length;i++){ h=(h*31 + s.charCodeAt(i))|0; } return Math.abs(h); }
+function judge(ans){
+  const pt = {}; ORDER.forEach(k => pt[k] = 0);
+  ans.forEach(k => { pt[k] += 2; });
+  const max = Math.max.apply(null, ORDER.map(k => pt[k]));
+  const top = ORDER.filter(k => pt[k] === max);
+  // 同点の時は答えの並びから決める（同じ答えなら毎回同じ結果。どのタイプにも偏らない）
+  const code = top[hashStr(ans.join(",")) % top.length];
+  return { code, pt };
+}
+
+// ===== 計測（未来タイプ診断と同じWorker。名前は money_ で分ける。?me=1 の人は数えない） =====
+const MEASURE_BASE = "https://tomeren-go.vansboffice.workers.dev";
+(function(){ try{ const q = new URLSearchParams(location.search).get("me");
+  if(q === "1") localStorage.setItem("tomeren-me", "1");
+  if(q === "0") localStorage.removeItem("tomeren-me"); }catch(e){} })();
+function isMe(){ try{ return localStorage.getItem("tomeren-me") === "1" || localStorage.getItem("mirai-me") === "1"; }catch(e){ return false; } }
+function count(p){
+  if(isMe()) return;
+  const u = MEASURE_BASE + "/count?p=" + encodeURIComponent(p);
+  try{ if(navigator.sendBeacon && navigator.sendBeacon(u)) return; }catch(e){}
+  try{ fetch(u, { mode:"no-cors", keepalive:true }).catch(function(){}); }catch(e){}
+}
+function ga(name, params){ try{ if(typeof gtag === "function") gtag("event", name, params || {}); }catch(e){} }
+count("money_view");
+(function(){ let src = ""; try{ src = (new URLSearchParams(location.search).get("src") || "").replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 30); }catch(e){}
+  if(src) count("money_src_" + src); })();
+
+// ===== 画面 =====
+const $ = id => document.getElementById(id);
+let idx = 0, answers = [], last = null;
+document.getElementById("qt").textContent = QUESTIONS.length;
+function renderQ(){
+  $("qn").textContent = idx + 1;
+  $("bar").style.width = ((idx + 1) / QUESTIONS.length * 100) + "%";
+  $("qq").textContent = QUESTIONS[idx].q;
+  $("back").style.visibility = idx > 0 ? "visible" : "hidden";
+  const box = $("opts"); box.innerHTML = "";
+  QUESTIONS[idx].opts.forEach(o => {
+    const b = document.createElement("button");
+    b.className = "opt"; b.textContent = o[0];
+    b.onclick = () => { answers[idx] = o[1]; idx++; if(idx < QUESTIONS.length) renderQ(); else finish(); };
+    box.appendChild(b);
+  });
+}
+$("start").onclick = () => {
+  count("money_start"); ga("money_start");
+  idx = 0; answers = [];
+  $("form").style.display = "none"; $("quiz").style.display = "block"; renderQ();
+};
+$("back").onclick = () => { if(idx > 0){ idx--; answers.length = idx; renderQ(); } };
+function finish(){
+  $("quiz").style.display = "none"; $("divine").style.display = "block";
+  last = judge(answers);
+  const t = TYPES[last.code], p = TYPES[t.pair];
+  count("money_result"); count("money_type_" + last.code); ga("money_result", { money_type: last.code });
+  setTimeout(() => {
+    $("divine").style.display = "none";
+    $("r-code").textContent = last.code;
+    $("r-tname").textContent = t.tname;
+    $("r-catch").textContent = "「" + t.catch + "」";
+    $("r-text").textContent = t.text;
+    $("r-todo").textContent = t.todo;
+    $("r-good").textContent = t.good;
+    $("r-care").textContent = t.care;
+    $("r-pair").innerHTML = "相性がいいタイプ<br><b>" + t.pair + "「" + p.tname + "」</b>";
+    $("r-pairwhy").textContent = t.pair + "「" + p.tname + "」：" + t.why;
+    $("r-mix").textContent = ORDER.filter(k => last.pt[k] > 0).sort((a, b) => last.pt[b] - last.pt[a])
+      .map(k => TYPES[k].tname + " " + (last.pt[k] / 2) + "問").join("／");
+    document.querySelector("#result details.more").open = false;
+    $("result").style.display = "block";
+    window.scrollTo(0, 0);
+  }, 1500);
+}
+function shareText(){
+  const t = TYPES[last.code];
+  return "お金のクセ診断の結果は " + last.code + "「" + t.tname + "」だった\n" + t.catch + "\n相性がいいのは " + t.pair + "「" + TYPES[t.pair].tname + "」\n#お金のクセ診断";
+}
+function shareUrl(src){ return "https://mirai-type-lab.github.io/shindan/money/?src=" + src; }
+function doShare(kind){
+  count("money_share"); count("money_share_" + kind); ga("money_share", { method: kind, money_type: last.code });
+  let u;
+  if(kind === "x") u = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText() + "\n" + shareUrl("xshare"));
+  else if(kind === "threads") u = "https://www.threads.net/intent/post?text=" + encodeURIComponent(shareText() + "\n" + shareUrl("threadsshare"));
+  else u = "https://social-plugins.line.me/lineit/share?url=" + encodeURIComponent(shareUrl("lineshare"));
+  window.open(u, "_blank", "noopener");
+}
+$("sh-x").onclick = () => doShare("x");
+$("sh-th").onclick = () => doShare("threads");
+$("sh-ln").onclick = () => doShare("line");
+$("again").onclick = () => { $("result").style.display = "none"; $("form").style.display = "block"; };
+</script>
+</body>
+</html>
