@@ -103,7 +103,7 @@ def chips(cur,depth):
     return '<nav class="chips" aria-label="カテゴリ">'+''.join(a)+'</nav>'
 def card(n,depth):
     pre='../'*depth
-    return f'''<article class="card"><span class="tag">{e(CN[n['cat']])}</span><time class="date" datetime="{n['published']}">{jp(n['published'])}</time><h2><a href="{pre}{n['id']}/">{e(n['title'])}</a></h2><p class="sum">{e(n['sum'])}</p><a class="go" href="{pre}{n['id']}/">はい・いいえで今やることを見る</a></article>'''
+    return f'''<article class="card" data-cat="{n['cat']}"><span class="tag">{e(CN[n['cat']])}</span><time class="date" datetime="{n['published']}">{jp(n['published'])}</time><h2><a href="{pre}{n['id']}/">{e(n['title'])}</a></h2><p class="sum">{e(n['sum'])}</p><a class="go" href="{pre}{n['id']}/">はい・いいえで今やることを見る</a></article>'''
 CHIPCSS='<style>.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 12px;margin-bottom:4px;-webkit-overflow-scrolling:touch}.chip{flex:0 0 auto;border:2px solid #3A2A1A;background:#fff;color:#3A2A1A;border-radius:999px;padding:7px 14px;font-weight:700;font-size:14px;text-decoration:none}.chip.on{background:#3A2A1A;color:#fff}</style>'
 # カテゴリごとのページ
 for k,v in CATS:
@@ -113,11 +113,37 @@ for k,v in CATS:
     cl=[{"@context":"https://schema.org","@type":"CollectionPage","name":f"{v}のニュース｜{SITE}","url":f"{BASE}/news/c/{k}/","inLanguage":"ja","publisher":ORG},
         {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":i+1,"url":f"{BASE}/news/{n['id']}/","name":n['title']} for i,n in enumerate(L)]}]
     open(os.path.join(ROOT,'news','c',k,'index.html'),'w',encoding='utf-8').write(head(f"{v}のニュース｜{SITE}",f"{v}の気になるニュースを、ひよこのネタぴよがやさしく紹介。はい・いいえで答えると、今やることがわかります。",f"{BASE}/news/c/{k}/",f"{BASE}/share/news/{L[0]['id']}.png",cl,3)+CHIPCSS+'<main>'+chips(k,2)+''.join(card(n,2) for n in L)+'</main>'+FOOT+'</body></html>')
+
+RECJS="""<div id="rec"></div><div id="ob" class="ob" hidden><div class="obi"><p class="obh">どのニュースが気になる？</p><p class="obs">えらんだ話題を「あなたへのおすすめ」で上に出すよ（いくつでもOK・このスマホの中だけに保存）</p><div class="obc">"""+''.join(f'<button type="button" class="chip" data-k="{k}">{e(v)}</button>' for k,v in CATS)+"""</div><button type="button" class="obok">これで決定</button><button type="button" class="obno">あとで</button></div></div>
+<script>(function(){
+var K='np-likes',C='np-clicks';function get(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}}function set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function ev(n,p){try{gtag('event',n,p||{})}catch(e){}}
+var NAMES="""+json.dumps(CN,ensure_ascii=False)+""";
+var cards=[].slice.call(document.querySelectorAll('main .card[data-cat]'));
+// 記事を開いたらそのカテゴリを1点（好みを少しずつ覚える）
+cards.forEach(function(c){c.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){var x=get(C,{});x[c.dataset.cat]=(x[c.dataset.cat]||0)+1;set(C,x)})})});
+function score(cat){var l=get(K,null)||[],x=get(C,{});return (l.indexOf(cat)>=0?10:0)+(x[cat]||0)}
+function draw(){
+ var box=document.getElementById('rec');var l=get(K,null);box.innerHTML='';if(!l||!l.length&&!Object.keys(get(C,{})).length)return;
+ var pick=cards.filter(function(c){return score(c.dataset.cat)>0}).sort(function(a,b){return score(b.dataset.cat)-score(a.dataset.cat)}).slice(0,4);
+ if(!pick.length)return;
+ var h=document.createElement('div');h.className='rech';h.innerHTML='<b>🐣 あなたへのおすすめ</b><button type="button" class="recedit">好みを変える</button>';box.appendChild(h);
+ pick.forEach(function(c){var k=c.cloneNode(true);k.classList.add('recc');k.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){ev('np_rec_click',{cat:c.dataset.cat})})});box.appendChild(k)});
+ var t=document.createElement('p');t.className='rech';t.innerHTML='<b>📰 新しい順</b>';box.appendChild(t);
+ h.querySelector('.recedit').onclick=open;
+}
+function open(){var ob=document.getElementById('ob'),l=get(K,[])||[];ob.hidden=false;ob.querySelectorAll('.obc .chip').forEach(function(b){b.classList.toggle('on',l.indexOf(b.dataset.k)>=0);b.onclick=function(){b.classList.toggle('on')}});
+ ob.querySelector('.obok').onclick=function(){var v=[].slice.call(ob.querySelectorAll('.obc .chip.on')).map(function(b){return b.dataset.k});set(K,v);ob.hidden=true;ev('np_interest',{cats:v.map(function(k){return NAMES[k]}).join(',')});draw();window.scrollTo(0,0)};
+ ob.querySelector('.obno').onclick=function(){set(K,[]);ob.hidden=true;draw()}}
+var main=document.querySelector('main');main.insertBefore(document.getElementById('rec'),main.querySelector('.card'));
+if(get(K,null)===null)open();draw();
+})();</script>
+<style>.ob{position:fixed;inset:0;background:rgba(58,42,26,.55);display:flex;align-items:flex-end;justify-content:center;z-index:20}.ob[hidden]{display:none}.obi{background:#FFF8E7;border:3px solid #3A2A1A;border-radius:24px 24px 0 0;padding:22px 18px 28px;width:100%;max-width:560px}.obh{font-weight:900;font-size:19px;margin-bottom:6px}.obs{font-size:13px;color:#6b5a48;margin-bottom:14px;line-height:1.6}.obc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}.obok{display:block;width:100%;background:#FFC83D;border:3px solid #3A2A1A;border-radius:999px;padding:13px;font-weight:900;font-size:16px;margin-bottom:8px}.obno{display:block;width:100%;background:none;border:0;color:#6b5a48;font-size:14px;padding:6px}.rech{display:flex;justify-content:space-between;align-items:center;margin:6px 2px 10px;font-size:16px}.recedit{background:#fff;border:2px solid #3A2A1A;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700}.recc{border-color:#E5484D}</style>"""
 # 一覧
 ld=[{"@context":"https://schema.org","@type":"CollectionPage","name":SITE,"url":BASE+"/news/","inLanguage":"ja","publisher":ORG},
     {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":i+1,"url":f"{BASE}/news/{n['id']}/","name":n['title']} for i,n in enumerate(D)]}]
 cards=chips('',0)+''.join(card(n,0) for n in D)
-open(os.path.join(ROOT,'news','index.html'),'w',encoding='utf-8').write(head(f"{SITE}｜はい・いいえで「今やること」がわかるニュースサイト","毎日の気になるニュースを、ひよこのネタぴよがやさしく紹介。記事ごとに、はい・いいえで答えると、あなたが今やることがわかります。",BASE+"/news/",f"{BASE}/share/news/{D[0]['id']}.png",ld,1)+CHIPCSS+'<script>(function(){var n=new URLSearchParams(location.search).get("n");if(n&&/^[a-z0-9-]+$/.test(n))location.replace(n+"/"+location.search.replace(/([?&])n=[^&]*&?/,"$1").replace(/[?&]$/,""))})();</script><main>'+cards+'</main>'+FOOT+'</body></html>')
+open(os.path.join(ROOT,'news','index.html'),'w',encoding='utf-8').write(head(f"{SITE}｜はい・いいえで「今やること」がわかるニュースサイト","毎日の気になるニュースを、ひよこのネタぴよがやさしく紹介。記事ごとに、はい・いいえで答えると、あなたが今やることがわかります。",BASE+"/news/",f"{BASE}/share/news/{D[0]['id']}.png",ld,1)+CHIPCSS+'<script>(function(){var n=new URLSearchParams(location.search).get("n");if(n&&/^[a-z0-9-]+$/.test(n))location.replace(n+"/"+location.search.replace(/([?&])n=[^&]*&?/,"$1").replace(/[?&]$/,""))})();</script><main>'+cards+'</main>'+RECJS+FOOT+'</body></html>')
 # RSS
 now=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime('%a, %d %b %Y %H:%M:%S +0900')
 items=''.join(f"<item><title>{e(n['title'])}</title><link>{BASE}/news/{n['id']}/</link><guid>{BASE}/news/{n['id']}/</guid><pubDate>{datetime.datetime.strptime(n['published'],'%Y-%m-%d').strftime('%a, %d %b %Y 09:00:00 +0900')}</pubDate><description>{e(n['sum'])}</description></item>" for n in D)
