@@ -99,6 +99,9 @@ input[type=text]:focus { outline: none; border-color: #6c5ce7; }
 .m-item { padding: 12px 0; border-top: 1px solid #f0f0f0; font-size: 13px; line-height: 1.8; color: #444; }
 .m-item b { display: block; font-size: 12px; color: #999; font-weight: 700; margin-bottom: 2px; }
 .pnote { margin-top: 16px; font-size: 12px; color: #888; line-height: 1.8; text-align: center; }
+.others { margin-top: 26px; padding-top: 14px; border-top: 1px solid #eee; text-align: center; }
+.others p { font-size: 12px; color: #999; letter-spacing: .2em; margin-bottom: 8px; }
+.others a { display: block; padding: 11px; margin-bottom: 8px; border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #222; font-size: 14px; text-decoration: none; }
 </style>
 <script>
   (function(){
@@ -129,6 +132,7 @@ input[type=text]:focus { outline: none; border-color: #6c5ce7; }
 <label for="sign">署名（任意／カードに表示するだけ・判定には使いません）</label>
 <input type="text" id="sign" maxlength="12" placeholder="名前・ニックネーム">
 <button class="go" id="start">診断をはじめる</button>
+<nav class="others"><p>ほかの診断・ニュース</p><a href="/shindan/love/">恋愛のクセ診断（12問）</a><a href="/shindan/work/">仕事のクセ診断（12問）</a><a href="/shindan/money/">お金のクセ診断（12問）</a><a href="/news/">ネタぴよ（今日のニュースと今やること）</a></nav>
 </div>
 
 <div id="quiz">
@@ -172,6 +176,7 @@ input[type=text]:focus { outline: none; border-color: #6c5ce7; }
 <input type="text" id="myword" maxlength="40" placeholder="例：来週は朝型に戻す">
 <button class="share" id="share">Xでシェアする</button>
 <button class="again" id="again">もう一度診断する</button>
+<nav class="others"><p>ほかの診断・ニュース</p><a href="/shindan/love/">恋愛のクセ診断（12問）</a><a href="/shindan/work/">仕事のクセ診断（12問）</a><a href="/shindan/money/">お金のクセ診断（12問）</a><a href="/news/">ネタぴよ（今日のニュースと今やること）</a></nav>
 </div>
 
 <div id="provresult">
