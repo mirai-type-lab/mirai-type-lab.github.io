@@ -43,6 +43,7 @@ def head(title,desc,url,img,ld,depth):
 <header class="site"><a href="{up}news/"><img src="{up}share/netapiyo/chick.png" alt="ネタぴよ" width="72" height="72"><span class="name">{SITE}</span></a><p class="lead">毎日の気になるニュースを、やさしく1分で。はい・いいえで「今やること」がわかる。</p></header>
 '''
 FOOT='''<div class="card cta"><h2>ついでに、未来の自分もチェック</h2><p>ふだんのクセから、これからのあなたのタイプと行動のクセがわかる無料の診断（50問）。</p><a class="btn" href="https://mirai-type-lab.github.io/?utm_source=news&amp;utm_medium=site&amp;utm_campaign=yesno">未来タイプ診断をやってみる</a></div>
+<div class="card cta"><h2>近くの人の「今日のひとこと」</h2><p>近くですれ違った人の今日の意気込みが、名前なし・30分おくれで見られる。距離や方角は出ず、その日のうちに消えます。</p><a class="btn" href="https://surechigai.vansboffice.workers.dev/?utm_source=news&amp;utm_medium=site&amp;utm_campaign=surechigai">すれ違い意気込みを見る</a></div>
 <footer>ここにあるのは一般的な情報です。困った時は、書いてある公的な窓口に相談してね。<br>運営：ネタぴよ（未来タイプ診断ラボ）／記事は出どころの記事・公的な発表を確かめて書いています。</footer>
 </div>'''
 B='/usr/share/fonts/opentype/noto/NotoSansCJK-Black.ttc'
