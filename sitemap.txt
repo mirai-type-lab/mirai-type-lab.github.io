@@ -6,8 +6,13 @@ https://mirai-type-lab.github.io/news/
 https://mirai-type-lab.github.io/news/c/bousai/
 https://mirai-type-lab.github.io/news/c/chui/
 https://mirai-type-lab.github.io/news/c/kurashi/
+https://mirai-type-lab.github.io/news/c/keizai/
+https://mirai-type-lab.github.io/news/c/seiji/
 https://mirai-type-lab.github.io/news/c/odekake/
 https://mirai-type-lab.github.io/news/c/kagaku/
+https://mirai-type-lab.github.io/news/shimon-yosan-1125/
+https://mirai-type-lab.github.io/news/getsurei-1125/
+https://mirai-type-lab.github.io/news/denwan-kokusai-1125/
 https://mirai-type-lab.github.io/news/samusa-kanso-1125/
 https://mirai-type-lab.github.io/news/jinkou-sokuho-1124/
 https://mirai-type-lab.github.io/news/kumamoto-jishin-1124/

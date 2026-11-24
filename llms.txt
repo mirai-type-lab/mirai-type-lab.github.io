@@ -14,8 +14,13 @@
 - [天気・防災のニュース](https://mirai-type-lab.github.io/news/c/bousai/)
 - [注意・詐欺のニュース](https://mirai-type-lab.github.io/news/c/chui/)
 - [くらし・健康のニュース](https://mirai-type-lab.github.io/news/c/kurashi/)
+- [経済・お金のニュース](https://mirai-type-lab.github.io/news/c/keizai/)
+- [政治のニュース](https://mirai-type-lab.github.io/news/c/seiji/)
 - [おでかけ・旅行のニュース](https://mirai-type-lab.github.io/news/c/odekake/)
 - [科学・宇宙のニュース](https://mirai-type-lab.github.io/news/c/kagaku/)
+- [来年度予算の「基本方針」原案を議論、医療・介護の負担見直しも検討へ](https://mirai-type-lab.github.io/news/shimon-yosan-1125/): 政府は11月24日、第17回経済財政諮問会議を開き、令和9年度予算編成の基本方針（原案）と社会保障制度改革について議論した。高市総理は、与党との調整のうえ次回会
+- [11月の月例経済報告、個人消費は「足踏み」に見方を下げる](https://mirai-type-lab.github.io/news/getsurei-1125/): 政府は11月24日、月例経済報告等に関する関係閣僚会議を開いた。景気全体は「総じてみれば緩やかに回復しているが、中東情勢の影響を注視する必要がある」と表現を変え
+- [家の固定電話の国際電話、無料の窓口でまとめて止められるように](https://mirai-type-lab.github.io/news/denwan-kokusai-1125/): 総務省は11月24日、迷惑電話の相談窓口「でんわんセンター」で、固定電話の国際電話の発信・着信を止める（利用休止）申し込みの受付を始めたと発表した。電話をきっか
 - [関東甲信はあす25日は冬型で寒く、26日以降は乾燥](https://mirai-type-lab.github.io/news/samusa-kanso-1125/): 日本気象協会の24日15時の解説によると、関東甲信は24日夜に雨が次第に止み、25日は冬型の気圧配置で平野部は晴れるが北よりの風が強く、数字より寒く感じる見込み
 - [9月の出生数は5万9194人、前年より2.2%減](https://mirai-type-lab.github.io/news/jinkou-sokuho-1124/): 厚生労働省が24日に公表した人口動態統計速報（2026年9月分）によると、9月の出生数は5万9194人で前年同月より1353人（2.2%）少なかった。死亡数は1
 - [熊本・天草芦北で揺れが続く、24日未明も震度3](https://mirai-type-lab.github.io/news/kumamoto-jishin-1124/): 気象庁の地震情報によると、24日1時12分ごろ熊本県天草・芦北地方を震源とするマグニチュード3.9の地震があり、熊本地方で震度3を観測した。津波の心配はない。こ
