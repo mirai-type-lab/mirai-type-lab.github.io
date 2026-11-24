@@ -8,6 +8,9 @@
 - [仕事のクセ診断](https://mirai-type-lab.github.io/shindan/work/): 12問で、仕事・働き方での自分のクセを6タイプで占うあそびの診断（結果ごとに今やること1つ）
 - [お金のクセ診断](https://mirai-type-lab.github.io/shindan/money/): 12問で、お金の使い方のクセを6タイプで占うあそびの診断（投資のすすめはなし、結果ごとに今やること1つ）
 
+## 年末の手続き
+- [年末の手続きカレンダー2026](https://mirai-type-lab.github.io/nenmatsu/): 年賀状・ふるさと納税・年末調整の期限を公式の日付だけで1ページに（残り日数つき）
+
 ## ネタぴよニュース
 - [記事の一覧](https://mirai-type-lab.github.io/news/): 毎日の気になるニュースと、はい・いいえで出る「今やること」
 - [RSS](https://mirai-type-lab.github.io/news/feed.xml)
