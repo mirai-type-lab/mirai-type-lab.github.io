@@ -91,20 +91,42 @@ for n in D:
 {FOOT}</body></html>'''
     os.makedirs(os.path.join(ROOT,'news',n['id']),exist_ok=True)
     open(os.path.join(ROOT,'news',n['id'],'index.html'),'w',encoding='utf-8').write(body)
+# カテゴリ（記事の cat。無い時は「くらし」）
+CATS=[('bousai','天気・防災'),('chui','注意・詐欺'),('kurashi','くらし・健康'),('odekake','おでかけ・旅行'),('kagaku','科学・宇宙')]
+CN=dict(CATS)
+for n in D: n['cat']=n.get('cat') if n.get('cat') in CN else 'kurashi'
+def chips(cur,depth):
+    pre='../'*depth
+    a=[f'<a class="chip{" on" if cur=="" else ""}" href="{pre}">すべて</a>']
+    for k,v in CATS:
+        if any(n['cat']==k for n in D): a.append(f'<a class="chip{" on" if cur==k else ""}" href="{pre}c/{k}/">{e(v)}</a>')
+    return '<nav class="chips" aria-label="カテゴリ">'+''.join(a)+'</nav>'
+def card(n,depth):
+    pre='../'*depth
+    return f'''<article class="card"><span class="tag">{e(CN[n['cat']])}</span><time class="date" datetime="{n['published']}">{jp(n['published'])}</time><h2><a href="{pre}{n['id']}/">{e(n['title'])}</a></h2><p class="sum">{e(n['sum'])}</p><a class="go" href="{pre}{n['id']}/">はい・いいえで今やることを見る</a></article>'''
+CHIPCSS='<style>.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 12px;margin-bottom:4px;-webkit-overflow-scrolling:touch}.chip{flex:0 0 auto;border:2px solid #3A2A1A;background:#fff;color:#3A2A1A;border-radius:999px;padding:7px 14px;font-weight:700;font-size:14px;text-decoration:none}.chip.on{background:#3A2A1A;color:#fff}</style>'
+# カテゴリごとのページ
+for k,v in CATS:
+    L=[n for n in D if n['cat']==k]
+    if not L: continue
+    os.makedirs(os.path.join(ROOT,'news','c',k),exist_ok=True)
+    cl=[{"@context":"https://schema.org","@type":"CollectionPage","name":f"{v}のニュース｜{SITE}","url":f"{BASE}/news/c/{k}/","inLanguage":"ja","publisher":ORG},
+        {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":i+1,"url":f"{BASE}/news/{n['id']}/","name":n['title']} for i,n in enumerate(L)]}]
+    open(os.path.join(ROOT,'news','c',k,'index.html'),'w',encoding='utf-8').write(head(f"{v}のニュース｜{SITE}",f"{v}の気になるニュースを、ひよこのネタぴよがやさしく紹介。はい・いいえで答えると、今やることがわかります。",f"{BASE}/news/c/{k}/",f"{BASE}/share/news/{L[0]['id']}.png",cl,3)+CHIPCSS+'<main>'+chips(k,2)+''.join(card(n,2) for n in L)+'</main>'+FOOT+'</body></html>')
 # 一覧
 ld=[{"@context":"https://schema.org","@type":"CollectionPage","name":SITE,"url":BASE+"/news/","inLanguage":"ja","publisher":ORG},
     {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":i+1,"url":f"{BASE}/news/{n['id']}/","name":n['title']} for i,n in enumerate(D)]}]
-cards=''.join(f'''<article class="card"><span class="tag">{e(n['tag'])}</span><time class="date" datetime="{n['published']}">{jp(n['published'])}</time><h2><a href="{n['id']}/">{e(n['title'])}</a></h2><p class="sum">{e(n['sum'])}</p><a class="go" href="{n['id']}/">はい・いいえで今やることを見る</a></article>''' for n in D)
-open(os.path.join(ROOT,'news','index.html'),'w',encoding='utf-8').write(head(f"{SITE}｜はい・いいえで「今やること」がわかるニュースサイト","毎日の気になるニュースを、ひよこのネタぴよがやさしく紹介。記事ごとに、はい・いいえで答えると、あなたが今やることがわかります。",BASE+"/news/",f"{BASE}/share/news/{D[0]['id']}.png",ld,1)+'<script>(function(){var n=new URLSearchParams(location.search).get("n");if(n&&/^[a-z0-9-]+$/.test(n))location.replace(n+"/"+location.search.replace(/([?&])n=[^&]*&?/,"$1").replace(/[?&]$/,""))})();</script><main>'+cards+'</main>'+FOOT+'</body></html>')
+cards=chips('',0)+''.join(card(n,0) for n in D)
+open(os.path.join(ROOT,'news','index.html'),'w',encoding='utf-8').write(head(f"{SITE}｜はい・いいえで「今やること」がわかるニュースサイト","毎日の気になるニュースを、ひよこのネタぴよがやさしく紹介。記事ごとに、はい・いいえで答えると、あなたが今やることがわかります。",BASE+"/news/",f"{BASE}/share/news/{D[0]['id']}.png",ld,1)+CHIPCSS+'<script>(function(){var n=new URLSearchParams(location.search).get("n");if(n&&/^[a-z0-9-]+$/.test(n))location.replace(n+"/"+location.search.replace(/([?&])n=[^&]*&?/,"$1").replace(/[?&]$/,""))})();</script><main>'+cards+'</main>'+FOOT+'</body></html>')
 # RSS
 now=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime('%a, %d %b %Y %H:%M:%S +0900')
 items=''.join(f"<item><title>{e(n['title'])}</title><link>{BASE}/news/{n['id']}/</link><guid>{BASE}/news/{n['id']}/</guid><pubDate>{datetime.datetime.strptime(n['published'],'%Y-%m-%d').strftime('%a, %d %b %Y 09:00:00 +0900')}</pubDate><description>{e(n['sum'])}</description></item>" for n in D)
 open(os.path.join(ROOT,'news','feed.xml'),'w',encoding='utf-8').write(f'<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>{SITE}</title><link>{BASE}/news/</link><description>はい・いいえで今やることがわかるニュース</description><language>ja</language><lastBuildDate>{now}</lastBuildDate>{items}</channel></rss>')
 # サイトマップ
-urls=[(BASE+'/','2026-11-23'),(BASE+'/shindan/love/','2026-11-23'),(BASE+'/news/',D[0]['published'])]+[(f"{BASE}/news/{n['id']}/",n.get('modified',n['published'])) for n in D]
+urls=[(BASE+'/','2026-11-23'),(BASE+'/shindan/love/','2026-11-23'),(BASE+'/news/',D[0]['published'])]+[(f"{BASE}/news/c/{k}/",[n for n in D if n['cat']==k][0]['published']) for k,_ in CATS if any(n['cat']==k for n in D)]+[(f"{BASE}/news/{n['id']}/",n.get('modified',n['published'])) for n in D]
 open(os.path.join(ROOT,'sitemap.xml'),'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'  <url><loc>{u}</loc><lastmod>{m}</lastmod></url>\n' for u,m in urls)+'</urlset>\n')
 open(os.path.join(ROOT,'sitemap.txt'),'w').write(''.join(u+'\n' for u,_ in urls))
 # llms.txt（AIに向けたサイトの案内）
-lt=f"# 未来タイプ診断ラボ\n\n> 無料の「未来タイプ診断」と、はい・いいえで今やることがわかるニュースサイト「{SITE}」を運営しています。記事は出どころの記事・公的な発表を確かめて書いています。\n\n## 診断\n- [未来タイプ診断]({BASE}/): 50問で、ふだんのクセから未来のタイプと行動のクセがわかる無料の診断\n- [恋愛のクセ診断]({BASE}/shindan/love/): 12問で、恋愛での自分のクセを6タイプで占うあそびの診断（結果ごとに今やること1つ）\n\n## {SITE}\n- [記事の一覧]({BASE}/news/): 毎日の気になるニュースと、はい・いいえで出る「今やること」\n- [RSS]({BASE}/news/feed.xml)\n"+''.join(f"- [{n['title']}]({BASE}/news/{n['id']}/): {n['sum'][:80]}\n" for n in D)
+lt=f"# 未来タイプ診断ラボ\n\n> 無料の「未来タイプ診断」と、はい・いいえで今やることがわかるニュースサイト「{SITE}」を運営しています。記事は出どころの記事・公的な発表を確かめて書いています。\n\n## 診断\n- [未来タイプ診断]({BASE}/): 50問で、ふだんのクセから未来のタイプと行動のクセがわかる無料の診断\n- [恋愛のクセ診断]({BASE}/shindan/love/): 12問で、恋愛での自分のクセを6タイプで占うあそびの診断（結果ごとに今やること1つ）\n\n## {SITE}\n- [記事の一覧]({BASE}/news/): 毎日の気になるニュースと、はい・いいえで出る「今やること」\n- [RSS]({BASE}/news/feed.xml)\n"+''.join(f"- [{v}のニュース]({BASE}/news/c/{k}/)\n" for k,v in CATS if any(n['cat']==k for n in D))+''.join(f"- [{n['title']}]({BASE}/news/{n['id']}/): {n['sum'][:80]}\n" for n in D)
 open(os.path.join(ROOT,'llms.txt'),'w',encoding='utf-8').write(lt)
 print('built',len(D))

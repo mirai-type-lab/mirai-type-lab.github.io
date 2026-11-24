@@ -9,6 +9,11 @@
 ## ネタぴよニュース
 - [記事の一覧](https://mirai-type-lab.github.io/news/): 毎日の気になるニュースと、はい・いいえで出る「今やること」
 - [RSS](https://mirai-type-lab.github.io/news/feed.xml)
+- [天気・防災のニュース](https://mirai-type-lab.github.io/news/c/bousai/)
+- [注意・詐欺のニュース](https://mirai-type-lab.github.io/news/c/chui/)
+- [くらし・健康のニュース](https://mirai-type-lab.github.io/news/c/kurashi/)
+- [おでかけ・旅行のニュース](https://mirai-type-lab.github.io/news/c/odekake/)
+- [科学・宇宙のニュース](https://mirai-type-lab.github.io/news/c/kagaku/)
 - [関東甲信はあす25日は冬型で寒く、26日以降は乾燥](https://mirai-type-lab.github.io/news/samusa-kanso-1125/): 日本気象協会の24日15時の解説によると、関東甲信は24日夜に雨が次第に止み、25日は冬型の気圧配置で平野部は晴れるが北よりの風が強く、数字より寒く感じる見込み
 - [9月の出生数は5万9194人、前年より2.2%減](https://mirai-type-lab.github.io/news/jinkou-sokuho-1124/): 厚生労働省が24日に公表した人口動態統計速報（2026年9月分）によると、9月の出生数は5万9194人で前年同月より1353人（2.2%）少なかった。死亡数は1
 - [熊本・天草芦北で揺れが続く、24日未明も震度3](https://mirai-type-lab.github.io/news/kumamoto-jishin-1124/): 気象庁の地震情報によると、24日1時12分ごろ熊本県天草・芦北地方を震源とするマグニチュード3.9の地震があり、熊本地方で震度3を観測した。津波の心配はない。こ
