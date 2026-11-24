@@ -92,7 +92,7 @@ for n in D:
     os.makedirs(os.path.join(ROOT,'news',n['id']),exist_ok=True)
     open(os.path.join(ROOT,'news',n['id'],'index.html'),'w',encoding='utf-8').write(body)
 # カテゴリ（記事の cat。無い時は「くらし」）
-CATS=[('bousai','天気・防災'),('chui','注意・詐欺'),('kurashi','くらし・健康'),('odekake','おでかけ・旅行'),('kagaku','科学・宇宙')]
+CATS=[('bousai','天気・防災'),('chui','注意・詐欺'),('kurashi','くらし・健康'),('keizai','経済・お金'),('seiji','政治'),('odekake','おでかけ・旅行'),('kagaku','科学・宇宙')]
 CN=dict(CATS)
 for n in D: n['cat']=n.get('cat') if n.get('cat') in CN else 'kurashi'
 def chips(cur,depth):
