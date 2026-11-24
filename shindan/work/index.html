@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>仕事のクセ診断｜12問で働き方のクセが6タイプでわかる無料のあそび診断</title>
+<meta name="description" content="12の質問に答えるだけで、仕事でのあなたのクセを6つのタイプで占う無料のあそび診断です。結果ごとに「今やること」を1つお届け。登録なし・約2分。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/shindan/work/">
+<meta property="og:title" content="仕事のクセ診断｜12問で働き方のクセがわかる">
+<meta property="og:description" content="12の質問から、仕事でのあなたのクセを6タイプで占います。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/shindan/work/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "Hiragino Sans", "Noto Sans JP", sans-serif; background: #f7f9fd; color: #222; min-height: 100vh; display: flex; justify-content: center; padding: 24px 16px; }
+.wrap { width: 100%; max-width: 400px; }
+h1 { font-size: 22px; text-align: center; font-weight: 700; letter-spacing: .12em; margin-top: 16px; }
+.sub { text-align: center; color: #888; font-size: 12px; margin: 8px 0 24px; }
+.desc { font-size: 13px; color: #666; line-height: 1.9; text-align: center; margin-bottom: 8px; }
+.go { width: 100%; margin-top: 28px; padding: 15px; border: none; border-radius: 8px; background: #222; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; letter-spacing: .2em; }
+#quiz { display: none; }
+.prog { font-size: 12px; color: #999; text-align: center; letter-spacing: .2em; }
+.bar { height: 4px; background: #eee; border-radius: 2px; margin: 10px 0 34px; }
+.bar i { display: block; height: 100%; background: #2f6fd6; border-radius: 2px; transition: width .3s; }
+.qq { font-size: 18px; font-weight: 700; line-height: 1.7; margin-bottom: 24px; min-height: 60px; }
+.opt { display: block; width: 100%; text-align: left; padding: 15px 16px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #222; font-size: 15px; cursor: pointer; }
+.opt:active { border-color: #2f6fd6; background: #eef4ff; }
+.back { display: block; margin: 8px auto 0; border: none; background: none; color: #999; font-size: 12px; cursor: pointer; }
+#divine { display: none; text-align: center; padding: 70px 0; }
+.hearts { font-size: 34px; color: #2f6fd6; letter-spacing: .3em; animation: beat 0.9s ease-in-out infinite; }
+@keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+.dtext { margin-top: 28px; font-size: 14px; color: #888; letter-spacing: .3em; }
+#result { display: none; }
+.card { position: relative; background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 34px 24px 28px; text-align: center; box-shadow: 0 4px 24px rgba(0,0,0,.05); animation: flipin .7s ease-out; }
+@keyframes flipin { from { transform: rotateY(70deg); opacity: 0; } to { transform: rotateY(0); opacity: 1; } }
+.card .title { font-size: 12px; letter-spacing: .4em; color: #999; }
+.card .code { margin-top: 22px; font-size: 52px; font-weight: 800; letter-spacing: .05em; line-height: 1; }
+.card .tname { margin-top: 10px; font-size: 21px; font-weight: 700; color: #2f6fd6; }
+.card .catch { margin-top: 14px; font-size: 14px; font-weight: 700; line-height: 1.8; }
+.card .text { margin-top: 12px; font-size: 13px; line-height: 1.9; color: #555; text-align: left; }
+.card .todo { margin-top: 18px; font-size: 13px; line-height: 1.8; color: #333; background: #eef4ff; border-radius: 8px; padding: 12px 14px; text-align: left; }
+.card .todo b { display: block; font-size: 12px; color: #2f6fd6; margin-bottom: 2px; }
+.card .pair { margin-top: 16px; font-size: 12px; line-height: 1.8; color: #444; }
+.card .pair b { color: #2f6fd6; font-size: 13px; }
+.card .tags { margin-top: 14px; font-size: 12px; color: #2f6fd6; }
+.card .note { margin-top: 8px; font-size: 10px; color: #aaa; line-height: 1.6; }
+.more { margin-top: 14px; background: #fff; border: 1px solid #eee; border-radius: 12px; }
+.more summary { padding: 14px 16px; font-size: 14px; font-weight: 700; color: #2f6fd6; cursor: pointer; text-align: center; list-style: none; }
+.more summary::-webkit-details-marker { display: none; }
+.more-body { padding: 0 18px 16px; }
+.m-item { padding: 12px 0; border-top: 1px solid #f3f3f3; font-size: 13px; line-height: 1.8; color: #444; }
+.m-item b { display: block; font-size: 12px; color: #999; margin-bottom: 2px; }
+.sharebox { display: flex; gap: 8px; margin-top: 16px; }
+.sh { flex: 1; padding: 13px 4px; border: none; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; }
+.sh.x { background: #000; } .sh.th { background: #333; } .sh.ln { background: #06c755; }
+.again { width: 100%; margin-top: 8px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #666; font-size: 13px; cursor: pointer; }
+.links { margin-top: 26px; font-size: 13px; line-height: 2; text-align: center; }
+.links a { color: #6c5ce7; }
+footer { margin-top: 26px; font-size: 11px; color: #aaa; line-height: 1.8; text-align: center; }
+</style>
+<script>(function(){try{var q=new URLSearchParams(location.search).get('me');if(q==='1')localStorage.setItem('mirai-me','1');if(q==='0')localStorage.removeItem('mirai-me');if(localStorage.getItem('mirai-me')==='1')window['ga-disable-G-PSHZSB36VV']=true;}catch(e){}})();</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>仕事のクセ診断</h1>
+<p class="sub">12の質問から、仕事でのあなたのクセを占います</p>
+
+<div id="form">
+<p class="desc">会社員・学生・アルバイト・家のことでも大丈夫。<br>「自分ならこうしそう」と思う答えを選んでください。<br>登録なし・約2分。答えはこの画面の中だけで使います。</p>
+<button class="go" id="start">診断をはじめる</button>
+</div>
+
+<div id="quiz">
+<p class="prog"><span id="qn">1</span> / <span id="qt">12</span></p>
+<div class="bar"><i id="bar" style="width:8%"></i></div>
+<p class="qq" id="qq"></p>
+<div id="opts"></div>
+<button class="back" id="back">← ひとつ前に戻る</button>
+</div>
+
+<div id="divine">
+<div class="hearts">◆◆◆</div>
+<p class="dtext">あなたのクセを占っています</p>
+</div>
+
+<div id="result">
+<div class="card">
+<div class="title">仕事のクセ診断</div>
+<div class="code" id="r-code"></div>
+<div class="tname" id="r-tname"></div>
+<div class="catch" id="r-catch"></div>
+<div class="text" id="r-text"></div>
+<div class="todo"><b>今やること（1つだけ）</b><span id="r-todo"></span></div>
+<div class="pair" id="r-pair"></div>
+<div class="tags">#仕事のクセ診断</div>
+<div class="note">※あそびの診断です。性格や相性を決めつけるものではありません。</div>
+</div>
+<details class="more">
+<summary>くわしく見る</summary>
+<div class="more-body">
+<div class="m-item"><b>いいところ</b><span id="r-good"></span></div>
+<div class="m-item"><b>気をつけたいクセ</b><span id="r-care"></span></div>
+<div class="m-item"><b>相性がいい理由</b><span id="r-pairwhy"></span></div>
+<div class="m-item"><b>あなたの答えの内訳</b><span id="r-mix"></span></div>
+</div>
+</details>
+<div class="sharebox">
+<button class="sh x" id="sh-x">Xで</button>
+<button class="sh th" id="sh-th">Threadsで</button>
+<button class="sh ln" id="sh-ln">LINEで</button>
+</div>
+<button class="again" id="again">もう一度診断する</button>
+</div>
+
+<div class="links">
+<a href="/shindan/love/?src=work">「恋愛のクセ診断」もやってみる</a><br>
+<a href="/?src=work">50問の「未来タイプ診断」もやってみる</a><br>
+<a href="/news/?src=work">ネタぴよニュース（今日の「今やること」）</a>
+</div>
+<footer>運営：未来タイプ診断ラボ／この診断はあそびです。答えは送られず、この画面の中だけで判定します。</footer>
+</div>
+
+<script>
+// ===== 6タイプ =====
+const TYPES = {
+SPEED: { tname:"即行動スプリンター", catch:"考えるより先に、まず手を動かす派",
+  text:"やることが見えたらすぐ動けるタイプ。最初の一歩が早いので、止まっていた仕事を前に進める力があります。",
+  good:"スタートが早く、試しながら直せる。周りにも勢いが伝わる。",
+  care:"急ぐあまり、細かい確認や共有があとまわしになりがち。",
+  todo:"次に仕事を終えた時、出す前に1分だけ見直す時間を作る。",
+  pair:"DEEP", why:"速い人と丁寧な人。勢いで進めて、仕上げを任せると強い。" },
+PLAN: { tname:"段取りナビゲーター", catch:"ゴールから逆算して、道を引く派",
+  text:"締め切りから逆に考えて、順番を決めるのが得意なタイプ。慌てずに進められるので、周りも安心できます。",
+  good:"見通しを立てて、大きな仕事も小さく分けて進められる。",
+  care:"予定外のことが起きると、気持ちが乱れやすい。",
+  todo:"明日のやることリストに「予備の時間30分」を1つ入れておく。",
+  pair:"IDEA", why:"段取りの人と発想の人。思いつきを、実際に動く計画に変えられる。" },
+TEAM: { tname:"まとめ役キャプテン", catch:"ひとりより、みんなで進めたい派",
+  text:"人と人をつなぎ、話をまとめるのが得意なタイプ。チームの空気を見て、全員が動きやすい形を作れます。",
+  good:"話し合いを前に進め、みんなの力を合わせられる。",
+  care:"みんなの意見を聞きすぎて、決めるのが遅くなることも。",
+  todo:"次の話し合いでは、最後に「誰が・いつまでに」を1行で確かめる。",
+  pair:"CARE", why:"まとめる人と支える人。前に立つ人と後ろを見る人で、抜けがなくなる。" },
+DEEP: { tname:"こだわり職人", catch:"納得いくまで、ていねいに仕上げたい派",
+  text:"ひとつのことを深く考え、質を高めるのが得意なタイプ。細かい所まで気づけるので、仕事の仕上がりが安定します。",
+  good:"ミスが少なく、任せた仕事の質が高い。",
+  care:"完ぺきを目指しすぎて、時間がかかりすぎることがある。",
+  todo:"次の作業は始める前に「ここまでできたら出す」線を1つ決めておく。",
+  pair:"SPEED", why:"丁寧な人と速い人。たたき台をもらうと、こだわりを生かす時間が増える。" },
+IDEA: { tname:"ひらめき発明家", catch:"いつもと違うやり方を、つい考えてしまう派",
+  text:"新しい案や工夫を思いつくのが得意なタイプ。同じやり方に慣れた場所に、新しい風を入れられます。",
+  good:"行きづまった時に、別の道を見つけられる。",
+  care:"思いつきが多く、最後まで形にする前に次へ移りがち。",
+  todo:"今週の思いつきの中から1つだけ選び、小さく試す日を決める。",
+  pair:"PLAN", why:"発想の人と段取りの人。案に順番がつくと、ちゃんと形になる。" },
+CARE: { tname:"縁の下サポーター", catch:"困っている人を見ると、放っておけない派",
+  text:"周りの困りごとに気づき、さりげなく手を貸せるタイプ。いてくれるだけで、チームが回りやすくなります。",
+  good:"信頼されやすく、頼られる。職場の空気をやわらげる。",
+  care:"人の仕事を引き受けすぎて、自分の仕事があとまわしになりがち。",
+  todo:"次に頼まれた時は、すぐ受ける前に「今日の自分の予定」を一度見る。",
+  pair:"TEAM", why:"支える人とまとめる人。役目が分かれると、無理を抱えこみにくい。" }
+};
+const ORDER = ["SPEED","PLAN","TEAM","DEEP","IDEA","CARE"];
+
+// ===== 12問（各選択肢がどれか1タイプに2点。どのタイプも合計8回ずつ出る） =====
+const QUESTIONS = [
+{ q:"新しい仕事を任されたら、まずどうする？", opts:[["とりあえず手をつけてみる","SPEED"],["全体の段取りを書き出す","PLAN"],["誰と組むかを考える","TEAM"],["やり方をじっくり調べる","DEEP"]] },
+{ q:"話し合いの場で多いのは？", opts:[["新しい案を出す","IDEA"],["話をまとめて決める","TEAM"],["資料や記録を用意する","CARE"],["気になる細かい点を確かめる","DEEP"]] },
+{ q:"締め切りが近い時は？", opts:[["一気に片づける","SPEED"],["前から逆算していたので慌てない","PLAN"],["周りに声をかけて分担する","TEAM"],["困っている人の分も手伝う","CARE"]] },
+{ q:"言われていちばんうれしいのは？", opts:[["「早いね！」","SPEED"],["「その発想すごい」","IDEA"],["「ていねいだね」","DEEP"],["「いてくれて助かる」","CARE"]] },
+{ q:"理想の働く場所は？", opts:[["変化が多く、毎日ちがう","IDEA"],["決まりや流れがはっきりしている","PLAN"],["チームでわいわい動く","TEAM"],["ひとりで集中できる","DEEP"]] },
+{ q:"失敗してしまった時は？", opts:[["すぐ別の方法を試す","SPEED"],["原因を書き出して手順を直す","PLAN"],["まったく違うやり方を思いつく","IDEA"],["迷惑をかけた人に、まず声をかける","CARE"]] },
+{ q:"どちらかといえば苦手なのは？", opts:[["同じ作業のくり返し","IDEA"],["急な予定の変更","PLAN"],["細かい確認作業","SPEED"],["人前で目立つこと","CARE"]] },
+{ q:"メモややることの残し方は？", opts:[["やることリストを毎日作る","PLAN"],["思いつきをすぐメモする","IDEA"],["共有のノートで、みんなと見る","TEAM"],["自分なりに整えた形がある","DEEP"]] },
+{ q:"新しく入った人には？", opts:[["やって見せて、すぐ任せる","SPEED"],["みんなに紹介して輪に入れる","TEAM"],["困っていないか気にかける","CARE"],["コツをていねいに教える","DEEP"]] },
+{ q:"休みの日に、ふと考えるのは？", opts:[["次にやってみたいこと","IDEA"],["来週の段取り","PLAN"],["チームのみんなの様子","TEAM"],["早く片づけたい仕事","SPEED"]] },
+{ q:"大きな仕事が終わったら？", opts:[["次の予定をすぐ立てる","PLAN"],["みんなで打ち上げしたい","TEAM"],["手伝ってくれた人にお礼","CARE"],["ふり返って、もっと良くできた所を探す","DEEP"]] },
+{ q:"仕事であとから思いがちなのは？", opts:[["急ぎすぎたかも","SPEED"],["こだわりすぎて時間がかかった","DEEP"],["引き受けすぎたかも","CARE"],["思いつきを形にしきれなかった","IDEA"]] }
+];
+
+function hashStr(s){ let h=0; for(let i=0;i<s.length;i++){ h=(h*31 + s.charCodeAt(i))|0; } return Math.abs(h); }
+function judge(ans){
+  const pt = {}; ORDER.forEach(k => pt[k] = 0);
+  ans.forEach(k => { pt[k] += 2; });
+  const max = Math.max.apply(null, ORDER.map(k => pt[k]));
+  const top = ORDER.filter(k => pt[k] === max);
+  // 同点の時は答えの並びから決める（同じ答えなら毎回同じ結果。どのタイプにも偏らない）
+  const code = top[hashStr(ans.join(",")) % top.length];
+  return { code, pt };
+}
+
+// ===== 計測（未来タイプ診断と同じWorker。名前は work_ で分ける。?me=1 の人は数えない） =====
+const MEASURE_BASE = "https://tomeren-go.vansboffice.workers.dev";
+(function(){ try{ const q = new URLSearchParams(location.search).get("me");
+  if(q === "1") localStorage.setItem("tomeren-me", "1");
+  if(q === "0") localStorage.removeItem("tomeren-me"); }catch(e){} })();
+function isMe(){ try{ return localStorage.getItem("tomeren-me") === "1" || localStorage.getItem("mirai-me") === "1"; }catch(e){ return false; } }
+function count(p){
+  if(isMe()) return;
+  const u = MEASURE_BASE + "/count?p=" + encodeURIComponent(p);
+  try{ if(navigator.sendBeacon && navigator.sendBeacon(u)) return; }catch(e){}
+  try{ fetch(u, { mode:"no-cors", keepalive:true }).catch(function(){}); }catch(e){}
+}
+function ga(name, params){ try{ if(typeof gtag === "function") gtag("event", name, params || {}); }catch(e){} }
+count("work_view");
+(function(){ let src = ""; try{ src = (new URLSearchParams(location.search).get("src") || "").replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 30); }catch(e){}
+  if(src) count("work_src_" + src); })();
+
+// ===== 画面 =====
+const $ = id => document.getElementById(id);
+let idx = 0, answers = [], last = null;
+document.getElementById("qt").textContent = QUESTIONS.length;
+function renderQ(){
+  $("qn").textContent = idx + 1;
+  $("bar").style.width = ((idx + 1) / QUESTIONS.length * 100) + "%";
+  $("qq").textContent = QUESTIONS[idx].q;
+  $("back").style.visibility = idx > 0 ? "visible" : "hidden";
+  const box = $("opts"); box.innerHTML = "";
+  QUESTIONS[idx].opts.forEach(o => {
+    const b = document.createElement("button");
+    b.className = "opt"; b.textContent = o[0];
+    b.onclick = () => { answers[idx] = o[1]; idx++; if(idx < QUESTIONS.length) renderQ(); else finish(); };
+    box.appendChild(b);
+  });
+}
+$("start").onclick = () => {
+  count("work_start"); ga("work_start");
+  idx = 0; answers = [];
+  $("form").style.display = "none"; $("quiz").style.display = "block"; renderQ();
+};
+$("back").onclick = () => { if(idx > 0){ idx--; answers.length = idx; renderQ(); } };
+function finish(){
+  $("quiz").style.display = "none"; $("divine").style.display = "block";
+  last = judge(answers);
+  const t = TYPES[last.code], p = TYPES[t.pair];
+  count("work_result"); count("work_type_" + last.code); ga("work_result", { work_type: last.code });
+  setTimeout(() => {
+    $("divine").style.display = "none";
+    $("r-code").textContent = last.code;
+    $("r-tname").textContent = t.tname;
+    $("r-catch").textContent = "「" + t.catch + "」";
+    $("r-text").textContent = t.text;
+    $("r-todo").textContent = t.todo;
+    $("r-good").textContent = t.good;
+    $("r-care").textContent = t.care;
+    $("r-pair").innerHTML = "相性がいいタイプ<br><b>" + t.pair + "「" + p.tname + "」</b>";
+    $("r-pairwhy").textContent = t.pair + "「" + p.tname + "」：" + t.why;
+    $("r-mix").textContent = ORDER.filter(k => last.pt[k] > 0).sort((a, b) => last.pt[b] - last.pt[a])
+      .map(k => TYPES[k].tname + " " + (last.pt[k] / 2) + "問").join("／");
+    document.querySelector("#result details.more").open = false;
+    $("result").style.display = "block";
+    window.scrollTo(0, 0);
+  }, 1500);
+}
+function shareText(){
+  const t = TYPES[last.code];
+  return "仕事のクセ診断の結果は " + last.code + "「" + t.tname + "」だった\n" + t.catch + "\n相性がいいのは " + t.pair + "「" + TYPES[t.pair].tname + "」\n#仕事のクセ診断";
+}
+function shareUrl(src){ return "https://mirai-type-lab.github.io/shindan/work/?src=" + src; }
+function doShare(kind){
+  count("work_share"); count("work_share_" + kind); ga("work_share", { method: kind, work_type: last.code });
+  let u;
+  if(kind === "x") u = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText() + "\n" + shareUrl("xshare"));
+  else if(kind === "threads") u = "https://www.threads.net/intent/post?text=" + encodeURIComponent(shareText() + "\n" + shareUrl("threadsshare"));
+  else u = "https://social-plugins.line.me/lineit/share?url=" + encodeURIComponent(shareUrl("lineshare"));
+  window.open(u, "_blank", "noopener");
+}
+$("sh-x").onclick = () => doShare("x");
+$("sh-th").onclick = () => doShare("threads");
+$("sh-ln").onclick = () => doShare("line");
+$("again").onclick = () => { $("result").style.display = "none"; $("form").style.display = "block"; };
+</script>
+</body>
+</html>
