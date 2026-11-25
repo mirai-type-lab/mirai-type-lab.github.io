@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>消費税計算｜税込⇔税抜、10%・8%、割引後の値段もすぐ</title>
+<meta name="description" content="金額を入れるだけで、税抜→税込・税込→税抜・消費税の額をその場で計算。標準税率10%と軽減税率8%、端数は切り捨て・四捨五入・切り上げから選べます。○%オフ・○円引きの割引後の値段、10%と8%が混ざったレシートの合計も。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/zeikomi/">
+<meta property="og:title" content="消費税計算｜税込⇔税抜、10%・8%、割引後もすぐ">
+<meta property="og:description" content="税込・税抜・消費税の額、割引後の値段、10%と8%が混ざった合計をその場で。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/zeikomi/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"消費税計算","url":"https://mirai-type-lab.github.io/zeikomi/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"inLanguage":"ja"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"税込から税抜はどう計算する？","acceptedAnswer":{"@type":"Answer","text":"税込の金額を1.1（軽減税率なら1.08）で割ります。例：税込1,100円÷1.1＝税抜1,000円。"}},{"@type":"Question","name":"8%になるのはどんなもの？","acceptedAnswer":{"@type":"Answer","text":"お酒と外食をのぞく飲食料品（持ち帰り・出前をふくむ）と、週2回以上発行の定期購読の新聞です。くわしくは国税庁の案内で確かめてください。"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"未来タイプ診断ラボ","item":"https://mirai-type-lab.github.io/"},{"@type":"ListItem","position":2,"name":"消費税計算","item":"https://mirai-type-lab.github.io/zeikomi/"}]}]}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#f7f9fd;color:#222;padding:24px 16px;line-height:1.8}
+.wrap{max-width:640px;margin:0 auto}
+h1{font-size:22px;text-align:center;letter-spacing:.04em;margin-top:8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:6px 0 16px}
+h2{font-size:16px;margin:24px 0 8px}
+.card{background:#fff;border:1px solid #e3e7ef;border-radius:12px;padding:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:14px;margin:6px 0}
+input,select{font-size:16px;padding:6px 8px;border:1px solid #ccc;border-radius:6px;font-family:inherit;background:#fff}
+input[type=number]{width:9em}
+.seg label{display:inline-block;border:1px solid #ccc;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:14px;background:#fff}
+.seg input{display:none}
+.seg input:checked+span{font-weight:700;color:#1554c0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.grid div{background:#f3f6fb;border-radius:8px;padding:8px 10px;font-size:12px;color:#555;min-width:0}
+.grid b{display:block;font-size:19px;color:#222;word-break:break-all}
+@media(max-width:420px){.grid{grid-template-columns:1fr 1fr}}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+th,td{border-bottom:1px solid #e3e7ef;padding:5px 4px;text-align:right}
+th:first-child,td:first-child{text-align:left}
+.faq dt{font-weight:700;font-size:14px;margin-top:10px}
+.faq dd{font-size:13px;color:#444}
+.note{font-size:12px;color:#666;margin-top:8px}
+.links a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
+footer a{color:#999}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>消費税計算</h1>
+<p class="sub">金額を入れるだけで、その場で計算します。</p>
+
+<div class="card">
+<div class="row"><input type="number" id="amt" value="1000" min="0" inputmode="decimal" aria-label="金額"> 円 は
+<span class="seg"><label><input type="radio" name="dir" value="ex" checked><span>税抜</span></label> <label><input type="radio" name="dir" value="in"><span>税込</span></label></span></div>
+<div class="row">税率 <span class="seg"><label><input type="radio" name="rate" value="10" checked><span>10%（標準）</span></label> <label><input type="radio" name="rate" value="8"><span>8%（軽減）</span></label></span></div>
+<div class="row">端数 <select id="rnd" aria-label="端数の処理"><option value="floor">切り捨て</option><option value="round">四捨五入</option><option value="ceil">切り上げ</option></select></div>
+<div class="grid">
+<div>税抜<b id="o1">-</b></div>
+<div>消費税<b id="o2">-</b></div>
+<div>税込<b id="o3">-</b></div>
+</div>
+<p class="note">端数の扱いはお店ごとに決めてよいことになっていて、切り捨てが多く使われます。</p>
+</div>
+
+<h2>割引後の値段</h2>
+<div class="card">
+<div class="row">元の値段 <input type="number" id="dp" value="3000" min="0" inputmode="decimal" aria-label="元の値段"> 円</div>
+<div class="row"><input type="number" id="dv" value="20" min="0" inputmode="decimal" aria-label="割引" style="width:6em"> <select id="du" aria-label="割引の単位"><option value="pct">%オフ</option><option value="yen">円引き</option><option value="wari">割引（1割＝10%）</option></select></div>
+<div class="grid">
+<div>割引後<b id="d1">-</b></div>
+<div>引かれる額<b id="d2">-</b></div>
+<div>元の何%<b id="d3">-</b></div>
+</div>
+<p class="note">「20%オフのさらに10%オフ」は 30%オフではなく 28%オフ（0.8×0.9＝0.72）です。続けて引くときは割引後の値段を元の値段に入れ直してください。</p>
+</div>
+
+<h2>10%と8%が混ざった合計（レシートの確かめ）</h2>
+<div class="card">
+<div class="row">10%の品（税込） <input type="number" id="m10" value="" min="0" inputmode="decimal" placeholder="0" aria-label="10%の品の税込合計"> 円</div>
+<div class="row">8%の品（税込） <input type="number" id="m8" value="" min="0" inputmode="decimal" placeholder="0" aria-label="8%の品の税込合計"> 円</div>
+<table><thead><tr><th></th><th>税抜</th><th>消費税</th><th>税込</th></tr></thead><tbody id="mt"></tbody></table>
+<p class="note">レシートでは税率ごとの合計から消費税を1回だけ計算するので（インボイスの決まり）、品物ごとに計算した合計と1円ずれることがあります。ここでは切り捨てで計算します。</p>
+</div>
+
+<h2>税込の早見表</h2>
+<div class="card"><table><thead><tr><th>税抜</th><th>10%の税込</th><th>8%の税込</th></tr></thead><tbody id="hy"></tbody></table></div>
+
+<h2>よくある質問</h2>
+<dl class="faq">
+<dt>税込から税抜はどう計算する？</dt><dd>税込の金額を 1.1（8%なら 1.08）で割ります。例：税込1,100円 ÷ 1.1 ＝ 税抜1,000円。消費税は「税込 ÷ 11」（8%なら「÷ 27 × 2」）でも出せます。</dd>
+<dt>8%（軽減税率）になるのはどんなもの？</dt><dd>お酒と外食をのぞく飲食料品（持ち帰り・出前をふくむ）と、週2回以上発行の定期購読の新聞です。店内で食べると10%、持ち帰ると8%になります。くわしくは<a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shohi/6102.htm" rel="noopener">国税庁タックスアンサー No.6102</a>で確かめてください。</dd>
+<dt>食料品の消費税が下がる話はどうなった？</dt><dd>政府は、飲食料品の税率を2027年4月から2年間1%にする法案を国会に出しています（2026年11月時点）。成立して始まる日が決まったら、このページにも税率を足します。それまでは今の10%・8%で計算してください。</dd>
+<dt>入れた金額は保存される？</dt><dd>計算はこのページの中だけで行い、金額を送ったり保存したりはしません。</dd>
+</dl>
+
+<p class="links"><a href="https://mirai-type-lab.github.io/mojisu/?utm_source=zeikomi&amp;utm_medium=site&amp;utm_campaign=mojisu">文字数カウント</a><a href="https://mirai-type-lab.github.io/nissu/?utm_source=zeikomi&amp;utm_medium=site&amp;utm_campaign=nissu">日数計算</a><a href="https://mirai-type-lab.github.io/keiryo/?utm_source=zeikomi&amp;utm_medium=site&amp;utm_campaign=keiryo">計量換算</a><a href="https://mirai-type-lab.github.io/tetsuzuki/?utm_source=zeikomi&amp;utm_medium=site&amp;utm_campaign=tetsuzuki">くらしの手続きカレンダー</a><a href="https://mirai-type-lab.github.io/news/?utm_source=zeikomi&amp;utm_medium=site&amp;utm_campaign=news">ネタぴよ（ニュース）</a></p>
+<footer>運営：未来タイプ診断ラボ／計算はこのページの中だけで行います。<br><a href="../about/">運営者情報</a>・<a href="../contact/">お問い合わせ</a>・<a href="../privacy/">プライバシーポリシー</a></footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const yen=n=>isFinite(n)?Math.round(n).toLocaleString()+' 円':'-';
+const num=v=>{const n=parseFloat(v);return isFinite(n)&&n>=0?n:NaN;};
+const R={floor:Math.floor,round:Math.round,ceil:Math.ceil};
+const val=name=>document.querySelector('input[name='+name+']:checked').value;
+let sent=false;
+function ev(){if(!sent){sent=true;try{gtag('event','zeikomi_calc');}catch(e){}}}
+function tax(){
+  const a=num($('amt').value),r=+val('rate'),f=R[$('rnd').value];
+  if(isNaN(a)){$('o1').textContent=$('o2').textContent=$('o3').textContent='-';return;}
+  let ex,t,inc;
+  if(val('dir')==='ex'){ex=a;t=f(+(a*r/100).toFixed(6));inc=ex+t;}
+  else{inc=a;ex=f(+(a*100/(100+r)).toFixed(6));
+    // 税抜を端数処理し、税込との差を税にする
+    t=inc-ex;}
+  $('o1').textContent=yen(ex);$('o2').textContent=yen(t);$('o3').textContent=yen(inc);
+}
+function disc(){
+  const p=num($('dp').value),v=num($('dv').value),u=$('du').value;
+  if(isNaN(p)||isNaN(v)){$('d1').textContent=$('d2').textContent=$('d3').textContent='-';return;}
+  let off=u==='yen'?v:p*(u==='wari'?v*10:v)/100;off=Math.min(off,p);
+  const after=Math.floor(p-off+1e-9);
+  $('d1').textContent=yen(after);$('d2').textContent=yen(p-after);
+  $('d3').textContent=p>0?(Math.round(after/p*1000)/10)+' %':'-';
+}
+function mix(){
+  const a=num($('m10').value)||0,b=num($('m8').value)||0;
+  const row=(lab,inc,r)=>{const t=Math.floor(inc*r/(100+r));return '<tr><td>'+lab+'</td><td>'+(inc-t).toLocaleString()+'</td><td>'+t.toLocaleString()+'</td><td>'+inc.toLocaleString()+'</td></tr>';};
+  const t10=Math.floor(a*10/110),t8=Math.floor(b*8/108);
+  $('mt').innerHTML=row('10%対象',Math.round(a),10)+row('8%対象',Math.round(b),8)+'<tr><th>合計</th><th>'+(Math.round(a+b)-t10-t8).toLocaleString()+'</th><th>'+(t10+t8).toLocaleString()+'</th><th>'+Math.round(a+b).toLocaleString()+'</th></tr>';
+}
+function hyo(){
+  let h='';for(const p of [100,300,500,1000,1500,2000,3000,5000,10000,30000,50000,100000]){
+    h+='<tr><td>'+p.toLocaleString()+'</td><td>'+(p+Math.floor(+(p*.1).toFixed(6))).toLocaleString()+'</td><td>'+(p+Math.floor(+(p*.08).toFixed(6))).toLocaleString()+'</td></tr>';}
+  $('hy').innerHTML=h;
+}
+document.querySelectorAll('input,select').forEach(e=>e.addEventListener('input',()=>{tax();disc();mix();ev();}));
+document.querySelectorAll('input[type=radio]').forEach(e=>e.addEventListener('change',()=>{tax();ev();}));
+tax();disc();mix();hyo();
+</script>
+</body>
+</html>
