@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>くじ引き・抽選ツール｜当たりを選ぶ・順番決め・チーム分け・数字くじ</title>
+<meta name="description" content="名前を並べてボタンを押すだけの無料くじ引き。当選者を○人選ぶ、発表や掃除当番の順番決め、均等なチーム分け、1〜100から数字を引くくじまで。かたよりの少ない乱数で、入れた名前は保存しません。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/kuji/">
+<meta property="og:title" content="くじ引き・抽選ツール｜当選者・順番・チーム分け">
+<meta property="og:description" content="名前を並べてボタンひとつ。当選者を選ぶ・順番決め・チーム分け・数字くじ。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/kuji/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"くじ引き・抽選ツール","url":"https://mirai-type-lab.github.io/kuji/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"inLanguage":"ja"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"抽選はかたよらない？","acceptedAnswer":{"@type":"Answer","text":"ブラウザの暗号用の乱数（crypto.getRandomValues）を使い、どの名前も同じ確率になるように選びます。"}},{"@type":"Question","name":"入れた名前は保存される？","acceptedAnswer":{"@type":"Answer","text":"抽選はこのページの中だけで行い、名前を送ったり保存したりはしません。"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"未来タイプ診断ラボ","item":"https://mirai-type-lab.github.io/"},{"@type":"ListItem","position":2,"name":"くじ引き・抽選ツール","item":"https://mirai-type-lab.github.io/kuji/"}]}]}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#f7f9fd;color:#222;padding:24px 16px;line-height:1.8}
+.wrap{max-width:640px;margin:0 auto}
+h1{font-size:22px;text-align:center;letter-spacing:.04em;margin-top:8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:6px 0 16px}
+h2{font-size:16px;margin:24px 0 8px}
+.card{background:#fff;border:1px solid #e3e7ef;border-radius:12px;padding:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:14px;margin:6px 0}
+input,select{font-size:16px;padding:6px 8px;border:1px solid #ccc;border-radius:6px;font-family:inherit;background:#fff}
+input[type=number]{width:9em}
+.seg label{display:inline-block;border:1px solid #ccc;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:14px;background:#fff}
+.seg input{display:none}
+.seg input:checked+span{font-weight:700;color:#1554c0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.grid div{background:#f3f6fb;border-radius:8px;padding:8px 10px;font-size:12px;color:#555;min-width:0}
+.grid b{display:block;font-size:19px;color:#222;word-break:break-all}
+@media(max-width:420px){.grid{grid-template-columns:1fr 1fr}}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+th,td{border-bottom:1px solid #e3e7ef;padding:5px 4px;text-align:right}
+th:first-child,td:first-child{text-align:left}
+.faq dt{font-weight:700;font-size:14px;margin-top:10px}
+.faq dd{font-size:13px;color:#444}
+.note{font-size:12px;color:#666;margin-top:8px}
+.links a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
+footer a{color:#999}
+.grp{display:grid;grid-template-columns:1fr 5em 5em 2em;gap:6px;align-items:center;margin:6px 0}
+.grp input{width:100%}
+.grp button,.add{font-size:14px;border:1px solid #ccc;background:#fff;border-radius:6px;padding:4px 8px;cursor:pointer;font-family:inherit}
+.hd{font-size:11px;color:#777}
+.big{font-size:22px;font-weight:700;text-align:center;margin:10px 0;word-break:break-all}
+textarea{width:100%;font-size:16px;padding:8px;border:1px solid #ccc;border-radius:6px;font-family:inherit;min-height:9em}
+.btn{font-size:16px;border:none;background:#1554c0;color:#fff;border-radius:8px;padding:8px 18px;cursor:pointer;font-family:inherit}
+ol.res{padding-left:1.8em;font-size:15px}
+.team{background:#f3f6fb;border-radius:8px;padding:8px 10px;margin-top:8px;font-size:14px}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>くじ引き・抽選ツール</h1>
+<p class="sub">名前を1行に1つずつ入れて、ボタンを押すだけ。</p>
+
+<div class="card">
+<textarea id="names" aria-label="名前の一覧（1行に1つ）">Aさん
+Bさん
+Cさん
+Dさん
+Eさん
+Fさん
+Gさん
+Hさん</textarea>
+<p class="note" id="cnt"></p>
+</div>
+
+<h2>当たりを選ぶ</h2>
+<div class="card">
+<div class="row">当たり <input type="number" id="win" value="1" min="1" inputmode="numeric" style="width:5em" aria-label="当たりの人数"> 人 <button class="btn" id="bWin" type="button">抽選する</button></div>
+<div class="big" id="oWin">-</div>
+</div>
+
+<h2>順番を決める</h2>
+<div class="card">
+<div class="row"><button class="btn" id="bOrd" type="button">順番を決める</button> <span class="note" style="margin:0">発表・当番・ゲームの順など</span></div>
+<ol class="res" id="oOrd"></ol>
+</div>
+
+<h2>チーム分け</h2>
+<div class="card">
+<div class="row"><input type="number" id="tn" value="2" min="2" inputmode="numeric" style="width:5em" aria-label="チームの数"> チームに <button class="btn" id="bTeam" type="button">分ける</button></div>
+<div id="oTeam"></div>
+</div>
+
+<h2>数字くじ</h2>
+<div class="card">
+<div class="row"><input type="number" id="lo" value="1" inputmode="numeric" style="width:6em" aria-label="いちばん小さい数"> 〜 <input type="number" id="hi" value="100" inputmode="numeric" style="width:6em" aria-label="いちばん大きい数"> から <input type="number" id="k" value="1" min="1" inputmode="numeric" style="width:5em" aria-label="引く個数"> 個 <label class="note" style="margin:0"><input type="checkbox" id="dup"> 同じ数も可</label></div>
+<div class="row"><button class="btn" id="bNum" type="button">引く</button></div>
+<div class="big" id="oNum">-</div>
+</div>
+<p class="row"><button class="add" id="cp" type="button">いまの結果をコピー</button> <span id="cpm" class="note" style="margin:0"></span></p>
+
+<h2>よくある質問</h2>
+<dl class="faq">
+<dt>抽選はかたよらない？</dt><dd>ブラウザの暗号用の乱数（crypto.getRandomValues）を使い、どの名前も同じ確率になるように選びます。順番決めは「フィッシャー–イェーツ」という並べかえ方で、どの並びも同じ確率です。</dd>
+<dt>同じ名前を2回書いたら？</dt><dd>2行あれば2回分のくじとして数えます（当たりやすくしたい人がいるときに使えます）。空の行は数えません。</dd>
+<dt>チームの人数がそろわないときは？</dt><dd>人数の差が1人以内になるように分けます。</dd>
+<dt>入れた名前は保存される？</dt><dd>抽選はこのページの中だけで行い、名前を送ったり保存したりはしません。</dd>
+</dl>
+<p class="note">お金や景品のかかった公式の抽選には、主催者の決めた方法を使ってください。</p>
+<p class="links"><a href="https://mirai-type-lab.github.io/warikan/?utm_source=kuji&amp;utm_medium=site&amp;utm_campaign=warikan">割り勘計算</a><a href="https://mirai-type-lab.github.io/wariai/?utm_source=kuji&amp;utm_medium=site&amp;utm_campaign=wariai">パーセント計算</a><a href="https://mirai-type-lab.github.io/nissu/?utm_source=kuji&amp;utm_medium=site&amp;utm_campaign=nissu">日数計算</a><a href="https://mirai-type-lab.github.io/mojisu/?utm_source=kuji&amp;utm_medium=site&amp;utm_campaign=mojisu">文字数カウント</a><a href="https://mirai-type-lab.github.io/tani/?utm_source=kuji&amp;utm_medium=site&amp;utm_campaign=tani">単位換算</a><a href="https://mirai-type-lab.github.io/nenrei/?utm_source=kuji&amp;utm_medium=site&amp;utm_campaign=nenrei">年齢早見表</a><a href="https://mirai-type-lab.github.io/news/?utm_source=kuji&amp;utm_medium=site&amp;utm_campaign=news">ネタぴよ（ニュース）</a></p>
+<footer>運営：未来タイプ診断ラボ／抽選はこのページの中だけで行います。<br><a href="../about/">運営者情報</a>・<a href="../contact/">お問い合わせ</a>・<a href="../privacy/">プライバシーポリシー</a></footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function rint(n){const a=new Uint32Array(1),lim=Math.floor(4294967296/n)*n;do{crypto.getRandomValues(a);}while(a[0]>=lim);return a[0]%n;}
+function shuf(x){const a=x.slice();for(let i=a.length-1;i>0;i--){const j=rint(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;}
+const names=()=>$('names').value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+let last='';const sent={};
+function ev(t){if(!sent[t]){sent[t]=true;try{gtag('event','kuji_'+t);}catch(e){}}}
+function cnt(){$('cnt').textContent=names().length+' 件';}
+$('names').addEventListener('input',cnt);cnt();
+$('bWin').addEventListener('click',()=>{const a=names();if(!a.length){$('oWin').textContent='名前を入れてください';return;}const w=Math.min(Math.max(1,parseInt($('win').value)||1),a.length);const r=shuf(a).slice(0,w);$('oWin').innerHTML=r.map(esc).join('<br>');last='当たり：'+r.join('、');ev('win');});
+$('bOrd').addEventListener('click',()=>{const r=shuf(names());$('oOrd').innerHTML=r.map(s=>'<li>'+esc(s)+'</li>').join('');last=r.map((s,i)=>(i+1)+'. '+s).join('\n');ev('order');});
+$('bTeam').addEventListener('click',()=>{const a=shuf(names());const t=Math.min(Math.max(2,parseInt($('tn').value)||2),Math.max(2,a.length));const T=Array.from({length:t},()=>[]);a.forEach((s,i)=>T[i%t].push(s));const L='ABCDEFGHIJKLMNOPQRSTUVWXYZ';$('oTeam').innerHTML=T.map((m,i)=>'<div class="team"><b>チーム'+(L[i]||i+1)+'</b>（'+m.length+'人）：'+m.map(esc).join('、')+'</div>').join('');last=T.map((m,i)=>'チーム'+(L[i]||i+1)+'：'+m.join('、')).join('\n');ev('team');});
+$('bNum').addEventListener('click',()=>{let lo=parseInt($('lo').value),hi=parseInt($('hi').value),k=Math.max(1,parseInt($('k').value)||1);if(!isFinite(lo)||!isFinite(hi)){$('oNum').textContent='数を入れてください';return;}if(lo>hi)[lo,hi]=[hi,lo];const span=hi-lo+1;let r=[];if($('dup').checked){k=Math.min(k,1000);for(let i=0;i<k;i++)r.push(lo+rint(span));}else{k=Math.min(k,span,1000);const s=new Set();while(s.size<k)s.add(lo+rint(span));r=[...s];}$('oNum').textContent=r.join('、');last='数字くじ（'+lo+'〜'+hi+'）：'+r.join('、');ev('num');});
+$('cp').addEventListener('click',()=>{if(!last){$('cpm').textContent='先にくじを引いてください';return;}try{navigator.clipboard.writeText(last).then(()=>{$('cpm').textContent='コピーしました';},()=>{$('cpm').textContent=last;});}catch(e){$('cpm').textContent=last;}});
+</script>
+</body>
+</html>
