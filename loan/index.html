@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ローン返済計算｜月々の返済額・総返済額・利息・返済表</title>
+<meta name="description" content="借りる額・金利・年数から、毎月の返済額・総返済額・利息の合計を計算。元利均等と元金均等の比べ、年ごとの返済表、月々いくらなら借りられる額の逆算まで。住宅ローン・車のローン・奨学金の目安に。無料・保存なし。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/loan/">
+<meta property="og:title" content="ローン返済計算｜月々の返済額・総返済額・利息・返済表">
+<meta property="og:description" content="毎月の返済額・総返済額・利息、元利均等と元金均等の比べ、返済表、借りられる額の逆算。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/loan/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"ローン返済計算","url":"https://mirai-type-lab.github.io/loan/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"inLanguage":"ja"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"元利均等と元金均等のちがいは？","acceptedAnswer":{"@type":"Answer","text":"元利均等は毎月の返済額（元金＋利息）が同じになる返し方、元金均等は毎月返す元金が同じで、利息の分が最初は多く、だんだん減っていく返し方です。同じ条件なら、利息の合計は元金均等のほうが少なくなります。"}},{"@type":"Question","name":"毎月の返済額はどう計算する？","acceptedAnswer":{"@type":"Answer","text":"元利均等では、月の金利r（年利÷12）、回数nとして、借りる額×r÷(1−(1+r)のマイナスn乗)で出します。金利0%なら借りる額÷回数です。"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"未来タイプ診断ラボ","item":"https://mirai-type-lab.github.io/"},{"@type":"ListItem","position":2,"name":"ローン返済計算","item":"https://mirai-type-lab.github.io/loan/"}]}]}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#f7f9fd;color:#222;padding:24px 16px;line-height:1.8}
+.wrap{max-width:640px;margin:0 auto}
+h1{font-size:22px;text-align:center;letter-spacing:.04em;margin-top:8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:6px 0 16px}
+h2{font-size:16px;margin:24px 0 8px}
+.card{background:#fff;border:1px solid #e3e7ef;border-radius:12px;padding:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:14px;margin:6px 0}
+input,select{font-size:16px;padding:6px 8px;border:1px solid #ccc;border-radius:6px;font-family:inherit;background:#fff}
+input[type=number]{width:7em}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.grid div{background:#f3f6fb;border-radius:8px;padding:8px 10px;font-size:12px;color:#555;min-width:0}
+.grid b{display:block;font-size:18px;color:#222;word-break:break-all}
+@media(max-width:420px){.grid{grid-template-columns:1fr 1fr}}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+th,td{border-bottom:1px solid #e3e7ef;padding:5px 4px;text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+.faq dt{font-weight:700;font-size:14px;margin-top:10px}
+.faq dd{font-size:13px;color:#444}
+.note{font-size:12px;color:#666;margin-top:8px}
+.links a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
+footer a{color:#999}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>ローン返済計算</h1>
+<p class="sub">毎月の返済額・総返済額・利息を、入れるそばから計算。</p>
+
+<h2>毎月の返済額</h2>
+<div class="card">
+<div class="row">借りる額 <input type="number" id="a" value="300" min="0" step="any" inputmode="decimal" aria-label="借りる額（万円）"> 万円</div>
+<div class="row">年利 <input type="number" id="i" value="2" min="0" step="0.01" inputmode="decimal" style="width:5em" aria-label="年利（％）"> ％　期間 <input type="number" id="y" value="5" min="0" step="1" inputmode="numeric" style="width:4em" aria-label="年数"> 年 <input type="number" id="m" value="0" min="0" max="11" step="1" inputmode="numeric" style="width:3.5em" aria-label="月数"> か月</div>
+<div class="row">返し方 <select id="t" aria-label="返し方"><option value="1">元利均等（毎月同じ額）</option><option value="2">元金均等（だんだん減る）</option></select></div>
+<div class="grid">
+<div>毎月の返済<b id="oM">-</b></div>
+<div>総返済額<b id="oT">-</b></div>
+<div>利息の合計<b id="oI">-</b></div>
+<div>回数<b id="oN">-</b></div>
+<div>1年あたり<b id="oY">-</b></div>
+<div>借りた額の何倍<b id="oR">-</b></div>
+</div>
+<p class="note" id="cmp"></p>
+<p class="note">金利は例です。実際の金利・手数料・保証料は借りる先の案内で確かめてください。金融機関の計算は1円未満の扱いがちがうため、数円〜数百円ずれることがあります。</p>
+</div>
+
+<h2>返済表（年ごと）</h2>
+<div class="card">
+<div class="tw"><table id="tb"><thead><tr><th>年目</th><th>その年の返済</th><th>うち元金</th><th>うち利息</th><th>年末の残り</th></tr></thead><tbody></tbody></table></div>
+</div>
+
+<h2>月々いくらなら、いくら借りられる？</h2>
+<div class="card">
+<div class="row">毎月 <input type="number" id="b" value="5" min="0" step="any" inputmode="decimal" style="width:5em" aria-label="毎月返せる額（万円）"> 万円まで返せる</div>
+<div class="grid"><div>借りられる額の目安<b id="bA">-</b></div><div>総返済額<b id="bT">-</b></div><div>利息の合計<b id="bI">-</b></div></div>
+<p class="note">年利・期間は一番上の欄の値を使い、元利均等で計算します。審査で借りられる額とは別です。</p>
+</div>
+
+<h2>金利でどれだけ変わる？</h2>
+<div class="card">
+<div class="tw"><table id="rt"><thead><tr><th>年利</th><th>毎月の返済</th><th>利息の合計</th></tr></thead><tbody></tbody></table></div>
+<p class="note">借りる額・期間は一番上の欄の値、元利均等で計算しています。</p>
+</div>
+
+<h2>よくある質問</h2>
+<dl class="faq">
+<dt>元利均等と元金均等のちがいは？</dt><dd>元利均等は毎月の返済額が同じ返し方、元金均等は毎月返す元金が同じで、利息の分が最初は多く、だんだん減っていく返し方です。同じ条件なら、利息の合計は元金均等のほうが少なく、最初のころの毎月の返済は多くなります。</dd>
+<dt>毎月の返済額はどう計算する？</dt><dd>元利均等では、月の金利r（年利÷12）、回数nとして、借りる額×r÷(1−(1＋r)<sup>−n</sup>)です。300万円・年2%・5年なら、毎月約52,583円です。</dd>
+<dt>ボーナス払いや繰り上げ返済は？</dt><dd>このページでは毎月同じ回数で返す場合だけを計算します。ボーナス払い・繰り上げ返済・金利が変わる場合は、借りる先の試算で確かめてください。</dd>
+<dt>入れた数字は保存される？</dt><dd>計算はこのページの中だけで行い、送ったり保存したりはしません。</dd>
+</dl>
+<p class="links"><a href="https://mirai-type-lab.github.io/wariai/?utm_source=loan&amp;utm_medium=site&amp;utm_campaign=wariai">パーセント計算</a><a href="https://mirai-type-lab.github.io/zeikomi/?utm_source=loan&amp;utm_medium=site&amp;utm_campaign=zeikomi">消費税計算</a><a href="https://mirai-type-lab.github.io/nenpi/?utm_source=loan&amp;utm_medium=site&amp;utm_campaign=nenpi">燃費・ガソリン代計算</a><a href="https://mirai-type-lab.github.io/denkidai/?utm_source=loan&amp;utm_medium=site&amp;utm_campaign=denkidai">電気代計算</a><a href="https://mirai-type-lab.github.io/hirosa/?utm_source=loan&amp;utm_medium=site&amp;utm_campaign=hirosa">広さ換算</a><a href="https://mirai-type-lab.github.io/nissu/?utm_source=loan&amp;utm_medium=site&amp;utm_campaign=nissu">日数計算</a><a href="https://mirai-type-lab.github.io/news/?utm_source=loan&amp;utm_medium=site&amp;utm_campaign=news">ネタぴよ（ニュース）</a></p>
+<footer>運営：未来タイプ診断ラボ／計算はこのページの中だけで行います。借り入れをすすめるものではありません。<br><a href="../about/">運営者情報</a>・<a href="../contact/">お問い合わせ</a>・<a href="../privacy/">プライバシーポリシー</a></footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const sent={};function ev(t){if(!sent[t]){sent[t]=true;try{gtag('event','loan_'+t);}catch(e){}}}
+const num=id=>{const v=parseFloat($(id).value);return isFinite(v)&&v>=0?v:0;};
+const yen=n=>Math.round(n).toLocaleString('ja-JP')+'円';
+function pmt(P,r,n){return r>0?P*r/(1-Math.pow(1+r,-n)):P/n;}
+function sched(P,r,n,t){// 月ごとの[元金,利息]
+ const out=[];let bal=P;const M=pmt(P,r,n),pc=P/n;
+ for(let k=1;k<=n;k++){const it=bal*r;let pr=t==1?M-it:pc;if(k==n)pr=bal;bal-=pr;out.push([pr,it,Math.max(0,bal)]);}
+ return out;}
+function main(){
+ const P=num('a')*10000,r=num('i')/100/12,n=Math.floor(num('y'))*12+Math.min(11,Math.floor(num('m'))),t=+$('t').value;
+ const ids=['oM','oT','oI','oN','oY','oR'];
+ if(P<=0||n<=0){ids.forEach(x=>$(x).textContent='-');$('tb').tBodies[0].innerHTML='';$('cmp').textContent='';return;}
+ const s=sched(P,r,n,t),tot=s.reduce((q,v)=>q+v[0]+v[1],0);
+ $('oM').textContent=t==1?yen(s[0][0]+s[0][1]):yen(s[0][0]+s[0][1])+'→'+yen(s[n-1][0]+s[n-1][1]);
+ $('oT').textContent=yen(tot);$('oI').textContent=yen(tot-P);$('oN').textContent=n+'回';
+ $('oY').textContent=yen(tot/(n/12));$('oR').textContent=(tot/P).toFixed(3)+'倍';
+ const o=sched(P,r,n,t==1?2:1),ot=o.reduce((q,v)=>q+v[0]+v[1],0);
+ $('cmp').textContent=(t==1?'元金均等なら':'元利均等なら')+'利息の合計は'+yen(ot-P)+'（'+(ot-tot>=0?'＋':'−')+yen(Math.abs(ot-tot))+'）。';
+ let h='';for(let yr=0;yr*12<n;yr++){const seg=s.slice(yr*12,yr*12+12);const pr=seg.reduce((q,v)=>q+v[0],0),it=seg.reduce((q,v)=>q+v[1],0);
+  h+='<tr><td>'+(yr+1)+'</td><td>'+yen(pr+it)+'</td><td>'+yen(pr)+'</td><td>'+yen(it)+'</td><td>'+yen(seg[seg.length-1][2])+'</td></tr>';}
+ $('tb').tBodies[0].innerHTML=h;
+ back();rates(P,n);ev('calc');
+}
+function back(){const B=num('b')*10000,r=num('i')/100/12,n=Math.floor(num('y'))*12+Math.min(11,Math.floor(num('m')));
+ if(B<=0||n<=0){['bA','bT','bI'].forEach(x=>$(x).textContent='-');return;}
+ const A=r>0?B*(1-Math.pow(1+r,-n))/r:B*n;$('bA').textContent=yen(Math.floor(A/1000)*1000);$('bT').textContent=yen(B*n);$('bI').textContent=yen(B*n-A);}
+function rates(P,n){const base=num('i');let list=[0.5,1,1.5,2,3,5,8,10,15];if(!list.includes(base))list.push(base);list.sort((x,y)=>x-y);
+ $('rt').tBodies[0].innerHTML=list.map(v=>{const M=pmt(P,v/100/12,n);return '<tr'+(v==base?' style="font-weight:700"':'')+'><td>'+v+'%</td><td>'+yen(M)+'</td><td>'+yen(M*n-P)+'</td></tr>';}).join('');}
+['a','i','y','m','t'].forEach(x=>$(x).addEventListener('input',main));
+$('b').addEventListener('input',()=>{back();ev('back');});
+main();for(const k in sent)delete sent[k];
+</script>
+</body>
+</html>
