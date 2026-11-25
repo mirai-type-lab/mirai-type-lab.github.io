@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>くらしの手続きカレンダー｜確定申告・ふるさと納税・年賀状などの「いつまでに」</title>
+<meta name="description" content="1年じゅう使える、くらしの手続きの期限カレンダー。確定申告、自動車税、ふるさと納税、ワンストップ特例、年末調整、年賀状の「いつまでに」を、今日から近い順に残り日数つきで。日付は公式の発表から。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/tetsuzuki/">
+<meta property="og:title" content="くらしの手続きカレンダー｜次の期限まであと何日？">
+<meta property="og:description" content="確定申告・自動車税・ふるさと納税・年賀状などの期限を、今日から近い順に。1年じゅう使えます。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/tetsuzuki/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#f7f9fd;color:#222;padding:24px 16px;line-height:1.8}
+.wrap{max-width:560px;margin:0 auto}
+h1{font-size:22px;text-align:center;letter-spacing:.06em;margin-top:8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:6px 0 20px}
+.today{text-align:center;font-size:13px;color:#555;margin-bottom:16px}
+h3{font-size:15px;margin:22px 0 8px}
+.item{background:#fff;border:1px solid #e3e7ef;border-radius:10px;padding:16px;margin-bottom:12px;display:flex;gap:12px}
+.item.done{opacity:.55}
+.item input{width:22px;height:22px;flex:none;margin-top:4px;accent-color:#1f9d6b}
+.when{font-size:12px;color:#1f9d6b;font-weight:700}
+.left{display:inline-block;margin-left:6px;padding:0 8px;border-radius:10px;background:#e6f5ee;color:#126b48}
+.left.soon{background:#fdecea;color:#b3261e}
+.left.now{background:#fff4d6;color:#8a5a00}
+.item h2{font-size:16px;margin:2px 0 4px}
+.item p{font-size:13px;color:#444}
+.src{font-size:11px;color:#888;margin-top:6px}
+.src a{color:#2b5cab}
+.note{font-size:12px;color:#666;background:#fff;border:1px dashed #ccc;border-radius:8px;padding:12px}
+.cta{background:#fff;border:1px solid #e3e7ef;border-radius:10px;padding:14px;margin-top:12px;font-size:13px}
+.cta a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>くらしの手続きカレンダー</h1>
+<p class="sub">「いつまでに何をする？」を、今日から近い順に。1年じゅう使えます。済んだらチェック（毎年リセット）。</p>
+<p class="today" id="today"></p>
+<h3>近い期限（60日以内）</h3>
+<div id="soon"></div>
+<h3>このあと1年の流れ</h3>
+<div id="later"></div>
+
+<h3>ここに書いていないこと</h3>
+<p class="note">税金の損得や、いくら寄附すればいいかの計算はしません。控除の上限や納める額は収入・家族・住んでいる所で変わるので、それぞれの公式ページや勤め先・税務署・役所で確かめてください。日付は年によって変わることがあるので、手続きの前に必ず出どころのページを見てください。</p>
+
+<div class="cta">ほかにも：
+<a href="https://mirai-type-lab.github.io/shindan/money/?utm_source=tetsuzuki&amp;utm_medium=site&amp;utm_campaign=tetsuzuki">お金のクセ診断</a><a href="https://mirai-type-lab.github.io/news/?utm_source=tetsuzuki&amp;utm_medium=site&amp;utm_campaign=tetsuzuki">ネタぴよ（毎日のニュース）</a></div>
+<footer>未来タイプ診断ラボ ・ 日付の最終確認 2026年11月25日</footer>
+</div>
+<script>
+/* 毎年くり返す期限は m/d、年ごとに発表される日付は date（過ぎたら出さない）。
+   wk:true は土日なら次の月曜へ（祝日は見ない）。approx は「ごろ」で残り日数を出さない。 */
+var ITEMS=[
+{id:"kakutei",start:[2,16],m:3,d:15,wk:true,t:"確定申告（前の年の分）",b:"所得税の確定申告は、原則2月16日から3月15日まで（土日にかかる時は次の平日まで）。副業や医療費控除、ふるさと納税を6自治体以上にした人などはここで手続き。",s:[["国税庁「確定申告が必要な方」","https://www.nta.go.jp/taxes/shiraberu/shinkoku/qa/02.htm"]]},
+{id:"jidosha",m:5,d:31,wk:true,t:"自動車税（種別割）を納める",b:"4月1日に車を持っている人に、都道府県から納税通知書が届く。多くの都道府県で納期限は5月31日（土日なら次の平日）だが、6月末の県もあるので通知書の期限を確かめよう。",s:[["埼玉県「自動車税（種別割）の納期限は5月31日です」","https://www.pref.saitama.lg.jp/a0209/news/page/news2024051401.html"]]},
+{id:"nencho",m:12,d:1,approx:"11月〜12月ごろ",t:"年末調整の書類を勤め先に出す",b:"会社員・パートなどは、扶養控除・保険料控除などの申告書を勤め先に出す。締切は勤め先が決めるので社内のお知らせを確かめよう。保険の控除証明書は10〜11月ごろ届くので取っておく。",s:[["国税庁「年末調整がよくわかるページ」","https://www.nta.go.jp/users/gensen/nencho/index.htm"]]},
+{id:"nenga-start",date:"2026-12-20",t:"年賀状の受付が始まる（2027年用）",b:"年賀状として受け付けるのは12月20日（日）から。19日以前に出すと、ふつうの郵便として年内に届いてしまう。去年までの12月15日から変わった。",s:[["日本郵便「2027年用年賀はがき等の発行概要」（2026年8月31日）","https://files.japanpost.jp/assets/34d9d11432734cfaa759e78fe395b688/159168aef19d465baf3350d358e46fa9/20260831_02_06.pdf"]]},
+{id:"nenga-end",date:"2026-12-27",t:"年賀状を元日に届けたいなら、ここまでに出す（2027年用）",b:"日本郵便は、元日に届けるため12月27日（日）までに出すようお願いしている（去年までは25日）。三が日の配達は元日と1月3日。年賀はがきの販売は1月15日まで。",s:[["日本郵便「2027年用年賀はがき等の発行概要」（2026年8月31日）","https://files.japanpost.jp/assets/34d9d11432734cfaa759e78fe395b688/159168aef19d465baf3350d358e46fa9/20260831_02_06.pdf"]]},
+{id:"gomi",m:12,d:20,approx:"12月中ごろ",t:"年末年始のごみの日を確かめる",b:"大掃除のごみや粗大ごみは、年末年始の収集日程が市区町村ごとに変わる。12月に入ったら自分の市区町村の年末年始の収集日を確かめておこう。",s:[]},
+{id:"furusato",m:12,d:31,t:"ふるさと納税：その年の分は12月31日までの寄附",b:"ふるさと納税の控除は1月1日〜12月31日の寄附が1年分。年末は受付や支払いが混むので、自治体ごとの受付の締切（12月31日より早いこともある）を先に見ておこう。",s:[["総務省 ふるさと納税ポータル「ふるさと納税の概要」","https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/furusato/mechanism/about.html"]]},
+{id:"onestop",m:1,d:10,t:"ワンストップ特例の申請書は1月10日必着",b:"確定申告をしない会社員などで、前の年の寄附先が5自治体以内なら「ワンストップ特例」が使える。申請書は寄附した自治体ごとに1月10日までに届くように出す。間に合わなければ確定申告で手続きする。",s:[["新潟県「ふるさと納税ワンストップ特例制度」","https://www.pref.niigata.lg.jp/sec/chiikiseisaku/onestop.html"]]}
+];
+function jst(){var n=new Date(Date.now()+9*3600e3);return new Date(Date.UTC(n.getUTCFullYear(),n.getUTCMonth(),n.getUTCDate()));}
+var T=jst(),W="日月火水木金土";
+function shift(D){var w=D.getUTCDay();if(w===6)return new Date(D.getTime()+2*864e5);if(w===0)return new Date(D.getTime()+864e5);return D;}
+function md(y,m,d,wk){var D=new Date(Date.UTC(y,m-1,d));return wk?shift(D):D;}
+function next(it){
+ if(it.date){var p=it.date.split("-");var D=new Date(Date.UTC(+p[0],p[1]-1,+p[2]));return D>=T?D:null;}
+ var y=T.getUTCFullYear(),D=md(y,it.m,it.d,it.wk);if(D<T)D=md(y+1,it.m,it.d,it.wk);return D;
+}
+function fmt(D){return (D.getUTCMonth()+1)+"月"+D.getUTCDate()+"日（"+W[D.getUTCDay()]+"）";}
+document.getElementById("today").textContent="今日は "+T.getUTCFullYear()+"年"+(T.getUTCMonth()+1)+"月"+T.getUTCDate()+"日（"+W[T.getUTCDay()]+"）";
+var done={};try{done=JSON.parse(localStorage.getItem("tetsuzuki-done")||"{}")}catch(e){}
+function save(){try{localStorage.setItem("tetsuzuki-done",JSON.stringify(done))}catch(e){}}
+function esc(s){return s.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function render(){
+ var L=[];ITEMS.forEach(function(it){var D=next(it);if(D)L.push({it:it,D:D});});
+ L.sort(function(a,b){return a.D-b.D});
+ var hs="",hl="";
+ L.forEach(function(x){
+  var it=x.it,D=x.D,k=Math.round((D-T)/864e5),key=it.id+"-"+D.getUTCFullYear(),w;
+  if(it.approx){w=it.approx+"<span class=\"left\">勤め先・役所の案内を確認</span>";}
+  else{
+   var inRange=false;if(it.start){var S=md(D.getUTCFullYear(),it.start[0],it.start[1],it.wk);inRange=S<=T;w=fmt(S)+"〜"+fmt(D);}else{w=fmt(D);}
+   var lab=k===0?"今日まで":inRange?"受付中・あと"+k+"日":"あと"+k+"日";
+   w+="<span class=\"left "+(inRange?"now":k<=7?"soon":"")+"\">"+lab+"</span>";
+  }
+  var h='<label class="item'+(done[key]?" done":"")+'"><input type="checkbox" data-k="'+key+'"'+(done[key]?" checked":"")+'><div><div class="when">'+w+'</div><h2>'+esc(it.t)+'</h2><p>'+esc(it.b)+'</p>'+(it.s.length?'<div class="src">出どころ：'+it.s.map(function(s){return'<a href="'+s[1]+'" target="_blank" rel="noopener">'+esc(s[0])+'</a>'}).join(" ／ ")+'</div>':"")+'</div></label>';
+  if(k<=60)hs+=h;else hl+=h;
+ });
+ document.getElementById("soon").innerHTML=hs||'<p class="note">60日以内の期限はありません。</p>';
+ document.getElementById("later").innerHTML=hl;
+ Array.prototype.forEach.call(document.querySelectorAll(".item input"),function(c){c.onchange=function(){done[c.dataset.k]=c.checked;save();render();try{gtag("event","tetsuzuki_check",{item:c.dataset.k,on:c.checked})}catch(e){}}});
+}
+render();
+</script>
+</body>
+</html>
