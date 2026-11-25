@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>単位換算｜インチ・フィート・ポンド・華氏・ガロン・尺をcm・kg・℃・Lに</title>
+<meta name="description" content="インチ⇔cm、フィート⇔m、マイル⇔km、ポンド・オンス⇔kg・g、華氏⇔摂氏、ガロン⇔L、尺・寸・貫・升・合、ノット・mphを入れるだけで一度に換算。テレビの○インチの縦横のcmも。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/tani/">
+<meta property="og:title" content="単位換算｜インチ・ポンド・華氏・尺を一度に">
+<meta property="og:description" content="長さ・重さ・温度・量・速さを、海外の単位と昔の日本の単位まで一度に換算。テレビのインチの縦横も。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/tani/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"単位換算","url":"https://mirai-type-lab.github.io/tani/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"inLanguage":"ja"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"1インチは何cm？","acceptedAnswer":{"@type":"Answer","text":"1インチ＝2.54cmちょうどです（1959年の国際的な取り決め）。"}},{"@type":"Question","name":"華氏を摂氏にする式は？","acceptedAnswer":{"@type":"Answer","text":"摂氏＝（華氏−32）×5÷9です。例：華氏100度は約37.8℃。"}},{"@type":"Question","name":"1ポンドは何kg？","acceptedAnswer":{"@type":"Answer","text":"1ポンド＝0.45359237kgちょうど（約454g）です。"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"未来タイプ診断ラボ","item":"https://mirai-type-lab.github.io/"},{"@type":"ListItem","position":2,"name":"単位換算","item":"https://mirai-type-lab.github.io/tani/"}]}]}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#f7f9fd;color:#222;padding:24px 16px;line-height:1.8}
+.wrap{max-width:640px;margin:0 auto}
+h1{font-size:22px;text-align:center;letter-spacing:.04em;margin-top:8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:6px 0 16px}
+h2{font-size:16px;margin:24px 0 8px}
+.card{background:#fff;border:1px solid #e3e7ef;border-radius:12px;padding:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:14px;margin:6px 0}
+input,select{font-size:16px;padding:6px 8px;border:1px solid #ccc;border-radius:6px;font-family:inherit;background:#fff}
+input[type=number]{width:9em}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.tabs button{font-size:14px;padding:6px 12px;border:1px solid #ccc;background:#fff;border-radius:6px;cursor:pointer;font-family:inherit}
+.tabs button[aria-pressed=true]{border-color:#1554c0;color:#1554c0;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+th,td{border-bottom:1px solid #e3e7ef;padding:6px 4px;text-align:right}
+th:first-child,td:first-child{text-align:left}
+td b{font-size:16px;word-break:break-all}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.grid div{background:#f3f6fb;border-radius:8px;padding:8px 10px;font-size:12px;color:#555;min-width:0}
+.grid b{display:block;font-size:19px;color:#222;word-break:break-all}
+@media(max-width:420px){.grid{grid-template-columns:1fr 1fr}}
+.faq dt{font-weight:700;font-size:14px;margin-top:10px}
+.faq dd{font-size:13px;color:#444}
+.note{font-size:12px;color:#666;margin-top:8px}
+.links a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
+footer a{color:#999}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>単位換算</h1>
+<p class="sub">海外の単位（インチ・ポンド・華氏など）や昔の日本の単位（尺・貫・升など）を、数字を入れるだけで一度に換算します。</p>
+
+<h2>① 単位をえらんで換算</h2>
+<div class="card">
+<div class="tabs" id="tabs"></div>
+<div class="row"><input type="number" id="val" value="1" step="any" inputmode="decimal" aria-label="数"> <select id="unit" aria-label="単位"></select> は</div>
+<table id="out"><tbody></tbody></table>
+<p class="note" id="def"></p>
+</div>
+
+<h2>② テレビ・モニターの○インチは縦横何cm？</h2>
+<div class="card">
+<div class="row">画面の大きさ <input type="number" id="tv" value="55" step="any" inputmode="decimal" style="width:6em" aria-label="インチ"> インチ、形 <select id="ar" aria-label="縦横の比"><option value="16:9">16:9（テレビ・ふつうのモニター）</option><option value="21:9">21:9（横長モニター）</option><option value="16:10">16:10（ノートパソコンの一部）</option><option value="4:3">4:3（昔のテレビ・タブレットの一部）</option></select></div>
+<div class="grid"><div>対角線<b id="tvd">-</b></div><div>横の長さ<b id="tvw">-</b></div><div>縦の長さ<b id="tvh">-</b></div></div>
+<p class="note">○インチは画面の対角線の長さです。表示される部分だけの寸法で、ふちやスタンドは入りません。置き場所の寸法は、メーカーの「本体寸法」で確かめてください。</p>
+</div>
+
+<h2>よくある質問</h2>
+<dl class="faq">
+<dt>1インチ・1フィート・1マイルは何cm・何m・何km？</dt><dd>1インチ＝2.54cm、1フィート＝12インチ＝30.48cm、1ヤード＝3フィート＝91.44cm、1マイル＝1,609.344m（どれもちょうどの値）です。</dd>
+<dt>華氏（℉）と摂氏（℃）の換算式は？</dt><dd>摂氏＝（華氏−32）×5÷9、華氏＝摂氏×9÷5＋32 です。温度は「何倍」ではなく式で変わるので、早見でまちがえやすい単位です。</dd>
+<dt>アメリカのガロンとイギリスのガロンはちがう？</dt><dd>ちがいます。米ガロン＝3.785411784L、英ガロン＝4.54609Lです。オンス（液量）も米と英でちがいます。</dd>
+<dt>尺・寸・貫・升はいくつ？</dt><dd>計量法のもとの換算で、1尺＝10/33m（約30.3cm）、1寸＝1/10尺、1間＝6尺、1貫＝3.75kg、1匁＝3.75g、1升＝2401/1331L（約1.804L）、1合＝1/10升 です。今は取引や証明に使えない単位で、目安としてどうぞ。</dd>
+<dt>入れた数字は保存される？</dt><dd>計算はこのページの中だけで行い、数字を送ったり保存したりはしません。</dd>
+</dl>
+<p class="links"><a href="https://mirai-type-lab.github.io/hirosa/?utm_source=tani&amp;utm_medium=site&amp;utm_campaign=hirosa">広さ換算</a><a href="https://mirai-type-lab.github.io/keiryo/?utm_source=tani&amp;utm_medium=site&amp;utm_campaign=keiryo">計量換算</a><a href="https://mirai-type-lab.github.io/jisa/?utm_source=tani&amp;utm_medium=site&amp;utm_campaign=jisa">時差計算</a><a href="https://mirai-type-lab.github.io/denkidai/?utm_source=tani&amp;utm_medium=site&amp;utm_campaign=denkidai">電気代計算</a><a href="https://mirai-type-lab.github.io/wariai/?utm_source=tani&amp;utm_medium=site&amp;utm_campaign=wariai">パーセント計算</a><a href="https://mirai-type-lab.github.io/news/?utm_source=tani&amp;utm_medium=site&amp;utm_campaign=news">ネタぴよ（ニュース）</a></p>
+<footer>運営：未来タイプ診断ラボ／計算はこのページの中だけで行います。<br><a href="../about/">運営者情報</a>・<a href="../contact/">お問い合わせ</a>・<a href="../privacy/">プライバシーポリシー</a></footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const SHAKU=10/33, SHO=2401/1331;
+const G={
+ len:{name:'長さ',base:'m',def:'1インチ＝2.54cm、1フィート＝0.3048m、1マイル＝1,609.344m、1海里＝1,852m、1尺＝10/33m（すべてちょうどの値）。',u:[['mm','ミリメートル（mm）',0.001],['cm','センチメートル（cm）',0.01],['m','メートル（m）',1],['km','キロメートル（km）',1000],['in','インチ（in）',0.0254],['ft','フィート（ft）',0.3048],['yd','ヤード（yd）',0.9144],['mi','マイル（mi）',1609.344],['nmi','海里（ノーティカルマイル）',1852],['sun','寸',SHAKU/10],['shaku','尺',SHAKU],['ken','間（けん）',SHAKU*6],['ri','里（り）',SHAKU*12960]],def0:'cm'},
+ wt:{name:'重さ',base:'kg',def:'1ポンド＝0.45359237kg、1オンス＝1/16ポンド（約28.35g）、1ストーン＝14ポンド、1貫＝3.75kg、1匁＝3.75g、1斤＝600g（すべてちょうどの値）。',u:[['mg','ミリグラム（mg）',1e-6],['g','グラム（g）',0.001],['kg','キログラム（kg）',1],['t','トン（t）',1000],['oz','オンス（oz）',0.45359237/16],['lb','ポンド（lb）',0.45359237],['st','ストーン（st）',0.45359237*14],['ct','カラット（ct）',0.0002],['monme','匁（もんめ）',0.00375],['kin','斤（きん）',0.6],['kan','貫（かん）',3.75]],def0:'lb'},
+ temp:{name:'温度',def:'摂氏＝（華氏−32）×5÷9、ケルビン＝摂氏＋273.15。',u:[['c','摂氏（℃）'],['f','華氏（℉）'],['k','ケルビン（K）']],def0:'f'},
+ vol:{name:'量（体積）',base:'L',def:'米ガロン＝3.785411784L、英ガロン＝4.54609L、米液量オンス＝1/128米ガロン、英液量オンス＝1/160英ガロン、1升＝2401/1331L（すべてちょうどの値）。',u:[['ml','ミリリットル（mL・cc）',0.001],['l','リットル（L）',1],['m3','立方メートル（㎥）',1000],['usfloz','米液量オンス（fl oz）',3.785411784/128],['ukfloz','英液量オンス（fl oz）',4.54609/160],['uspt','米パイント（pt）',3.785411784/8],['ukpt','英パイント（pt）',4.54609/8],['usgal','米ガロン（gal）',3.785411784],['ukgal','英ガロン（gal）',4.54609],['bbl','バレル（石油、42米ガロン）',3.785411784*42],['go','合（ごう）',SHO/10],['sho','升（しょう）',SHO],['to','斗（と）',SHO*10]],def0:'usgal'},
+ spd:{name:'速さ',base:'m/s',def:'1ノット＝1海里/時＝1,852m/時、1マイル毎時＝1,609.344m/時。',u:[['kmh','キロメートル毎時（km/h）',1/3.6],['ms','メートル毎秒（m/s）',1],['mph','マイル毎時（mph）',1609.344/3600],['kn','ノット（kn）',1852/3600],['fts','フィート毎秒（ft/s）',0.3048]],def0:'mph'}
+};
+let cur='len';
+const fmt=n=>{if(!isFinite(n))return '-';const a=Math.abs(n);if(a!==0&&(a<1e-6||a>=1e15))return n.toExponential(6);if(a<1)return String(+n.toPrecision(6));const d=a>=1000?2:4;return (+n.toFixed(d)).toLocaleString(undefined,{maximumFractionDigits:d});};
+function toC(v,u){return u==='c'?v:u==='f'?(v-32)*5/9:v-273.15}
+function fromC(c,u){return u==='c'?c:u==='f'?c*9/5+32:c+273.15}
+let sent=false;function ev(){if(!sent){sent=true;try{gtag('event','tani_calc',{group:cur});}catch(e){}}}
+function tabs(){const t=$('tabs');t.innerHTML='';Object.entries(G).forEach(([k,g])=>{const b=document.createElement('button');b.type='button';b.textContent=g.name;b.setAttribute('aria-pressed',k===cur);b.onclick=()=>{cur=k;tabs();units();calc();};t.appendChild(b);});}
+function units(){const s=$('unit');s.innerHTML='';G[cur].u.forEach(u=>{const o=document.createElement('option');o.value=u[0];o.textContent=u[1];s.appendChild(o);});s.value=G[cur].def0;$('def').textContent=G[cur].def;}
+function calc(){const g=G[cur],v=parseFloat($('val').value),from=$('unit').value,tb=$('out').tBodies[0];tb.innerHTML='';
+ g.u.forEach(u=>{let r;if(cur==='temp'){r=fromC(toC(v,from),u[0]);}else{const f=g.u.find(x=>x[0]===from)[2];r=v*f/u[2];}
+ const tr=document.createElement('tr');tr.innerHTML='<td></td><td><b></b></td>';tr.children[0].textContent=u[1];tr.querySelector('b').textContent=fmt(r);if(u[0]===from)tr.style.background='#f3f6fb';tb.appendChild(tr);});}
+function tv(){const d=parseFloat($('tv').value),[a,b]=$('ar').value.split(':').map(Number),h=Math.hypot(a,b),cm=d*2.54;
+ $('tvd').textContent=isFinite(cm)?fmt(Math.round(cm*10)/10)+' cm':'-';$('tvw').textContent=isFinite(cm)?fmt(Math.round(cm*a/h*10)/10)+' cm':'-';$('tvh').textContent=isFinite(cm)?fmt(Math.round(cm*b/h*10)/10)+' cm':'-';}
+$('val').addEventListener('input',()=>{calc();ev();});$('unit').addEventListener('change',()=>{calc();ev();});
+$('tv').addEventListener('input',()=>{tv();ev();});$('ar').addEventListener('change',tv);
+tabs();units();calc();tv();
+</script>
+</body>
+</html>
