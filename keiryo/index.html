@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>計量換算｜大さじ・小さじ・カップは何グラム？（しょうゆ・砂糖・小麦粉など）</title>
+<meta name="description" content="大さじ・小さじ・カップ・合をグラムに、グラムを大さじ何杯にすぐ換算。しょうゆ・砂糖・塩・小麦粉・油・バター・米など、公的な重量換算表の目安で計算します。入れた数字はどこにも送りません。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/keiryo/">
+<meta property="og:title" content="計量換算｜大さじ・小さじ・カップは何グラム？">
+<meta property="og:description" content="大さじ・小さじ・カップ⇔グラムをすぐ換算。しょうゆ・砂糖・小麦粉・米など。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/keiryo/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"計量換算（大さじ・小さじ・カップ⇔グラム）","url":"https://mirai-type-lab.github.io/keiryo/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"inLanguage":"ja"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"大さじ1は何グラム？","acceptedAnswer":{"@type":"Answer","text":"大さじは15mlです。水なら15g、しょうゆ・みりん・みそ・塩は約18g、砂糖・小麦粉・片栗粉は約9g、油・バターは約12gが目安です。"}},{"@type":"Question","name":"小さじ1は何グラム？","acceptedAnswer":{"@type":"Answer","text":"小さじは5mlです。水なら5g、しょうゆ・塩は約6g、砂糖・小麦粉は約3g、油は約4gが目安です。"}},{"@type":"Question","name":"米1合は何グラム？","acceptedAnswer":{"@type":"Answer","text":"米1合は180mlで、重さは約150gが目安です。"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"未来タイプ診断ラボ","item":"https://mirai-type-lab.github.io/"},{"@type":"ListItem","position":2,"name":"計量換算","item":"https://mirai-type-lab.github.io/keiryo/"}]}]}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#f7f9fd;color:#222;padding:24px 16px;line-height:1.8}
+.wrap{max-width:640px;margin:0 auto}
+h1{font-size:22px;text-align:center;letter-spacing:.04em;margin-top:8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:6px 0 16px}
+h2{font-size:16px;margin:24px 0 8px}
+.card{background:#fff;border:1px solid #e3e7ef;border-radius:12px;padding:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:14px;margin-bottom:8px}
+input,select{font-size:16px;padding:6px 8px;border:1px solid #ccc;border-radius:6px;max-width:100%;background:#fff}
+input[type=number]{width:6em}
+.res{font-size:14px;margin-top:6px}
+.res b{font-size:20px}
+.res .s{color:#666;font-size:13px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px;background:#fff}
+th,td{border-bottom:1px solid #eef0f5;padding:6px;text-align:left;white-space:nowrap}
+th{background:#eef3fb;font-size:12px}
+.hol{color:#d33}
+.faq dt{font-weight:700;font-size:14px;margin-top:10px}
+.faq dd{font-size:13px;color:#444}
+.note{font-size:12px;color:#666;margin-top:8px}
+.links a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
+
+.big input{width:7em}
+.hi{background:#fff8e1}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>計量換算</h1>
+<p class="sub">大さじ・小さじ・カップ・合 ⇔ グラムを、材料ごとにすぐ換算します。</p>
+
+<h2>量と材料を入れる</h2>
+<div class="card">
+<div class="row"><label>材料 <select id="m" aria-label="材料"></select></label></div>
+<div class="row big"><input type="number" id="v" value="2" step="any" inputmode="decimal" aria-label="量"> <select id="u" aria-label="単位"></select></div>
+<p class="res" id="main"></p>
+<div class="tw"><table><thead><tr><th>はかり方</th><th>この量だと</th></tr></thead><tbody id="out"></tbody></table></div>
+<p class="note" id="nt"></p>
+</div>
+
+<h2>材料ごとの早見表（すりきり1杯の重さ）</h2>
+<div class="card"><div class="tw"><table><thead><tr><th>材料</th><th>小さじ（5ml）</th><th>大さじ（15ml）</th><th>カップ（200ml）</th></tr></thead><tbody id="tb"></tbody></table></div>
+<p class="note">「—」は元の表に値が無いもの。上の計算では、大さじの値から同じ割合で出した目安を使い「計算の目安」と書いています。</p></div>
+
+<h2>よくある質問</h2>
+<dl class="faq">
+<dt>大さじ・小さじ・カップは何ml？</dt><dd>小さじ＝5ml、大さじ＝15ml（小さじ3杯分）、料理の計量カップ1杯＝200mlです。米をはかるカップ（1合）は180mlで、料理のカップとは違います。</dd>
+<dt>大さじ1は何グラム？</dt><dd>材料で違います。水は15g、しょうゆ・みりん・みそは約18g、砂糖・小麦粉・片栗粉は約9g、油・バターは約12gが目安です。</dd>
+<dt>米1合は何グラム？</dt><dd>米1合（180ml）は約150gです。</dd>
+<dt>どのくらい正確？</dt><dd>粉は詰め方、みそやバターは温度などで重さが変わります。お菓子作りなど正確さが要る時は、はかりで量ってください。</dd>
+</dl>
+
+<p class="links"><a href="https://mirai-type-lab.github.io/hirosa/?utm_source=keiryo&amp;utm_medium=site&amp;utm_campaign=hirosa">広さ換算</a><a href="https://mirai-type-lab.github.io/nissu/?utm_source=keiryo&amp;utm_medium=site&amp;utm_campaign=nissu">日数計算</a><a href="https://mirai-type-lab.github.io/nenrei/?utm_source=keiryo&amp;utm_medium=site&amp;utm_campaign=nenrei">年齢早見表</a><a href="https://mirai-type-lab.github.io/jisa/?utm_source=keiryo&amp;utm_medium=site&amp;utm_campaign=jisa">時差計算</a><a href="https://mirai-type-lab.github.io/sonae/?utm_source=keiryo&amp;utm_medium=site&amp;utm_campaign=sonae">家のそなえチェック</a><a href="https://mirai-type-lab.github.io/news/?utm_source=keiryo&amp;utm_medium=site&amp;utm_campaign=news">ネタぴよ（ニュース）</a></p>
+<footer>運営：未来タイプ診断ラボ／重さは広島市「調味料 計量カップ・計量スプーンの重量換算表」（出典：厚生労働省 国民健康・栄養調査 食品番号表、女子栄養大学出版部『調理のためのベーシックデータ』）の目安です。計算はこのページの中だけで行い、入れた数字は送りません。</footer>
+</div>
+<script>
+// [名前, 小さじg, 大さじg, カップg(なければnull)]
+const M=[['水',5,15,200],['しょうゆ',6,18,240],['みりん',6,18,240],['酒',5,15,200],['酢',5,15,200],['みそ',6,18,null],['塩',6,18,null],['砂糖',3,9,130],['はちみつ',7,21,280],['油（植物油）',4,12,180],['バター',4,12,180],['マヨネーズ',4,12,190],['小麦粉',3,9,110],['片栗粉',3,9,130],['パン粉',1,3,40],['ごま',3,9,130],['米',null,null,null]];
+const U=[['g','グラム（g）'],['ko','小さじ'],['oo','大さじ'],['cup','カップ（200ml）'],['go','合（180ml）'],['ml','ml']];
+const ML={ko:5,oo:15,cup:200,go:180,ml:1};
+const $=id=>document.getElementById(id);
+M.forEach((x,i)=>$('m').add(new Option(x[0],i)));
+U.forEach(x=>$('u').add(new Option(x[1],x[0])));
+$('m').value=1;$('u').value='oo';
+const f=n=>!isFinite(n)?'—':n.toLocaleString('ja-JP',{maximumFractionDigits:Math.abs(n)>=100?0:Math.abs(n)>=10?1:2});
+// 1mlあたりのg：表にある一番大きいはかり方から
+function gpm(x){if(x[0]=='米')return 150/180;if(x[3])return x[3]/200;return x[2]/15}
+function per(x,u){ // そのはかり方1杯のg と 表の値かどうか
+ if(x[0]=='米'){return u=='go'?[150,true]:[ML[u]*150/180,false]}
+ const t={ko:x[1],oo:x[2],cup:x[3]}[u];
+ if(t)return [t,true];return [ML[u]*gpm(x),false]}
+function calc(){
+ const x=M[$('m').value],u=$('u').value,v=parseFloat($('v').value);
+ const g=u=='g'?v:v*per(x,u)[0];
+ const ul=['ko','oo','cup','go','ml'].filter(k=>!(x[0]!='米'&&k=='go')&&!(x[0]=='米'&&(k=='ko'||k=='oo')));
+ const un=U.find(y=>y[0]==u)[1].replace(/（.*/,''),q=['ko','oo','cup'].includes(u)?un+f(v):f(v)+(u=='g'?'g':un);
+ $('main').innerHTML=isFinite(g)&&g>=0?`${x[0]} ${q}${u=='g'?'':' ＝ <b>約'+f(g)+'g</b>'}`:'数字を入れてください';
+ $('out').innerHTML=(u=='g'?'':`<tr class="hi"><td>グラム</td><td><b>${f(g)} g</b></td></tr>`)+ul.map(k=>{const p=per(x,k);const n=k=='ml'?g/gpm(x):g/p[0];
+  return `<tr${k==u?' class="hi"':''}><td>${U.find(y=>y[0]==k)[1]}</td><td><b>${f(n)}</b>${k=='ml'?' ml':' 杯'}${p[1]||k=='ml'?'':'<span class="s">（計算の目安）</span>'}</td></tr>`}).join('');
+ $('nt').textContent=x[0]=='米'?'米は1合（180ml）＝約150gで計算しています。':'すりきり（山盛りにせず、平らにならした量）の目安です。';
+}
+$('tb').innerHTML=M.filter(x=>x[0]!='米').map(x=>`<tr><td>${x[0]}</td><td>${x[1]}g</td><td>${x[2]}g</td><td>${x[3]?x[3]+'g':'—'}</td></tr>`).join('')+'<tr><td>米</td><td colspan="3">1合（180ml）＝約150g</td></tr>';
+let tm;['v','u','m'].forEach(id=>$(id).addEventListener('input',()=>{calc();clearTimeout(tm);tm=setTimeout(()=>{try{gtag('event','keiryo_calc',{item:M[$('m').value][0],unit:$('u').value})}catch(e){}},1500)}));
+calc();
+</script>
+</body>
+</html>
