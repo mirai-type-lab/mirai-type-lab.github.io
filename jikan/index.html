@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>時間計算｜勤務時間・時給の給料・時間の足し算・何時間後</title>
+<meta name="description" content="出勤・退勤の時刻と休憩から実働時間（日またぎ・夜勤OK）、時給をかけた給料の目安と深夜・残業の割増、1:30＋2:45のような時間の足し算・引き算、○時間○分後は何時、分⇔時間（0.25時間など）の早見表まで。無料・保存なし。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/jikan/">
+<meta property="og:title" content="時間計算｜勤務時間・給料・時間の足し算">
+<meta property="og:description" content="出勤・退勤・休憩から実働時間と給料の目安、時間の足し算・引き算、何時間後、分⇔時間の早見表。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/jikan/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"時間計算","url":"https://mirai-type-lab.github.io/jikan/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"inLanguage":"ja"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"1時間15分は何時間？","acceptedAnswer":{"@type":"Answer","text":"15分は0.25時間なので1.25時間です。分を60で割ると時間（10進）になります。"}},{"@type":"Question","name":"夜勤で日付をまたぐときは？","acceptedAnswer":{"@type":"Answer","text":"退勤の時刻が出勤より前なら、次の日の時刻として計算します（22:00〜翌6:00は8時間）。"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"未来タイプ診断ラボ","item":"https://mirai-type-lab.github.io/"},{"@type":"ListItem","position":2,"name":"時間計算","item":"https://mirai-type-lab.github.io/jikan/"}]}]}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#f7f9fd;color:#222;padding:24px 16px;line-height:1.8}
+.wrap{max-width:640px;margin:0 auto}
+h1{font-size:22px;text-align:center;letter-spacing:.04em;margin-top:8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:6px 0 16px}
+h2{font-size:16px;margin:24px 0 8px}
+.card{background:#fff;border:1px solid #e3e7ef;border-radius:12px;padding:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:14px;margin:6px 0}
+input,select{font-size:16px;padding:6px 8px;border:1px solid #ccc;border-radius:6px;font-family:inherit;background:#fff}
+input[type=number]{width:7em}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.grid div{background:#f3f6fb;border-radius:8px;padding:8px 10px;font-size:12px;color:#555;min-width:0}
+.grid b{display:block;font-size:19px;color:#222;word-break:break-all}
+@media(max-width:420px){.grid{grid-template-columns:1fr 1fr}}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+th,td{border-bottom:1px solid #e3e7ef;padding:5px 4px;text-align:right}
+th:first-child,td:first-child{text-align:left}
+.faq dt{font-weight:700;font-size:14px;margin-top:10px}
+.faq dd{font-size:13px;color:#444}
+.note{font-size:12px;color:#666;margin-top:8px}
+.links a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
+footer a{color:#999}
+textarea{width:100%;font-size:16px;padding:8px;border:1px solid #ccc;border-radius:6px;font-family:inherit;min-height:7em}
+.big{font-size:22px;font-weight:700;text-align:center;margin:10px 0;word-break:break-all}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>時間計算</h1>
+<p class="sub">勤務時間・給料の目安・時間の足し算・何時間後を、入れるそばから計算。</p>
+
+<h2>勤務時間と給料</h2>
+<div class="card">
+<div class="row">出勤 <input type="time" id="st" value="09:00" aria-label="出勤の時刻"> 退勤 <input type="time" id="en" value="18:00" aria-label="退勤の時刻"></div>
+<div class="row">休憩 <input type="number" id="br" value="60" min="0" inputmode="numeric" style="width:5em" aria-label="休憩の分"> 分　時給 <input type="number" id="wg" value="1100" min="0" inputmode="numeric" aria-label="時給（円）"> 円</div>
+<div class="grid">
+<div>実働<b id="oW">-</b></div>
+<div>時間（10進）<b id="oD">-</b></div>
+<div>給料（割増なし）<b id="oP">-</b></div>
+<div>うち深夜 22〜5時<b id="oN">-</b></div>
+<div>うち8時間をこえた分<b id="oO">-</b></div>
+<div>割増こみの目安<b id="oX">-</b></div>
+</div>
+<p class="note">退勤が出勤より前なら次の日として計算します（夜勤OK）。休憩は深夜の時間から引かず、全体から引いています。割増は深夜・8時間超えをそれぞれ25%増しとした目安です（労働基準法の最低ライン。会社の決まりや休日出勤で変わるので、実際は給与明細・就業規則で確かめてください）。</p>
+</div>
+
+<h2>時間の足し算・引き算</h2>
+<div class="card">
+<textarea id="sum" aria-label="時間の一覧（1行に1つ）">1:30
+2:45
+-0:20
+45分</textarea>
+<p class="note">1行に1つ。「1:30」「1時間30分」「90分」「1.5h」が使えます。先頭に「-」で引き算。</p>
+<div class="grid"><div>合計<b id="sH">-</b></div><div>分にすると<b id="sM">-</b></div><div>時間（10進）<b id="sD">-</b></div></div>
+</div>
+
+<h2>○時間○分後は何時？</h2>
+<div class="card">
+<div class="row"><input type="time" id="bt" value="13:00" aria-label="もとの時刻"> から <input type="number" id="ah" value="2" inputmode="numeric" style="width:5em" aria-label="時間"> 時間 <input type="number" id="am" value="30" inputmode="numeric" style="width:5em" aria-label="分"> 分 <select id="dir" aria-label="後か前か"><option value="1">後</option><option value="-1">前</option></select></div>
+<div class="big" id="aO">-</div>
+</div>
+
+<h2>分 ⇔ 時間（10進）の早見表</h2>
+<div class="card">
+<div class="row"><input type="number" id="cm" value="45" inputmode="decimal" aria-label="分"> 分 ＝ <b id="cmO">-</b> 時間　／　<input type="number" id="ch" value="7.75" step="0.01" inputmode="decimal" aria-label="時間（10進）"> 時間 ＝ <b id="chO">-</b></div>
+<table id="tb"><thead><tr><th>分</th><th>時間（10進）</th><th>分</th><th>時間（10進）</th></tr></thead><tbody></tbody></table>
+</div>
+
+<h2>よくある質問</h2>
+<dl class="faq">
+<dt>1時間15分は何時間？</dt><dd>15分は0.25時間なので1.25時間です。分を60で割ると時間（10進）になります。給料は「1.25時間×時給」で計算します。</dd>
+<dt>夜勤で日付をまたぐときは？</dt><dd>退勤の時刻が出勤より前なら、次の日の時刻として計算します（22:00〜翌6:00は8時間）。</dd>
+<dt>深夜・残業の割増はいくら？</dt><dd>労働基準法では、夜10時〜朝5時の深夜と、1日8時間をこえた時間外は25%以上の割増です（両方に当たる時間は50%以上）。ここでは25%ずつの目安で出しています。</dd>
+<dt>入れた時刻は保存される？</dt><dd>計算はこのページの中だけで行い、送ったり保存したりはしません。</dd>
+</dl>
+<p class="links"><a href="https://mirai-type-lab.github.io/nissu/?utm_source=jikan&amp;utm_medium=site&amp;utm_campaign=nissu">日数計算</a><a href="https://mirai-type-lab.github.io/jisa/?utm_source=jikan&amp;utm_medium=site&amp;utm_campaign=jisa">時差計算</a><a href="https://mirai-type-lab.github.io/wariai/?utm_source=jikan&amp;utm_medium=site&amp;utm_campaign=wariai">パーセント計算</a><a href="https://mirai-type-lab.github.io/zeikomi/?utm_source=jikan&amp;utm_medium=site&amp;utm_campaign=zeikomi">消費税計算</a><a href="https://mirai-type-lab.github.io/warikan/?utm_source=jikan&amp;utm_medium=site&amp;utm_campaign=warikan">割り勘計算</a><a href="https://mirai-type-lab.github.io/denkidai/?utm_source=jikan&amp;utm_medium=site&amp;utm_campaign=denkidai">電気代計算</a><a href="https://mirai-type-lab.github.io/kuji/?utm_source=jikan&amp;utm_medium=site&amp;utm_campaign=kuji">くじ引き・抽選</a><a href="https://mirai-type-lab.github.io/news/?utm_source=jikan&amp;utm_medium=site&amp;utm_campaign=news">ネタぴよ（ニュース）</a></p>
+<footer>運営：未来タイプ診断ラボ／計算はこのページの中だけで行います。<br><a href="../about/">運営者情報</a>・<a href="../contact/">お問い合わせ</a>・<a href="../privacy/">プライバシーポリシー</a></footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const sent={};function ev(t){if(!sent[t]){sent[t]=true;try{gtag('event','jikan_'+t);}catch(e){}}}
+const tm=s=>{const m=/^(\d{1,2}):(\d{2})$/.exec(s||'');return m?(+m[1])*60+(+m[2]):null;};
+const hm=m=>{const s=m<0?'-':'';m=Math.abs(Math.round(m));return s+Math.floor(m/60)+'時間'+String(m%60).padStart(2,'0')+'分';};
+const yen=n=>Math.round(n).toLocaleString('ja-JP')+'円';
+const dec=m=>(Math.round(m/60*100)/100).toString();
+function work(){
+ const a=tm($('st').value),b0=tm($('en').value);if(a===null||b0===null)return;
+ let b=b0;if(b<=a)b+=1440;
+ const br=Math.max(0,parseFloat($('br').value)||0),wg=Math.max(0,parseFloat($('wg').value)||0);
+ const span=b-a,w=Math.max(0,span-br);
+ let night=0;for(let t=a;t<b;t++){const h=Math.floor((t%1440)/60);if(h>=22||h<5)night++;}
+ night=Math.min(night,w);const over=Math.max(0,w-480);
+ $('oW').textContent=hm(w);$('oD').textContent=dec(w)+' 時間';
+ $('oP').textContent=yen(w/60*wg);$('oN').textContent=hm(night);$('oO').textContent=hm(over);
+ $('oX').textContent=yen(w/60*wg+(night+over)/60*wg*0.25);ev('work');
+}
+function parseLine(s){
+ s=s.trim().replace(/[０-９．：－]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)).replace(/ー|−/g,'-');if(!s)return null;
+ let sg=1;if(s[0]==='-'){sg=-1;s=s.slice(1).trim();}else if(s[0]==='+')s=s.slice(1).trim();
+ let m;
+ if(m=/^(\d+):(\d{1,2})$/.exec(s))return sg*((+m[1])*60+(+m[2]));
+ if(m=/^(?:(\d+(?:\.\d+)?)\s*時間)?\s*(?:(\d+(?:\.\d+)?)\s*分)?$/.exec(s)){if(m[1]||m[2])return sg*((parseFloat(m[1])||0)*60+(parseFloat(m[2])||0));}
+ if(m=/^(\d+(?:\.\d+)?)\s*(h|hr|時)$/i.exec(s))return sg*parseFloat(m[1])*60;
+ if(m=/^(\d+(?:\.\d+)?)\s*(m|min)?$/i.exec(s))return sg*parseFloat(m[1]);
+ return NaN;
+}
+function sum(){let t=0,bad=0;$('sum').value.split(/\r?\n/).forEach(l=>{const v=parseLine(l);if(v===null)return;if(isNaN(v))bad++;else t+=v;});
+ $('sH').textContent=hm(t)+(bad?'（読めない行 '+bad+'）':'');$('sM').textContent=Math.round(t)+' 分';$('sD').textContent=dec(t)+' 時間';ev('sum');}
+function after(){const a=tm($('bt').value);if(a===null)return;const d=((parseFloat($('ah').value)||0)*60+(parseFloat($('am').value)||0))*(+$('dir').value);
+ const t=a+d,day=Math.floor(t/1440),r=((t%1440)+1440)%1440;
+ const lab=day===0?'当日':day===1?'翌日':day===-1?'前日':(day>0?day+'日後':(-day)+'日前');
+ $('aO').textContent=lab+' '+Math.floor(r/60)+':'+String(Math.round(r%60)).padStart(2,'0');ev('after');}
+function conv(){const m=parseFloat($('cm').value),h=parseFloat($('ch').value);
+ $('cmO').textContent=isFinite(m)?(Math.round(m/60*10000)/10000).toString():'-';
+ $('chO').textContent=isFinite(h)?hm(h*60):'-';ev('conv');}
+(function(){let r='';for(let i=5;i<=30;i+=5){const j=i+30;r+='<tr><td>'+i+'分</td><td>'+(Math.round(i/60*1000)/1000)+'</td><td>'+j+'分</td><td>'+(Math.round(j/60*1000)/1000)+'</td></tr>';}$('tb').tBodies[0].innerHTML=r;})();
+['st','en','br','wg'].forEach(i=>$(i).addEventListener('input',work));
+$('sum').addEventListener('input',sum);['bt','ah','am','dir'].forEach(i=>$(i).addEventListener('input',after));
+['cm','ch'].forEach(i=>$(i).addEventListener('input',conv));
+work();sum();after();conv();for(const k in sent)delete sent[k];
+</script>
+</body>
+</html>
