@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日数計算｜何日後・何日前・あと何日・営業日（祝日対応）</title>
+<meta name="description" content="2つの日付の間が何日か、今日から何日後・何日前は何月何日か、土日祝を除いた営業日は何日かをすぐ計算。日本の祝日（振替休日・国民の休日）に対応。入れた日付はどこにも送りません。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/nissu/">
+<meta property="og:title" content="日数計算｜何日後・あと何日・営業日">
+<meta property="og:description" content="日付の間の日数、何日後・何日前、土日祝を除いた営業日を祝日つきで計算。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/nissu/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"日数計算","url":"https://mirai-type-lab.github.io/nissu/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"inLanguage":"ja"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"「初日を含む」と「含まない」の違いは？","acceptedAnswer":{"@type":"Answer","text":"1月1日から1月3日までは、引き算では2日（初日を含まない）、1日・2日・3日を数えると3日（初日を含む）です。期間の数え方は決まりによって違うので、契約や手続きは書かれている数え方に合わせてください。"}},{"@type":"Question","name":"営業日はどう数えている？","acceptedAnswer":{"@type":"Answer","text":"土曜・日曜と日本の祝日（振替休日・国民の休日を含む）を除いた日を数えます。年末年始やお盆、会社ごとの休みは入っていません。"}},{"@type":"Question","name":"春分の日・秋分の日は正しい？","acceptedAnswer":{"@type":"Answer","text":"春分の日・秋分の日は前の年の2月に国立天文台の暦をもとに官報で発表されます。このページは同じ計算方法による見込みの日付で、発表前の年は見込みです。"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"未来タイプ診断ラボ","item":"https://mirai-type-lab.github.io/"},{"@type":"ListItem","position":2,"name":"日数計算","item":"https://mirai-type-lab.github.io/nissu/"}]}]}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#f7f9fd;color:#222;padding:24px 16px;line-height:1.8}
+.wrap{max-width:640px;margin:0 auto}
+h1{font-size:22px;text-align:center;letter-spacing:.04em;margin-top:8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:6px 0 16px}
+h2{font-size:16px;margin:24px 0 8px}
+.card{background:#fff;border:1px solid #e3e7ef;border-radius:12px;padding:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:14px;margin-bottom:8px}
+input,select{font-size:16px;padding:6px 8px;border:1px solid #ccc;border-radius:6px;max-width:100%;background:#fff}
+input[type=number]{width:6em}
+.res{font-size:14px;margin-top:6px}
+.res b{font-size:20px}
+.res .s{color:#666;font-size:13px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px;background:#fff}
+th,td{border-bottom:1px solid #eef0f5;padding:6px;text-align:left;white-space:nowrap}
+th{background:#eef3fb;font-size:12px}
+.hol{color:#d33}
+.faq dt{font-weight:700;font-size:14px;margin-top:10px}
+.faq dd{font-size:13px;color:#444}
+.note{font-size:12px;color:#666;margin-top:8px}
+.links a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>日数計算</h1>
+<p class="sub">今日は <span id="today"></span>。日本の祝日（振替休日・国民の休日）に対応。</p>
+
+<h2>2つの日付の間は何日？</h2>
+<div class="card">
+<div class="row"><input type="date" id="a1" aria-label="はじめの日"> から <input type="date" id="a2" aria-label="おわりの日"> まで</div>
+<div class="res" id="r1"></div>
+</div>
+
+<h2>何日後・何日前は何月何日？</h2>
+<div class="card">
+<div class="row"><input type="date" id="b1" aria-label="基準の日"> の <input type="number" id="bn" value="30" inputmode="numeric" aria-label="日数"> <select id="bd"><option value="1">日後</option><option value="-1">日前</option></select></div>
+<div class="row"><label><input type="checkbox" id="bb"> 営業日で数える（土日祝を飛ばす）</label></div>
+<div class="res" id="r2"></div>
+</div>
+
+<h2>今日から、あと何日？</h2>
+<div class="card tw"><table><thead><tr><th>日</th><th>日付</th><th>あと</th></tr></thead><tbody id="r3"></tbody></table>
+<p class="note">過ぎたら自動で次の年の日付になります。</p></div>
+
+<h2>次の祝日（これから1年）</h2>
+<div class="card tw"><table><thead><tr><th>祝日</th><th>日付</th><th>あと</th></tr></thead><tbody id="r4"></tbody></table>
+<p class="note">春分の日・秋分の日は計算による見込みです（前の年の2月の官報で確定）。年末年始・会社の休みは入っていません。</p></div>
+
+<h2>よくある質問</h2>
+<dl class="faq">
+<dt>「初日を含む」と「含まない」の違いは？</dt><dd>1月1日から1月3日までは、引き算では2日（初日を含まない）、1日・2日・3日を数えると3日（初日を含む）です。契約や手続きは、書かれている数え方に合わせてください。</dd>
+<dt>営業日はどう数えている？</dt><dd>土曜・日曜と日本の祝日（振替休日・国民の休日を含む）を除いた日です。年末年始やお盆、会社ごとの休みは入っていません。</dd>
+<dt>春分の日・秋分の日は正しい？</dt><dd>前の年の2月に官報で発表されます。このページは同じ計算方法による見込みの日付です。</dd>
+</dl>
+
+<p class="links"><a href="https://mirai-type-lab.github.io/tetsuzuki/?utm_source=nissu&amp;utm_medium=site&amp;utm_campaign=tetsuzuki">くらしの手続きカレンダー</a><a href="https://mirai-type-lab.github.io/nenrei/?utm_source=nissu&amp;utm_medium=site&amp;utm_campaign=nenrei">年齢早見表</a><a href="https://mirai-type-lab.github.io/news/?utm_source=nissu&amp;utm_medium=site&amp;utm_campaign=news">ネタぴよ（ニュース）</a></p>
+<footer>運営：未来タイプ診断ラボ／計算はこのページの中だけで行い、入れた日付は送りません。祝日は2007年以降の祝日法の決まりで計算（2019〜2021年の特例日を含む）。</footer>
+</div>
+<script>
+var W="日月火水木金土",DAY=864e5;
+function D(y,m,d){return new Date(Date.UTC(y,m-1,d))}
+function key(t){return t.toISOString().slice(0,10)}
+function nthMon(y,m,n){var f=D(y,m,1).getUTCDay();return 1+((8-f)%7)+(n-1)*7}
+function eq(y,b){return Math.floor(b+0.242194*(y-1980)-Math.floor((y-1980)/4))}
+var HC={};
+function hols(y){
+ if(HC[y])return HC[y];var h={};function a(m,d,n){h[key(D(y,m,d))]=n}
+ a(1,1,"元日");a(1,nthMon(y,1,2),"成人の日");a(2,11,"建国記念の日");
+ if(y>=2020)a(2,23,"天皇誕生日");else if(y<=2018)a(12,23,"天皇誕生日");
+ a(3,eq(y,20.8431),"春分の日");a(4,29,"昭和の日");a(5,3,"憲法記念日");a(5,4,"みどりの日");a(5,5,"こどもの日");
+ if(y==2020){a(7,23,"海の日");a(7,24,"スポーツの日");a(8,10,"山の日")}
+ else if(y==2021){a(7,22,"海の日");a(7,23,"スポーツの日");a(8,8,"山の日")}
+ else{a(7,nthMon(y,7,3),"海の日");if(y>=2016)a(8,11,"山の日");a(10,nthMon(y,10,2),y>=2020?"スポーツの日":"体育の日")}
+ a(9,nthMon(y,9,3),"敬老の日");a(9,eq(y,23.2488),"秋分の日");a(11,3,"文化の日");a(11,23,"勤労感謝の日");
+ if(y==2019){a(4,30,"国民の休日");a(5,1,"天皇の即位の日");a(5,2,"国民の休日");a(10,22,"即位礼正殿の儀の行われる日")}
+ // 国民の休日（祝日にはさまれた平日）
+ for(var t=D(y,1,2).getTime();t<D(y,12,31).getTime();t+=DAY){var k=key(new Date(t));if(!h[k]&&new Date(t).getUTCDay()!=0&&h[key(new Date(t-DAY))]&&h[key(new Date(t+DAY))]&&h[key(new Date(t-DAY))]!="振替休日")h[k]="国民の休日"}
+ // 振替休日
+ Object.keys(h).sort().forEach(function(k){var t=new Date(k+"T00:00:00Z");if(t.getUTCDay()==0){var n=t.getTime()+DAY;while(h[key(new Date(n))])n+=DAY;h[key(new Date(n))]="振替休日"}});
+ return HC[y]=h}
+function hol(t){return hols(t.getUTCFullYear())[key(t)]}
+function off(t){var w=t.getUTCDay();return w==0||w==6||!!hol(t)}
+function fmt(t){var h=hol(t);return t.getUTCFullYear()+"年"+(t.getUTCMonth()+1)+"月"+t.getUTCDate()+"日（"+W[t.getUTCDay()]+(h?"・"+h:"")+"）"}
+function parse(v){if(!v)return null;var p=v.split("-");return D(+p[0],+p[1],+p[2])}
+var now=new Date(),T=D(now.getFullYear(),now.getMonth()+1,now.getDate());
+function iso(t){return key(t)}
+document.getElementById("today").textContent=fmt(T);
+var $=function(i){return document.getElementById(i)};
+$("a1").value=iso(T);$("a2").value=iso(D(T.getUTCFullYear(),12,31));$("b1").value=iso(T);
+function c1(){var a=parse($("a1").value),b=parse($("a2").value);if(!a||!b){$("r1").textContent="";return}
+ var s=1;if(b<a){var x=a;a=b;b=x;s=-1}
+ var n=Math.round((b-a)/DAY),we=0,ho=0;
+ if(n<=36600)for(var t=a.getTime();t<=b.getTime();t+=DAY){var d=new Date(t),w=d.getUTCDay();if(w==0||w==6)we++;else if(hol(d))ho++}
+ var all=n+1,bz=all-we-ho,wk=Math.floor(n/7),r=n%7;
+ $("r1").innerHTML="<b>"+n.toLocaleString()+"日</b>"+(s<0?"（さかのぼり）":"")+" <span class='s'>＝ "+wk+"週と"+r+"日</span><br>初日も数えると <b>"+all.toLocaleString()+"日</b><br><span class='s'>その間（両端を含む）の土日 "+we+"日・平日の祝日 "+ho+"日 → 営業日 "+bz.toLocaleString()+"日</span>";
+ try{gtag('event','nissu_calc',{kind:'between'})}catch(e){}}
+function c2(){var b=parse($("b1").value),n=parseInt($("bn").value,10),dir=+$("bd").value;if(!b||isNaN(n)||n<0||n>36500){$("r2").textContent="";return}
+ var t=b.getTime();
+ if($("bb").checked){var c=0;while(c<n){t+=dir*DAY;if(!off(new Date(t)))c++}}else t+=dir*n*DAY;
+ $("r2").innerHTML="<b>"+fmt(new Date(t))+"</b>"+($("bb").checked?"<br><span class='s'>土日祝を飛ばして"+n+"営業日"+(dir>0?"後":"前")+"</span>":"");
+ try{gtag('event','nissu_calc',{kind:'add'})}catch(e){}}
+function next(m,d){var y=T.getUTCFullYear(),t=D(y,m,d);if(t<T)t=D(y+1,m,d);return t}
+function c3(){var y=T.getUTCFullYear(),L=[["元日",next(1,1)],["大晦日",next(12,31)],["今月の末日",D(y,T.getUTCMonth()+2,0)],["半年後",D(y,T.getUTCMonth()+7,T.getUTCDate())],["1年後",D(y+1,T.getUTCMonth()+1,T.getUTCDate())],["100日後",new Date(T.getTime()+100*DAY)]];
+ L.sort(function(a,b){return a[1]-b[1]});
+ $("r3").innerHTML=L.map(function(x){var n=Math.round((x[1]-T)/DAY);return "<tr><td>"+x[0]+"</td><td>"+fmt(x[1])+"</td><td>"+(n?"あと"+n+"日":"今日")+"</td></tr>"}).join("")}
+function c4(){var y=T.getUTCFullYear(),o=[];[y,y+1].forEach(function(z){var h=hols(z);Object.keys(h).sort().forEach(function(k){var t=new Date(k+"T00:00:00Z");var n=Math.round((t-T)/DAY);if(n>=0&&n<=366)o.push("<tr><td class='hol'>"+h[k]+"</td><td>"+fmt(t).replace(/・[^）]+/,"")+"</td><td>"+(n?"あと"+n+"日":"今日")+"</td></tr>")})});$("r4").innerHTML=o.join("")}
+["a1","a2"].forEach(function(i){$(i).addEventListener("change",c1)});
+["b1","bn","bd","bb"].forEach(function(i){$(i).addEventListener("input",c2);$(i).addEventListener("change",c2)});
+c1();c2();c3();c4();
+</script>
+</body>
+</html>
