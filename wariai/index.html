@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>パーセント計算｜何％？○％は？増えた・減った率もすぐ</title>
+<meta name="description" content="AはBの何パーセント？Bの○％はいくつ？○％増し・○％減らすといくつ？前と比べて何％増えた（減った）？を入れるだけで計算。割合・歩合（○割○分）・ポイント（％ポイント）の違いも。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/wariai/">
+<meta property="og:title" content="パーセント計算｜何％？増減率もすぐ">
+<meta property="og:description" content="何％か・○％はいくつ・○％増減・増減率・歩合を入れるだけで計算。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/wariai/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"パーセント計算","url":"https://mirai-type-lab.github.io/wariai/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"inLanguage":"ja"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"AはBの何パーセント？の計算式は？","acceptedAnswer":{"@type":"Answer","text":"A÷B×100 です。例：30は120の 30÷120×100＝25％。"}},{"@type":"Question","name":"増加率（増えた率）の計算式は？","acceptedAnswer":{"@type":"Answer","text":"（あと−前）÷前×100 です。例：80から100なら（100−80）÷80×100＝25％増。"}},{"@type":"Question","name":"％と％ポイントの違いは？","acceptedAnswer":{"@type":"Answer","text":"10％が12％になったとき、差は2％ポイント（ポイント）で、もとの10％から見た増加率は20％です。"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"未来タイプ診断ラボ","item":"https://mirai-type-lab.github.io/"},{"@type":"ListItem","position":2,"name":"パーセント計算","item":"https://mirai-type-lab.github.io/wariai/"}]}]}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#f7f9fd;color:#222;padding:24px 16px;line-height:1.8}
+.wrap{max-width:640px;margin:0 auto}
+h1{font-size:22px;text-align:center;letter-spacing:.04em;margin-top:8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:6px 0 16px}
+h2{font-size:16px;margin:24px 0 8px}
+.card{background:#fff;border:1px solid #e3e7ef;border-radius:12px;padding:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:14px;margin:6px 0}
+input,select{font-size:16px;padding:6px 8px;border:1px solid #ccc;border-radius:6px;font-family:inherit;background:#fff}
+input[type=number]{width:9em}
+.seg label{display:inline-block;border:1px solid #ccc;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:14px;background:#fff}
+.seg input{display:none}
+.seg input:checked+span{font-weight:700;color:#1554c0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.grid div{background:#f3f6fb;border-radius:8px;padding:8px 10px;font-size:12px;color:#555;min-width:0}
+.grid b{display:block;font-size:19px;color:#222;word-break:break-all}
+@media(max-width:420px){.grid{grid-template-columns:1fr 1fr}}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+th,td{border-bottom:1px solid #e3e7ef;padding:5px 4px;text-align:right}
+th:first-child,td:first-child{text-align:left}
+.faq dt{font-weight:700;font-size:14px;margin-top:10px}
+.faq dd{font-size:13px;color:#444}
+.note{font-size:12px;color:#666;margin-top:8px}
+.links a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
+footer a{color:#999}
+.grp{display:grid;grid-template-columns:1fr 5em 5em 2em;gap:6px;align-items:center;margin:6px 0}
+.grp input{width:100%}
+.grp button,.add{font-size:14px;border:1px solid #ccc;background:#fff;border-radius:6px;padding:4px 8px;cursor:pointer;font-family:inherit}
+.hd{font-size:11px;color:#777}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>パーセント計算</h1>
+<p class="sub">数字を入れるだけで、その場で計算します（割合・増減率・歩合）。</p>
+
+<h2>① A は B の何％？</h2>
+<div class="card">
+<div class="row"><input type="number" id="a1" value="30" inputmode="decimal" aria-label="A"> は <input type="number" id="b1" value="120" inputmode="decimal" aria-label="B"> の</div>
+<div class="grid"><div>パーセント<b id="r1">-</b></div><div>歩合<b id="r1b">-</b></div><div>割合（小数）<b id="r1c">-</b></div></div>
+<p class="note">式：A ÷ B × 100</p>
+</div>
+
+<h2>② B の ○％ はいくつ？</h2>
+<div class="card">
+<div class="row"><input type="number" id="b2" value="2500" inputmode="decimal" aria-label="B"> の <input type="number" id="p2" value="15" inputmode="decimal" style="width:6em" aria-label="パーセント"> ％ は</div>
+<div class="grid"><div>○％の数<b id="r2">-</b></div><div>○％増し<b id="r2b">-</b></div><div>○％減らす<b id="r2c">-</b></div></div>
+<p class="note">式：B × ○ ÷ 100。増しは B ×（1＋○÷100）、減らすは B ×（1−○÷100）。</p>
+</div>
+
+<h2>③ 前と比べて何％増えた・減った？</h2>
+<div class="card">
+<div class="row">前 <input type="number" id="a3" value="80" inputmode="decimal" aria-label="前の数"> → あと <input type="number" id="b3" value="100" inputmode="decimal" aria-label="あとの数"></div>
+<div class="grid"><div id="r3l">増加率<b id="r3">-</b></div><div>差<b id="r3b">-</b></div><div>前の何倍<b id="r3c">-</b></div></div>
+<p class="note">式：（あと − 前）÷ 前 × 100</p>
+</div>
+
+<h2>④ ○％増えて（減って）C になった。もとは？</h2>
+<div class="card">
+<div class="row"><input type="number" id="p4" value="10" inputmode="decimal" style="width:6em" aria-label="パーセント"> ％ <select id="d4" aria-label="増えたか減ったか"><option value="1">増えて</option><option value="-1">減って</option></select> <input type="number" id="c4" value="1100" inputmode="decimal" aria-label="結果の数"> になった</div>
+<div class="grid"><div>もとの数<b id="r4">-</b></div><div>変わった量<b id="r4b">-</b></div><div></div></div>
+<p class="note">式：C ÷（1 ± ○÷100）。例：10％増えて1,100なら、もとは1,000（1,100から10％引いた990ではありません）。</p>
+</div>
+
+<h2>⑤ ％ポイントの差</h2>
+<div class="card">
+<div class="row">前 <input type="number" id="a5" value="10" inputmode="decimal" style="width:6em" aria-label="前のパーセント"> ％ → あと <input type="number" id="b5" value="12" inputmode="decimal" style="width:6em" aria-label="あとのパーセント"> ％</div>
+<div class="grid"><div>差（ポイント）<b id="r5">-</b></div><div>もとから見た増減率<b id="r5b">-</b></div><div></div></div>
+<p class="note">ニュースの「支持率が2ポイント上がった」は、％どうしの引き算です。</p>
+</div>
+
+<h2>歩合の早見表</h2>
+<div class="card">
+<table><thead><tr><th>パーセント</th><th>小数</th><th>歩合</th><th>分数</th></tr></thead><tbody>
+<tr><td>100％</td><td>1</td><td>10割</td><td>1</td></tr>
+<tr><td>75％</td><td>0.75</td><td>7割5分</td><td>3/4</td></tr>
+<tr><td>50％</td><td>0.5</td><td>5割</td><td>1/2</td></tr>
+<tr><td>33.3％</td><td>0.333</td><td>3割3分3厘</td><td>1/3</td></tr>
+<tr><td>25％</td><td>0.25</td><td>2割5分</td><td>1/4</td></tr>
+<tr><td>20％</td><td>0.2</td><td>2割</td><td>1/5</td></tr>
+<tr><td>12.5％</td><td>0.125</td><td>1割2分5厘</td><td>1/8</td></tr>
+<tr><td>10％</td><td>0.1</td><td>1割</td><td>1/10</td></tr>
+<tr><td>1％</td><td>0.01</td><td>1分</td><td>1/100</td></tr>
+<tr><td>0.1％</td><td>0.001</td><td>1厘</td><td>1/1000</td></tr>
+</tbody></table>
+</div>
+
+<h2>よくある質問</h2>
+<dl class="faq">
+<dt>A は B の何パーセント？の式は？</dt><dd>A ÷ B × 100 です。例：30は120の 30÷120×100＝25％。</dd>
+<dt>増加率（増えた率）の式は？</dt><dd>（あと − 前）÷ 前 × 100 です。例：80から100なら 20÷80×100＝25％増。逆に100から80なら20％減で、同じ差でも「どちらを前にするか」で率が変わります。</dd>
+<dt>10％上がって10％下がると元に戻る？</dt><dd>戻りません。100が10％増で110、そこから10％減で99になります。</dd>
+<dt>％と％ポイントの違いは？</dt><dd>10％が12％になったとき、差は2ポイント、もとの10％から見た増加率は20％です。⑤で計算できます。</dd>
+<dt>「○割引」は何％？</dt><dd>1割＝10％です。3割引なら30％オフ。値段の割引は<a href="../zeikomi/">消費税計算</a>でも出せます。</dd>
+<dt>入れた数字は保存される？</dt><dd>計算はこのページの中だけで行い、数字を送ったり保存したりはしません。</dd>
+</dl>
+<p class="links"><a href="https://mirai-type-lab.github.io/zeikomi/?utm_source=wariai&amp;utm_medium=site&amp;utm_campaign=zeikomi">消費税計算</a><a href="https://mirai-type-lab.github.io/warikan/?utm_source=wariai&amp;utm_medium=site&amp;utm_campaign=warikan">割り勘計算</a><a href="https://mirai-type-lab.github.io/nissu/?utm_source=wariai&amp;utm_medium=site&amp;utm_campaign=nissu">日数計算</a><a href="https://mirai-type-lab.github.io/hirosa/?utm_source=wariai&amp;utm_medium=site&amp;utm_campaign=hirosa">広さ換算</a><a href="https://mirai-type-lab.github.io/mojisu/?utm_source=wariai&amp;utm_medium=site&amp;utm_campaign=mojisu">文字数カウント</a><a href="https://mirai-type-lab.github.io/news/?utm_source=wariai&amp;utm_medium=site&amp;utm_campaign=news">ネタぴよ（ニュース）</a></p>
+<footer>運営：未来タイプ診断ラボ／計算はこのページの中だけで行います。<br><a href="../about/">運営者情報</a>・<a href="../contact/">お問い合わせ</a>・<a href="../privacy/">プライバシーポリシー</a></footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const v=id=>{const n=parseFloat($(id).value);return isFinite(n)?n:NaN;};
+const f=(n,d=4)=>isFinite(n)?(Math.round(n*10**d)/10**d).toLocaleString(undefined,{maximumFractionDigits:d}):'-';
+function buai(p){if(!isFinite(p))return'-';const neg=p<0;let r=Math.round(Math.abs(p)*10)/10;let w=Math.floor(r/10),b=Math.floor(r%10),l=Math.round((r*10)%10);let s=(w?w+'割':'')+(b?b+'分':'')+(l?l+'厘':'');return (neg?'−':'')+(s||'0');}
+let sent=false;function ev(){if(!sent){sent=true;try{gtag('event','wariai_calc');}catch(e){}}}
+function calc(){
+ const a1=v('a1'),b1=v('b1');const p1=b1?a1/b1*100:NaN;
+ $('r1').textContent=isFinite(p1)?f(p1,2)+' ％':'-';$('r1b').textContent=buai(p1);$('r1c').textContent=isFinite(p1)?f(p1/100,4):'-';
+ const b2=v('b2'),p2=v('p2');$('r2').textContent=f(b2*p2/100,2);$('r2b').textContent=f(b2*(1+p2/100),2);$('r2c').textContent=f(b2*(1-p2/100),2);
+ const a3=v('a3'),b3=v('b3');const p3=a3?(b3-a3)/Math.abs(a3)*100:NaN;
+ $('r3l').firstChild.textContent=p3<0?'減少率':'増加率';$('r3').textContent=isFinite(p3)?f(Math.abs(p3),2)+' ％'+(p3<0?'減':p3>0?'増':''):'-';
+ $('r3b').textContent=isFinite(b3-a3)?(b3-a3>0?'＋':'')+f(b3-a3,4):'-';$('r3c').textContent=a3?f(b3/a3,4)+' 倍':'-';
+ const p4=v('p4'),d4=+$('d4').value,c4=v('c4');const k=1+d4*p4/100;const o=k?c4/k:NaN;
+ $('r4').textContent=f(o,2);$('r4b').textContent=isFinite(o)?f(c4-o,2):'-';
+ const a5=v('a5'),b5=v('b5');$('r5').textContent=isFinite(b5-a5)?(b5-a5>0?'＋':'')+f(b5-a5,2)+' ポイント':'-';
+ const q=a5?(b5-a5)/Math.abs(a5)*100:NaN;$('r5b').textContent=isFinite(q)?f(Math.abs(q),2)+' ％'+(q<0?'減':q>0?'増':''):'-';
+}
+document.querySelectorAll('input,select').forEach(e=>e.addEventListener('input',()=>{calc();ev();}));
+calc();
+</script>
+</body>
+</html>
