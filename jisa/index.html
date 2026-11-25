@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>時差計算｜日本時間と世界の今の時刻（サマータイム自動対応）</title>
+<meta name="description" content="ニューヨーク・ロンドン・ハワイ・ソウルなど世界の都市の今の時刻と日本との時差を一覧で。日本時間の何時が現地の何時かを変換、両方の昼間が重なる時間帯もひと目で。サマータイムは自動で反映します。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/jisa/">
+<meta property="og:title" content="時差計算｜日本時間と世界の今の時刻">
+<meta property="og:description" content="世界の都市の今の時刻と日本との時差。サマータイム自動対応、日本時間⇔現地時間の変換も。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/jisa/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"時差計算（日本時間と世界の時刻）","url":"https://mirai-type-lab.github.io/jisa/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"inLanguage":"ja"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"日本とニューヨークの時差は？","acceptedAnswer":{"@type":"Answer","text":"ふだんは14時間（日本のほうが14時間進んでいる）で、ニューヨークがサマータイムの間（3月の第2日曜〜11月の第1日曜）は13時間です。"}},{"@type":"Question","name":"日本とロンドンの時差は？","acceptedAnswer":{"@type":"Answer","text":"ふだんは9時間で、イギリスがサマータイムの間（3月の最終日曜〜10月の最終日曜）は8時間です。"}},{"@type":"Question","name":"日本とハワイの時差は？","acceptedAnswer":{"@type":"Answer","text":"ハワイはサマータイムが無く、1年じゅう19時間です（日本のほうが19時間進んでいる）。"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"未来タイプ診断ラボ","item":"https://mirai-type-lab.github.io/"},{"@type":"ListItem","position":2,"name":"時差計算","item":"https://mirai-type-lab.github.io/jisa/"}]}]}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#f7f9fd;color:#222;padding:24px 16px;line-height:1.8}
+.wrap{max-width:640px;margin:0 auto}
+h1{font-size:22px;text-align:center;letter-spacing:.04em;margin-top:8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:6px 0 16px}
+h2{font-size:16px;margin:24px 0 8px}
+.card{background:#fff;border:1px solid #e3e7ef;border-radius:12px;padding:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:14px;margin-bottom:8px}
+input,select{font-size:16px;padding:6px 8px;border:1px solid #ccc;border-radius:6px;max-width:100%;background:#fff}
+.res{font-size:14px;margin-top:6px}
+.res b{font-size:20px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px;background:#fff}
+th,td{border-bottom:1px solid #eef0f5;padding:6px;text-align:left;white-space:nowrap}
+th{background:#eef3fb;font-size:12px}
+td.t{font-variant-numeric:tabular-nums;font-weight:700}
+.dst{display:inline-block;font-size:11px;background:#fff3d6;color:#8a5a00;border-radius:4px;padding:0 5px;margin-left:4px}
+.night{color:#889}
+tr.ok td{background:#eaf7ee}
+.faq dt{font-weight:700;font-size:14px;margin-top:10px}
+.faq dd{font-size:13px;color:#444}
+.note{font-size:12px;color:#666;margin-top:8px}
+.links a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>時差計算</h1>
+<p class="sub">世界の今の時刻と日本との時差。サマータイムは自動で反映します。</p>
+
+<h2>今、世界は何時？</h2>
+<div class="card"><p class="note" id="jpnow"></p>
+<div class="tw"><table><thead><tr><th>都市</th><th>今の時刻</th><th>日本との差</th></tr></thead><tbody id="now"></tbody></table></div>
+<p class="note">「−14時間」は、その都市が日本より14時間おくれている、という意味です。</p></div>
+
+<h2>日本時間 ⇔ 現地時間</h2>
+<div class="card">
+<div class="row"><label>都市 <select id="city" aria-label="都市"></select></label></div>
+<div class="row"><label>日本時間 <input type="datetime-local" id="jp" aria-label="日本時間"></label></div>
+<div class="res" id="r1"></div>
+<div class="row" style="margin-top:12px"><label>現地時間 <input type="datetime-local" id="lc" aria-label="現地時間"></label></div>
+<div class="res" id="r2"></div>
+<p class="note" id="dstinfo"></p>
+</div>
+
+<h2>電話・オンライン会議によい時間</h2>
+<div class="card"><p class="note" id="mtgh"></p>
+<div class="tw"><table><thead><tr><th>日本</th><th id="mc">現地</th></tr></thead><tbody id="mtg"></tbody></table></div>
+<p class="note">緑の行は、日本と現地の両方が 8時〜21時 の時間帯です。</p></div>
+
+<h2>よくある質問</h2>
+<dl class="faq">
+<dt>日本とニューヨークの時差は？</dt><dd>ふだんは14時間、ニューヨークのサマータイム中（3月の第2日曜〜11月の第1日曜）は13時間です。日本のほうが進んでいます。</dd>
+<dt>日本とロンドンの時差は？</dt><dd>ふだんは9時間、イギリスのサマータイム中（3月の最終日曜〜10月の最終日曜）は8時間です。</dd>
+<dt>日本とハワイの時差は？</dt><dd>ハワイにはサマータイムが無く、1年じゅう19時間です。日本の朝は、ハワイでは前の日の昼ごろです。</dd>
+<dt>日本にサマータイムはある？</dt><dd>今の日本にはありません（1948〜1951年に行われたことがあります）。このため、相手の国がサマータイムに入ると、日本との時差が1時間ちぢみます。</dd>
+</dl>
+
+<p class="links"><a href="https://mirai-type-lab.github.io/nissu/?utm_source=jisa&amp;utm_medium=site&amp;utm_campaign=nissu">日数計算</a><a href="https://mirai-type-lab.github.io/nenrei/?utm_source=jisa&amp;utm_medium=site&amp;utm_campaign=nenrei">年齢早見表</a><a href="https://mirai-type-lab.github.io/hirosa/?utm_source=jisa&amp;utm_medium=site&amp;utm_campaign=hirosa">広さ換算</a><a href="https://mirai-type-lab.github.io/news/?utm_source=jisa&amp;utm_medium=site&amp;utm_campaign=news">ネタぴよ（ニュース）</a></p>
+<footer>運営：未来タイプ診断ラボ／時刻はお使いの端末の時計とブラウザのタイムゾーン情報（IANA）で計算し、どこにも送りません。各国のサマータイムの変更が端末に反映されていないと、ずれることがあります。</footer>
+</div>
+<script>
+const C=[['America/New_York','ニューヨーク'],['America/Los_Angeles','ロサンゼルス'],['Pacific/Honolulu','ハワイ（ホノルル）'],['America/Chicago','シカゴ'],['America/Toronto','トロント'],['America/Vancouver','バンクーバー'],['America/Sao_Paulo','サンパウロ'],['Europe/London','ロンドン'],['Europe/Paris','パリ'],['Europe/Berlin','ベルリン'],['Europe/Rome','ローマ'],['Europe/Madrid','マドリード'],['Asia/Dubai','ドバイ'],['Asia/Kolkata','デリー・ムンバイ'],['Asia/Bangkok','バンコク'],['Asia/Ho_Chi_Minh','ホーチミン・ハノイ'],['Asia/Jakarta','ジャカルタ'],['Asia/Singapore','シンガポール'],['Asia/Manila','マニラ'],['Asia/Shanghai','北京・上海'],['Asia/Hong_Kong','香港'],['Asia/Taipei','台北'],['Asia/Seoul','ソウル'],['Pacific/Guam','グアム'],['Australia/Sydney','シドニー'],['Pacific/Auckland','オークランド']];
+const JP='Asia/Tokyo';const $=id=>document.getElementById(id);
+const W='日月火水木金土';
+function parts(d,tz){const o={};new Intl.DateTimeFormat('en-US',{timeZone:tz,hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',weekday:'short'}).formatToParts(d).forEach(p=>o[p.type]=p.value);return{y:+o.year,mo:+o.month,d:+o.day,h:+o.hour%24,mi:+o.minute,w:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(o.weekday)}}
+function off(d,tz){const p=parts(d,tz);return Math.round((Date.UTC(p.y,p.mo-1,p.d,p.h,p.mi)-Math.floor(d.getTime()/60000)*60000)/60000)} // 分
+function fromLocal(s,tz){const m=s.match(/(\d+)-(\d+)-(\d+)T(\d+):(\d+)/);if(!m)return null;const g=Date.UTC(+m[1],m[2]-1,+m[3],+m[4],+m[5]);let t=g-off(new Date(g),tz)*60000;t=g-off(new Date(t),tz)*60000;return new Date(t)}
+const pad=n=>String(n).padStart(2,'0');
+const fmt=(d,tz,full)=>{const p=parts(d,tz);return(full?`${p.mo}月${p.d}日（${W[p.w]}）`:'')+`${pad(p.h)}:${pad(p.mi)}`};
+const iso=(d,tz)=>{const p=parts(d,tz);return`${p.y}-${pad(p.mo)}-${pad(p.d)}T${pad(p.h)}:${pad(p.mi)}`};
+const diff=(d,tz)=>{const m=off(d,tz)-off(d,JP);if(m==0)return'同じ';const h=Math.abs(m)/60;return(m<0?'−':'＋')+(Number.isInteger(h)?h:h.toFixed(1))+'時間'};
+function std(tz,d){const y=parts(d,tz).y;return Math.min(off(new Date(Date.UTC(y,0,15)),tz),off(new Date(Date.UTC(y,6,15)),tz))}
+const isDst=(d,tz)=>off(d,tz)>std(tz,d);
+function nextChange(tz,d){let t=d.getTime(),o=off(d,tz);for(let i=1;i<=400;i++){const u=t+i*86400000;if(off(new Date(u),tz)!=o){let lo=u-86400000,hi=u;while(hi-lo>60000){const md=(lo+hi)/2;off(new Date(md),tz)==o?lo=md:hi=md}return{at:new Date(hi),to:off(new Date(hi),tz)}}}return null}
+C.forEach(c=>$('city').add(new Option(c[1],c[0])));
+try{const q=new URLSearchParams(location.search).get('c');if(q&&C.some(c=>c[0]==q))$('city').value=q}catch(e){}
+function tick(){const d=new Date();$('jpnow').textContent='日本は今 '+fmt(d,JP,true);
+ $('now').innerHTML=C.map(c=>{const p=parts(d,c[0]);return`<tr><td>${c[1]}</td><td class="t${p.h<6||p.h>=22?' night':''}">${fmt(d,c[0],true)}</td><td>${diff(d,c[0])}${isDst(d,c[0])?'<span class="dst">サマータイム中</span>':''}</td></tr>`}).join('')}
+function conv(src){const tz=$('city').value,name=$('city').selectedOptions[0].text;
+ if(src!='lc'){const d=fromLocal($('jp').value,JP);if(d){$('lc').value=iso(d,tz);}}
+ else{const d=fromLocal($('lc').value,tz);if(d){$('jp').value=iso(d,JP);}}
+ const d=fromLocal($('jp').value,JP);if(!d)return;
+ $('r1').innerHTML=`${name}は <b>${fmt(d,tz,true)}</b>（日本との差 ${diff(d,tz)}）`;
+ $('r2').innerHTML=`日本は <b>${fmt(d,JP,true)}</b>`;
+ const n=nextChange(tz,new Date());
+ $('dstinfo').textContent=n?`${name}は次の ${fmt(n.at,tz,true).replace(/（.）.*/,'')} に${n.to>off(new Date(),tz)?'サマータイムが始まり、日本との差が1時間ちぢみます':'サマータイムが終わり、日本との差が1時間ひろがります'}（日本時間 ${fmt(n.at,JP,true)}）。`:`${name}には今のところサマータイムがありません。`;
+ const base=fromLocal(iso(new Date(),JP).slice(0,10)+'T00:00',JP);$('mc').textContent=name;$('mtgh').textContent=`日本の今日の各時刻が、${name}では何時か。`;
+ $('mtg').innerHTML=Array.from({length:24},(_,h)=>{const t=new Date(base.getTime()+h*3600000);const lp=parts(t,tz);const ok=h>=8&&h<21&&lp.h>=8&&lp.h<21;return`<tr class="${ok?'ok':''}"><td class="t">${pad(h)}:00</td><td class="t">${fmt(t,tz,true)}</td></tr>`}).join('')}
+$('jp').value=iso(new Date(),JP);
+let tm;const ev=()=>{clearTimeout(tm);tm=setTimeout(()=>{try{gtag('event','jisa_calc',{city:$('city').value})}catch(e){}},1500)};
+$('city').addEventListener('change',()=>{conv('jp');ev()});$('jp').addEventListener('input',()=>{conv('jp');ev()});$('lc').addEventListener('input',()=>{conv('lc');ev()});
+tick();conv('jp');setInterval(tick,15000);
+</script>
+</body>
+</html>
