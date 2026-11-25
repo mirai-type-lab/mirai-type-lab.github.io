@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>燃費・ガソリン代計算｜km/L・ドライブのガソリン代・割り勘</title>
+<meta name="description" content="走った距離と給油した量から燃費（km/L）、距離と燃費とガソリンの値段からドライブ・通勤のガソリン代と1人いくら（割り勘）、1か月・1年の目安、km/L⇔L/100km・mpgの換算まで。ガソリンの値段は自分で入れられます。無料・保存なし。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/nenpi/">
+<meta property="og:title" content="燃費・ガソリン代計算｜km/L・ドライブのガソリン代・割り勘">
+<meta property="og:description" content="燃費（km/L）、ドライブ・通勤のガソリン代と割り勘、1か月・1年の目安、L/100km・mpgの換算。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/nenpi/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"燃費・ガソリン代計算","url":"https://mirai-type-lab.github.io/nenpi/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"inLanguage":"ja"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"燃費はどうやって計算する？","acceptedAnswer":{"@type":"Answer","text":"満タンにしてから次に満タンにするまでに走った距離（km）を、2回目に入れた量（L）で割ると、1Lあたり走った距離（km/L）が出ます。"}},{"@type":"Question","name":"ガソリン代はどう出す？","acceptedAnswer":{"@type":"Answer","text":"走る距離÷燃費で使うガソリンの量（L）を出し、1Lの値段をかけます。100kmを燃費15km/L・1L 170円なら、約6.7L×170円で約1,133円です。"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"未来タイプ診断ラボ","item":"https://mirai-type-lab.github.io/"},{"@type":"ListItem","position":2,"name":"燃費・ガソリン代計算","item":"https://mirai-type-lab.github.io/nenpi/"}]}]}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#f7f9fd;color:#222;padding:24px 16px;line-height:1.8}
+.wrap{max-width:640px;margin:0 auto}
+h1{font-size:22px;text-align:center;letter-spacing:.04em;margin-top:8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:6px 0 16px}
+h2{font-size:16px;margin:24px 0 8px}
+.card{background:#fff;border:1px solid #e3e7ef;border-radius:12px;padding:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:14px;margin:6px 0}
+input,select{font-size:16px;padding:6px 8px;border:1px solid #ccc;border-radius:6px;font-family:inherit;background:#fff}
+input[type=number]{width:7em}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.grid div{background:#f3f6fb;border-radius:8px;padding:8px 10px;font-size:12px;color:#555;min-width:0}
+.grid b{display:block;font-size:19px;color:#222;word-break:break-all}
+@media(max-width:420px){.grid{grid-template-columns:1fr 1fr}}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+th,td{border-bottom:1px solid #e3e7ef;padding:5px 4px;text-align:right}
+th:first-child,td:first-child{text-align:left}
+.faq dt{font-weight:700;font-size:14px;margin-top:10px}
+.faq dd{font-size:13px;color:#444}
+.note{font-size:12px;color:#666;margin-top:8px}
+.links a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
+footer a{color:#999}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>燃費・ガソリン代計算</h1>
+<p class="sub">燃費・ドライブのガソリン代・割り勘を、入れるそばから計算。</p>
+
+<h2>ガソリン代と割り勘</h2>
+<div class="card">
+<div class="row">距離 <input type="number" id="d" value="200" min="0" inputmode="decimal" aria-label="走る距離（km）"> km <select id="rt" aria-label="片道か往復か"><option value="1">片道（そのまま）</option><option value="2">往復（2倍）</option></select></div>
+<div class="row">燃費 <input type="number" id="e" value="15" min="0" step="0.1" inputmode="decimal" style="width:5em" aria-label="燃費（km/L）"> km/L　1L <input type="number" id="p" value="170" min="0" inputmode="decimal" style="width:5em" aria-label="ガソリン1Lの値段（円）"> 円</div>
+<div class="row">人数 <input type="number" id="n" value="3" min="1" inputmode="numeric" style="width:4em" aria-label="人数"> 人　高速・駐車場など <input type="number" id="x" value="0" min="0" inputmode="numeric" aria-label="ほかにかかったお金（円）"> 円</div>
+<div class="grid">
+<div>使うガソリン<b id="oL">-</b></div>
+<div>ガソリン代<b id="oY">-</b></div>
+<div>1kmあたり<b id="oK">-</b></div>
+<div>合計（高速など込み）<b id="oT">-</b></div>
+<div>1人あたり<b id="oP">-</b></div>
+<div>1人（10円単位で切り上げ）<b id="oR">-</b></div>
+</div>
+<p class="note">1Lの値段は例です。今日の値段はスタンドの表示やレシートを見て入れてください。燃費は車の表示（平均燃費）か、下の「燃費を出す」で出した値が実際に近いです。</p>
+</div>
+
+<h2>燃費を出す（満タン法）</h2>
+<div class="card">
+<div class="row">走った距離 <input type="number" id="fd" value="420" min="0" inputmode="decimal" aria-label="走った距離（km）"> km　入れた量 <input type="number" id="fl" value="30" min="0" step="0.01" inputmode="decimal" style="width:6em" aria-label="給油した量（L）"> L</div>
+<div class="grid"><div>燃費<b id="fO">-</b></div><div>100kmで使う量<b id="f1">-</b></div><div>この燃費で上に入れる<b><button id="use" style="font-size:14px;padding:4px 10px;border-radius:6px;border:1px solid #222;background:#222;color:#fff">使う</button></b></div></div>
+<p class="note">満タンにした時にトリップメーターを0にし、次に満タンにした時の距離と、2回目に入れた量で計算します。</p>
+</div>
+
+<h2>通勤・毎月のガソリン代</h2>
+<div class="card">
+<div class="row">片道 <input type="number" id="cd" value="12" min="0" inputmode="decimal" style="width:5em" aria-label="片道の距離（km）"> km × 往復 × 月 <input type="number" id="cn" value="20" min="0" inputmode="numeric" style="width:4em" aria-label="1か月の日数"> 日</div>
+<div class="grid"><div>1日<b id="c1">-</b></div><div>1か月<b id="cM">-</b></div><div>1年<b id="cY">-</b></div></div>
+<p class="note">燃費と1Lの値段は一番上の欄の値を使います。</p>
+</div>
+
+<h2>km/L ⇔ L/100km ⇔ mpg</h2>
+<div class="card">
+<div class="row"><input type="number" id="ce" value="15" step="0.1" inputmode="decimal" style="width:6em" aria-label="燃費（km/L）"> km/L ＝ <b id="cv1">-</b> L/100km ＝ <b id="cv2">-</b> mpg（米）</div>
+<div class="row"><input type="number" id="cl" value="6" step="0.1" inputmode="decimal" style="width:6em" aria-label="L/100km"> L/100km ＝ <b id="cv3">-</b> km/L　　<input type="number" id="cg" value="30" step="0.1" inputmode="decimal" style="width:6em" aria-label="mpg（米）"> mpg ＝ <b id="cv4">-</b> km/L</div>
+<p class="note">L/100kmはヨーロッパなど、mpg（マイル/ガロン）はアメリカで使われる表し方です。1マイル＝1.609344km、1米ガロン＝3.785411784L。</p>
+</div>
+
+<h2>100kmあたりのガソリン代 早見表</h2>
+<div class="card">
+<table id="tb"><thead></thead><tbody></tbody></table>
+<p class="note">1Lの値段は一番上の欄の値と、その前後10円で出しています。</p>
+</div>
+
+<h2>よくある質問</h2>
+<dl class="faq">
+<dt>燃費はどうやって計算する？</dt><dd>満タンにしてから次に満タンにするまでに走った距離（km）を、2回目に入れた量（L）で割ります。420km÷30L＝14km/Lです。</dd>
+<dt>ガソリン代はどう出す？</dt><dd>走る距離÷燃費で使う量（L）を出し、1Lの値段をかけます。100kmを15km/L・1L 170円なら、約6.7L×170円で約1,133円です。</dd>
+<dt>カタログの燃費と合わないのは？</dt><dd>カタログの燃費（WLTCモードなど）は決まった条件での試験の値です。渋滞・エアコン・荷物・タイヤの空気圧・運転の仕方で実際の燃費は変わります。</dd>
+<dt>入れた数字は保存される？</dt><dd>計算はこのページの中だけで行い、送ったり保存したりはしません。</dd>
+</dl>
+<p class="links"><a href="https://mirai-type-lab.github.io/warikan/?utm_source=nenpi&amp;utm_medium=site&amp;utm_campaign=warikan">割り勘計算</a><a href="https://mirai-type-lab.github.io/denkidai/?utm_source=nenpi&amp;utm_medium=site&amp;utm_campaign=denkidai">電気代計算</a><a href="https://mirai-type-lab.github.io/tani/?utm_source=nenpi&amp;utm_medium=site&amp;utm_campaign=tani">単位換算</a><a href="https://mirai-type-lab.github.io/jikan/?utm_source=nenpi&amp;utm_medium=site&amp;utm_campaign=jikan">時間計算</a><a href="https://mirai-type-lab.github.io/zeikomi/?utm_source=nenpi&amp;utm_medium=site&amp;utm_campaign=zeikomi">消費税計算</a><a href="https://mirai-type-lab.github.io/wariai/?utm_source=nenpi&amp;utm_medium=site&amp;utm_campaign=wariai">パーセント計算</a><a href="https://mirai-type-lab.github.io/news/?utm_source=nenpi&amp;utm_medium=site&amp;utm_campaign=news">ネタぴよ（ニュース）</a></p>
+<footer>運営：未来タイプ診断ラボ／計算はこのページの中だけで行います。<br><a href="../about/">運営者情報</a>・<a href="../contact/">お問い合わせ</a>・<a href="../privacy/">プライバシーポリシー</a></footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const sent={};function ev(t){if(!sent[t]){sent[t]=true;try{gtag('event','nenpi_'+t);}catch(e){}}}
+const num=id=>{const v=parseFloat($(id).value);return isFinite(v)&&v>=0?v:0;};
+const yen=n=>Math.round(n).toLocaleString('ja-JP')+'円';
+const r=(n,k)=>{const f=Math.pow(10,k);return (Math.round(n*f)/f).toLocaleString('ja-JP');};
+const MI=1.609344,GAL=3.785411784;
+function main(){
+ const d=num('d')*(+$('rt').value),e=num('e'),p=num('p'),n=Math.max(1,Math.floor(num('n'))||1),x=num('x');
+ if(e<=0){['oL','oY','oK','oT','oP','oR'].forEach(i=>$(i).textContent='-');return;}
+ const L=d/e,Y=L*p,T=Y+x,per=T/n;
+ $('oL').textContent=r(L,1)+' L';$('oY').textContent=yen(Y);$('oK').textContent=r(p/e,1)+'円';
+ $('oT').textContent=yen(T);$('oP').textContent=yen(per);$('oR').textContent=yen(Math.ceil(per/10)*10);
+ commute();table();ev('cost');
+}
+function fuel(){const fd=num('fd'),fl=num('fl');if(fl<=0||fd<=0){$('fO').textContent='-';$('f1').textContent='-';return;}
+ const k=fd/fl;$('fO').textContent=r(k,1)+' km/L';$('f1').textContent=r(100/k,1)+' L';ev('fuel');}
+function commute(){const e=num('e'),p=num('p');if(e<=0)return;const day=num('cd')*2/e*p;
+ $('c1').textContent=yen(day);$('cM').textContent=yen(day*num('cn'));$('cY').textContent=yen(day*num('cn')*12);}
+function conv(){const ce=num('ce'),cl=num('cl'),cg=num('cg');
+ $('cv1').textContent=ce>0?r(100/ce,2):'-';$('cv2').textContent=ce>0?r(ce*GAL/MI,1):'-';
+ $('cv3').textContent=cl>0?r(100/cl,2):'-';$('cv4').textContent=cg>0?r(cg*MI/GAL,2):'-';ev('conv');}
+function table(){const p=num('p');const ps=[Math.max(0,p-10),p,p+10];
+ $('tb').tHead.innerHTML='<tr><th>燃費</th>'+ps.map(v=>'<th>1L '+r(v,0)+'円</th>').join('')+'</tr>';
+ let h='';[8,10,12,15,18,20,25,30].forEach(k=>{h+='<tr><td>'+k+' km/L</td>'+ps.map(v=>'<td>'+yen(100/k*v)+'</td>').join('')+'</tr>';});
+ $('tb').tBodies[0].innerHTML=h;}
+['d','rt','e','p','n','x'].forEach(i=>$(i).addEventListener('input',main));
+['fd','fl'].forEach(i=>$(i).addEventListener('input',fuel));
+['cd','cn'].forEach(i=>$(i).addEventListener('input',()=>{commute();ev('commute');}));
+['ce','cl','cg'].forEach(i=>$(i).addEventListener('input',conv));
+$('use').addEventListener('click',()=>{const fd=num('fd'),fl=num('fl');if(fl>0&&fd>0){$('e').value=(Math.round(fd/fl*10)/10);main();ev('use');}});
+main();fuel();conv();for(const k in sent)delete sent[k];
+</script>
+</body>
+</html>
