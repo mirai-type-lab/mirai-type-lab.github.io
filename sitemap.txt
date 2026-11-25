@@ -27,6 +27,9 @@ https://mirai-type-lab.github.io/news/c/keizai/
 https://mirai-type-lab.github.io/news/c/seiji/
 https://mirai-type-lab.github.io/news/c/odekake/
 https://mirai-type-lab.github.io/news/c/kagaku/
+https://mirai-type-lab.github.io/news/juyo-tochi-1126/
+https://mirai-type-lab.github.io/news/service-kakaku-1126/
+https://mirai-type-lab.github.io/news/doyou-ame-1126/
 https://mirai-type-lab.github.io/news/shimon-yosan-1125/
 https://mirai-type-lab.github.io/news/getsurei-1125/
 https://mirai-type-lab.github.io/news/denwan-kokusai-1125/
