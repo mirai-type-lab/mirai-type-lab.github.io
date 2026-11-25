@@ -102,6 +102,8 @@ input[type=text]:focus { outline: none; border-color: #6c5ce7; }
 .others { margin-top: 26px; padding-top: 14px; border-top: 1px solid #eee; text-align: center; }
 .others p { font-size: 12px; color: #999; letter-spacing: .2em; margin-bottom: 8px; }
 .others a { display: block; padding: 11px; margin-bottom: 8px; border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #222; font-size: 14px; text-decoration: none; }
+.site-foot { margin: 28px 0 8px; font-size: 11px; color: #999; line-height: 1.9; text-align: center; }
+.site-foot a { color: #999; }
 </style>
 <script>
   (function(){
@@ -195,6 +197,7 @@ input[type=text]:focus { outline: none; border-color: #6c5ce7; }
 <button class="cont" id="pcont">残り45問に進む</button>
 <button class="share" id="pshare">暫定結果をXでシェアする</button>
 </div>
+<footer class="site-foot">運営：未来タイプ診断ラボ<br><a href="/about/">運営者情報</a>／<a href="/contact/">お問い合わせ</a>／<a href="/privacy/">プライバシーポリシー</a></footer>
 </div>
 
 <script>
@@ -469,22 +472,22 @@ const HYBRIDS = {
 const SHARE_URL = "https://mirai-type-lab.github.io/?src=xshare"; // 共有リンク（計測用の目印 src=xshare つき。X投稿文にもこのまま入る）
 const SHARE_URL_PRE = "https://mirai-type-lab.github.io/?src=xshare_pre"; // 暫定カード用の共有リンク（最終と目印を分ける。流入は mirai_src_xshare_pre として別に数える）
 
-// ===== 本番計測（Worker「tomeren-go」の /count・/stats を流用。名前空間は mirai_ で分ける） =====
+// ===== 本番計測（未来タイプ診断専用の Worker「mirai-count」の /count・/stats。名前は mirai_ で始める） =====
 // 送る名前： mirai_view（表示）/ mirai_src_<流入元> / mirai_start（開始）/ mirai_result（結果表示）
 //           mirai_type_<コード>（タイプ別＝分布の実測用）/ mirai_share（共有タップ＝KPI）/ mirai_heart（ハート）
 //           mirai_provisional（暫定カード表示＝2段構成の離脱率の測定用）/ mirai_provisional_share（暫定カードの共有タップ）
-// /count は sendBeacon 等の片道送信なので現行Workerのまま動く。
+// /count は sendBeacon 等の片道送信。
 // /stats の読み取り（カウンタ・ハート総数の表示）には Worker 側で /stats 応答への
 // Access-Control-Allow-Origin ヘッダー追加が必要（未追加の間は数字を出さず、記録だけが動く）。
-const MEASURE_BASE = "https://tomeren-go.vansboffice.workers.dev";
+const MEASURE_BASE = "https://mirai-count.vansboffice.workers.dev";
 (function(){
   try{
     const q = new URLSearchParams(location.search).get("me");
-    if(q === "1") localStorage.setItem("tomeren-me", "1");
-    if(q === "0") localStorage.removeItem("tomeren-me");
+    if(q === "1") localStorage.setItem("mirai-me", "1");
+    if(q === "0") localStorage.removeItem("mirai-me");
   }catch(e){}
 })();
-function miraiIsMe(){ try{ return localStorage.getItem("tomeren-me") === "1"; }catch(e){ return false; } }
+function miraiIsMe(){ try{ return localStorage.getItem("mirai-me") === "1"; }catch(e){ return false; } }
 function miraiCount(p){
   if(miraiIsMe()) return;
   const u = MEASURE_BASE + "/count?p=" + encodeURIComponent(p);
