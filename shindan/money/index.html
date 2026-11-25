@@ -61,6 +61,7 @@ h1 { font-size: 22px; text-align: center; font-weight: 700; letter-spacing: .12e
 .again { width: 100%; margin-top: 8px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #666; font-size: 13px; cursor: pointer; }
 .links { margin-top: 26px; font-size: 13px; line-height: 2; text-align: center; }
 .links a { color: #6c5ce7; }
+footer a { color: #999; }
 footer { margin-top: 26px; font-size: 11px; color: #aaa; line-height: 1.8; text-align: center; }
 .seo{margin-top:36px;font-size:13px;line-height:1.9;color:#444}
 .seo h2{font-size:16px;margin:24px 0 10px;color:#222}
@@ -153,7 +154,7 @@ footer { margin-top: 26px; font-size: 11px; color: #aaa; line-height: 1.8; text-
 <dt>投資や商品をすすめられますか？</dt><dd>すすめません。結果は、ふだんのお金の使い方を見直すための「今やること」1つだけです。</dd>
 </dl>
 </section>
-<footer>運営：未来タイプ診断ラボ／この診断はあそびです。答えは送られず、この画面の中だけで判定します。</footer>
+<footer>運営：未来タイプ診断ラボ／この診断はあそびです。答えは送られず、この画面の中だけで判定します。<br><a href="/about/">運営者情報</a>／<a href="/contact/">お問い合わせ</a>／<a href="/privacy/">プライバシーポリシー</a></footer>
 </div>
 
 <script>
@@ -225,12 +226,12 @@ function judge(ans){
   return { code, pt };
 }
 
-// ===== 計測（未来タイプ診断と同じWorker。名前は money_ で分ける。?me=1 の人は数えない） =====
-const MEASURE_BASE = "https://tomeren-go.vansboffice.workers.dev";
+// ===== 計測（未来タイプ診断専用の mirai-count。名前は money_ で分ける。?me=1 の人は数えない） =====
+const MEASURE_BASE = "https://mirai-count.vansboffice.workers.dev";
 (function(){ try{ const q = new URLSearchParams(location.search).get("me");
-  if(q === "1") localStorage.setItem("tomeren-me", "1");
-  if(q === "0") localStorage.removeItem("tomeren-me"); }catch(e){} })();
-function isMe(){ try{ return localStorage.getItem("tomeren-me") === "1" || localStorage.getItem("mirai-me") === "1"; }catch(e){ return false; } }
+  if(q === "1") localStorage.setItem("mirai-me", "1");
+  if(q === "0") localStorage.removeItem("mirai-me"); }catch(e){} })();
+function isMe(){ try{ return localStorage.getItem("mirai-me") === "1"; }catch(e){ return false; } }
 function count(p){
   if(isMe()) return;
   const u = MEASURE_BASE + "/count?p=" + encodeURIComponent(p);
