@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>家のそなえチェック｜停電・断水・大雪の前にやること</title>
+<meta name="description" content="停電・断水・大雪の前に家でやることを、チェックしながら確かめられる1ページ。水は1人1日3リットル×3日分など、首相官邸・国土交通省・消防庁の公式の備えの項目だけをまとめました。冬は大雪と車の備えも。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/sonae/">
+<meta property="og:title" content="家のそなえチェック｜いくつ付けられる？">
+<meta property="og:description" content="停電・断水・大雪の前にやることを、公式の項目でチェック。1年じゅう使えます。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/sonae/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#f7f9fd;color:#222;padding:24px 16px;line-height:1.8}
+.wrap{max-width:560px;margin:0 auto}
+h1{font-size:22px;text-align:center;letter-spacing:.06em;margin-top:8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:6px 0 16px}
+.score{position:sticky;top:0;background:#f7f9fd;padding:8px 0;z-index:2}
+.bar{height:10px;background:#e3e7ef;border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#1f9d6b;transition:width .3s}
+.score p{font-size:13px;text-align:center;margin-top:4px}
+h2{font-size:16px;margin:22px 0 4px}
+.why{font-size:12px;color:#666;margin-bottom:8px}
+.season{display:inline-block;font-size:11px;padding:0 8px;border-radius:10px;background:#e6eefc;color:#2b5cab;margin-left:6px;vertical-align:middle}
+label.item{background:#fff;border:1px solid #e3e7ef;border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;gap:12px;cursor:pointer;font-size:14px}
+label.item.done{opacity:.55}
+label.item input{width:22px;height:22px;flex:none;margin-top:2px;accent-color:#1f9d6b}
+.src{font-size:11px;color:#888;margin:2px 0 6px}
+.src a{color:#2b5cab}
+.note{font-size:12px;color:#666;background:#fff;border:1px dashed #ccc;border-radius:8px;padding:12px;margin-top:8px}
+.btns{text-align:center;margin-top:12px}
+.btns button{font-size:12px;padding:6px 12px;border:1px solid #ccc;background:#fff;border-radius:6px;margin:4px}
+.cta{background:#fff;border:1px solid #e3e7ef;border-radius:10px;padding:14px;margin-top:16px;font-size:13px}
+.cta a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>家のそなえチェック</h1>
+<p class="sub">停電・断水・大雪の前に、家でやることを1つずつ。済んだらチェック（この端末にだけ残ります）。</p>
+<div class="score"><div class="bar"><i id="bar"></i></div><p id="sc"></p></div>
+<div id="list"></div>
+
+<h2>ここに書いていないこと</h2>
+<p class="note">ここにあるのは公式のページに書かれた一般的な備えです。家族の人数・持病・赤ちゃんやペットの有無で必要な物は変わります。自分の地域の避難場所や雪の情報は、住んでいる市区町村のハザードマップと気象庁の注意報・警報で確かめてください。具合が悪い時は迷わず119番や医療機関へ。</p>
+<div class="btns"><button id="share">チェック数をシェア</button><button id="reset">チェックを全部外す</button></div>
+
+<div class="cta">ほかにも：
+<a href="https://mirai-type-lab.github.io/news/c/bousai/?utm_source=sonae&amp;utm_medium=site&amp;utm_campaign=sonae">ネタぴよ 防災のニュース</a><a href="https://mirai-type-lab.github.io/tetsuzuki/?utm_source=sonae&amp;utm_medium=site&amp;utm_campaign=sonae">くらしの手続きカレンダー</a></div>
+<footer>未来タイプ診断ラボ ・ 公式ページの最終確認 2026年11月25日</footer>
+</div>
+<script>
+var K="https://www.kantei.go.jp/jp/headline/bousai/sonae.html",KN="首相官邸「災害に対するご家庭での備え」",
+M="https://www.mlit.go.jp/common/001382233.pdf",MN="国土交通省「雪下ろし安全10箇条」",
+F="https://www.fdma.go.jp/publication/ugoki/items/rei_0212_26.pdf",FN="消防庁「雪害に対する備え」（消防の動き 2020年12月号）";
+var G=[
+{id:"basic",h:"まずはここから（いつでも）",why:"どの災害でも同じ。人数分そろえるのがポイント。",s:[[KN,K]],i:[
+["water","飲み水を3日分（1人1日3リットルが目安）"],
+["food","非常食を3日分（アルファ米・缶詰・乾パンなど）。大きな災害に備えるなら1週間分"],
+["toilet","携帯トイレ・簡易トイレ、トイレットペーパー・ティッシュ"],
+["bag","非常持ち出し袋（リュック）を玄関の近くに"],
+["light","懐中電灯・スリッパ・ホイッスルを寝る所の手の届く所に"],
+["map","ハザードマップで避難場所と道順を家族で確かめた"],
+["171","家族と「災害用伝言ダイヤル171」の使い方を決めた（毎月1日・15日などに体験できる）"],
+["kagu","家具を壁に固定した／寝る部屋に倒れる家具を置かない"]]},
+{id:"teiden",h:"停電・断水にそなえる",why:"水道や電気が止まっても数日すごせるように。",s:[[KN,K],[FN,F]],i:[
+["seikatsu","飲み水とは別に、生活用の水（ポリタンクに水道水・お風呂に水を張る）"],
+["konro","カセットコンロとボンベ、マッチ・ろうそく"],
+["radio","携帯ラジオ（電池も）"]]},
+{id:"yuki",h:"大雪の前に（家）",season:1,why:"雪の日の死亡事故は、屋根の雪下ろしなど除雪中がとても多い。",s:[[FN,F],[MN,M]],i:[
+["gaishutsu","大雪の予報が出たら、急がない外出はやめる"],
+["ff","FF式暖房機の給気・排気口のまわりの雪をどける"],
+["futari","雪下ろしは2人以上で。携帯電話を身につける"],
+["inochi","命綱・あごひものヘルメット・すべりにくい長靴を用意"],
+["hashigo","はしごは固定する。晴れて暖かい日ほどすべりやすいので注意"],
+["nokosu","雪下ろしの時は建物のまわりに雪を少し残す（落ちた時のクッション）"],
+["muri","疲れたら休む。無理はしない"]]},
+{id:"kuruma",h:"車で出る人（冬）",season:1,why:"立ち往生すると何時間も動けないことがある。",s:[[FN,F]],i:[
+["tire","スタッドレスタイヤ・タイヤチェーンを早めに"],
+["tsumu","防寒着・長靴・手袋・カイロ・スコップ・けん引ロープ・毛布・飲み水・非常食を積む"],
+["muffler","車の中で待つ時は、マフラーのまわりの雪をこまめにどけて換気（一酸化炭素中毒を防ぐ）"],
+["kagi","車を離れる時はドアをロックせず、キーを車内の分かりやすい所に"],
+["kyujo","動けなくなったら早めに助けを呼ぶ"]]}
+];
+var S={};try{S=JSON.parse(localStorage.getItem("sonae")||"{}")}catch(e){}
+function save(){try{localStorage.setItem("sonae",JSON.stringify(S))}catch(e){}}
+var mon=new Date(Date.now()+9*3600e3).getUTCMonth()+1,winter=(mon>=11||mon<=3);
+/* 冬（11〜3月）は大雪・車を先に出す */
+var order=winter?[G[2],G[3],G[0],G[1]]:G;
+var L=document.getElementById("list"),all=[];
+order.forEach(function(g){
+ var h=document.createElement("h2");h.textContent=g.h;
+ if(g.season){var b=document.createElement("span");b.className="season";b.textContent=winter?"今の季節":"冬に";h.appendChild(b);}
+ L.appendChild(h);
+ var w=document.createElement("p");w.className="why";w.textContent=g.why;L.appendChild(w);
+ g.i.forEach(function(it){
+  var k=g.id+"-"+it[0];all.push(k);
+  var lb=document.createElement("label");lb.className="item";
+  var c=document.createElement("input");c.type="checkbox";c.checked=!!S[k];
+  var sp=document.createElement("span");sp.textContent=it[1];
+  lb.appendChild(c);lb.appendChild(sp);if(c.checked)lb.classList.add("done");
+  c.onchange=function(){S[k]=c.checked;lb.classList.toggle("done",c.checked);save();up();
+   try{gtag('event','sonae_check',{item:k,on:c.checked?1:0})}catch(e){}};
+  L.appendChild(lb);
+ });
+ var p=document.createElement("p");p.className="src";p.appendChild(document.createTextNode("出どころ："));
+ g.s.forEach(function(s,j){if(j)p.appendChild(document.createTextNode("／"));var a=document.createElement("a");a.href=s[1];a.target="_blank";a.rel="noopener";a.textContent=s[0];p.appendChild(a);});
+ L.appendChild(p);
+});
+function cnt(){return all.filter(function(k){return S[k]}).length}
+function up(){var n=cnt();document.getElementById("bar").style.width=(n/all.length*100)+"%";
+ document.getElementById("sc").textContent="チェック "+n+" / "+all.length+(n===all.length?"　全部できた！":"");}
+up();
+document.getElementById("reset").onclick=function(){if(!confirm("チェックを全部外しますか？"))return;S={};save();
+ document.querySelectorAll("label.item input").forEach(function(c){c.checked=false;c.parentNode.classList.remove("done")});up();};
+document.getElementById("share").onclick=function(){
+ var t="家のそなえチェック、"+cnt()+"/"+all.length+"できた。停電・断水・大雪の前に家でやること",u="https://mirai-type-lab.github.io/sonae/?utm_source=share&utm_medium=social&utm_campaign=sonae";
+ try{gtag('event','sonae_share',{n:cnt()})}catch(e){}
+ if(navigator.share){navigator.share({text:t,url:u}).catch(function(){})}else{window.open("https://x.com/intent/post?text="+encodeURIComponent(t)+"&url="+encodeURIComponent(u),"_blank")}
+};
+</script>
+</body>
+</html>
