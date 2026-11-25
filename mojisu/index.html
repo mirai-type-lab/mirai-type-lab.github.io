@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文字数カウント｜空白・改行を除く文字数、原稿用紙の枚数、Xの文字数もすぐ</title>
+<meta name="description" content="貼りつけるだけで文字数をその場で数えます。空白・改行を含む／除く、行数、原稿用紙（400字詰め）の枚数、全角・半角、バイト数、X（旧Twitter）の文字数の目安、指定字数まであと何字。入れた文章はどこにも送りません。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/mojisu/">
+<meta property="og:title" content="文字数カウント｜空白・改行を除く文字数も原稿用紙の枚数も">
+<meta property="og:description" content="貼りつけるだけで文字数・行数・原稿用紙の枚数・Xの文字数をすぐ。文章は送りません。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/mojisu/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"文字数カウント","url":"https://mirai-type-lab.github.io/mojisu/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"inLanguage":"ja"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"原稿用紙の枚数はどう数える？","acceptedAnswer":{"@type":"Answer","text":"400字詰め（20字×20行）として、改行ごとに新しい行から書いた場合の行数を数え、20行で1枚として計算します。字数÷400の単純な割り算より多めになります。"}},{"@type":"Question","name":"Xの文字数はどう数える？","acceptedAnswer":{"@type":"Answer","text":"Xでは日本語（全角）1文字を2、半角英数字1文字を1と数え、合計280までです。URLは長さにかかわらず23と数えます。このページの数は目安です。"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"未来タイプ診断ラボ","item":"https://mirai-type-lab.github.io/"},{"@type":"ListItem","position":2,"name":"文字数カウント","item":"https://mirai-type-lab.github.io/mojisu/"}]}]}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#f7f9fd;color:#222;padding:24px 16px;line-height:1.8}
+.wrap{max-width:640px;margin:0 auto}
+h1{font-size:22px;text-align:center;letter-spacing:.04em;margin-top:8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:6px 0 16px}
+h2{font-size:16px;margin:24px 0 8px}
+.card{background:#fff;border:1px solid #e3e7ef;border-radius:12px;padding:14px}
+textarea{width:100%;min-height:180px;font-size:16px;line-height:1.7;padding:10px;border:1px solid #ccc;border-radius:8px;resize:vertical;font-family:inherit}
+.top{display:flex;justify-content:space-between;align-items:baseline;margin:8px 0 4px;flex-wrap:wrap;gap:6px}
+.top b{font-size:28px}
+.btns button{font-size:13px;padding:6px 10px;border:1px solid #ccc;border-radius:6px;background:#fff;cursor:pointer;margin-left:4px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px}
+.grid div{background:#f3f6fb;border-radius:8px;padding:8px 10px;font-size:12px;color:#555}
+.grid b{display:block;font-size:20px;color:#222}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:14px;margin-top:10px}
+input{font-size:16px;padding:6px 8px;border:1px solid #ccc;border-radius:6px;width:6em}
+.ok{color:#1a7f37}.ng{color:#d33}
+.faq dt{font-weight:700;font-size:14px;margin-top:10px}
+.faq dd{font-size:13px;color:#444}
+.note{font-size:12px;color:#666;margin-top:8px}
+.links a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>文字数カウント</h1>
+<p class="sub">貼りつけるだけで、その場で数えます。文章はどこにも送りません。</p>
+
+<div class="card">
+<textarea id="t" placeholder="ここに文章を入れるか、貼りつけてください" aria-label="数える文章"></textarea>
+<div class="top"><span>文字数（空白・改行もふくむ） <b id="c0">0</b> 字</span><span class="btns"><button id="cp" type="button">コピー</button><button id="cl" type="button">消す</button></span></div>
+<div class="grid">
+<div>空白・改行を除く<b id="c1">0</b></div>
+<div>改行だけ除く<b id="c2">0</b></div>
+<div>行数<b id="c3">0</b></div>
+<div>段落（空行で区切り）<b id="c4">0</b></div>
+<div>原稿用紙（400字詰め）<b id="c5">0 枚</b></div>
+<div>全角／半角<b id="c6">0／0</b></div>
+<div>バイト数（UTF-8）<b id="c7">0</b></div>
+<div>X の文字数（目安）<b id="c8">0／280</b></div>
+</div>
+<div class="row"><label>指定の字数 <input type="number" id="lim" value="400" min="1" inputmode="numeric"></label> 字まで <span id="rest"></span></div>
+<p class="note">指定の字数は「空白・改行を除く」で比べます。絵文字や「が」などの合字は見た目の1字を1と数えます。</p>
+</div>
+
+<h2>よくある質問</h2>
+<dl class="faq">
+<dt>原稿用紙の枚数はどう数える？</dt><dd>400字詰め（20字×20行）として、改行のたびに次の行から書いたときの行数を出し、20行で1枚と数えます。段落の頭の1字下げや、行の頭に句読点を置かない決まりまでは入れていないので、目安です。</dd>
+<dt>X（旧Twitter）の文字数は？</dt><dd>日本語など全角の文字は1字を2、半角の英数字は1と数え、合計280までが1つの投稿です（日本語だけなら140字）。URLは長さにかかわらず23と数えます。Xの仕様が変わることがあるので目安です。</dd>
+<dt>レポートの「○○字以内」は空白を数える？</dt><dd>決まりは出す先によって違います。指定が無いときは、空白・改行を除いた字数で考える人が多いので、迷ったら出す先に確かめてください。</dd>
+<dt>入れた文章は保存される？</dt><dd>数える計算はこのページの中だけで行い、文章を送ったり保存したりはしません。ページを閉じると消えます。</dd>
+</dl>
+
+<p class="links"><a href="https://mirai-type-lab.github.io/nissu/?utm_source=mojisu&amp;utm_medium=site&amp;utm_campaign=nissu">日数計算</a><a href="https://mirai-type-lab.github.io/nenrei/?utm_source=mojisu&amp;utm_medium=site&amp;utm_campaign=nenrei">年齢早見表</a><a href="https://mirai-type-lab.github.io/jisa/?utm_source=mojisu&amp;utm_medium=site&amp;utm_campaign=jisa">時差計算</a><a href="https://mirai-type-lab.github.io/hirosa/?utm_source=mojisu&amp;utm_medium=site&amp;utm_campaign=hirosa">広さ換算</a><a href="https://mirai-type-lab.github.io/keiryo/?utm_source=mojisu&amp;utm_medium=site&amp;utm_campaign=keiryo">計量換算</a><a href="https://mirai-type-lab.github.io/news/?utm_source=mojisu&amp;utm_medium=site&amp;utm_campaign=news">ネタぴよ（ニュース）</a></p>
+<footer>運営：未来タイプ診断ラボ／計算はこのページの中だけで行い、入れた文章は送りません。</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const seg=(typeof Intl!=='undefined'&&Intl.Segmenter)?new Intl.Segmenter('ja',{granularity:'grapheme'}):null;
+function graphemes(s){return seg?Array.from(seg.segment(s),x=>x.segment):Array.from(s);}
+function isHalf(ch){const c=ch.codePointAt(0);return c<=0x7e||(c>=0xff61&&c<=0xff9f);}
+function xWeight(s){
+  const urlRe=/https?:\/\/[^\s　]+/g;let w=0;
+  const urls=s.match(urlRe)||[];w+=urls.length*23;s=s.replace(urlRe,'');
+  for(const g of graphemes(s)){
+    if(/\p{Extended_Pictographic}/u.test(g)){w+=2;continue;}
+    for(const ch of g){const c=ch.codePointAt(0);
+      w+=((c<=0x10ff)||(c>=0x2000&&c<=0x200d)||(c>=0x2010&&c<=0x201f)||(c>=0x2032&&c<=0x2037))?1:2;}
+  }
+  return w;
+}
+let sent=false;
+function run(){
+  const s=$('t').value.replace(/\r\n?/g,'\n');
+  const g=graphemes(s);
+  const all=g.length;
+  const noSp=g.filter(x=>!/^[\s　]+$/u.test(x)).length;
+  const noNl=g.filter(x=>x!=='\n').length;
+  const lines=s===''?0:s.split('\n').length;
+  const paras=s.split(/\n[ \t　]*\n/).filter(p=>p.trim()!=='').length;
+  let rows=0;if(s!=='')for(const L of s.split('\n')){rows+=Math.max(1,Math.ceil(graphemes(L).length/20));}
+  const pages=rows?Math.ceil(rows/20):0;
+  let half=0,full=0;for(const x of g){if(x==='\n')continue;if(Array.from(x).length===1&&isHalf(x))half++;else full++;}
+  const bytes=new TextEncoder().encode(s).length;
+  const xw=xWeight(s);
+  $('c0').textContent=all.toLocaleString();
+  $('c1').textContent=noSp.toLocaleString();
+  $('c2').textContent=noNl.toLocaleString();
+  $('c3').textContent=lines.toLocaleString();
+  $('c4').textContent=paras.toLocaleString();
+  $('c5').textContent=pages+' 枚'+(rows?'（'+rows+'行）':'');
+  $('c6').textContent=full.toLocaleString()+'／'+half.toLocaleString();
+  $('c7').textContent=bytes.toLocaleString();
+  $('c8').innerHTML='<span class="'+(xw>280?'ng':'')+'">'+xw+'</span>／280';
+  const lim=parseInt($('lim').value,10);
+  if(lim>0){const d=lim-noSp;$('rest').innerHTML=d>=0?'<span class="ok">あと '+d.toLocaleString()+' 字</span>':'<span class="ng">'+(-d).toLocaleString()+' 字オーバー</span>';}else $('rest').textContent='';
+  if(!sent&&all>0){sent=true;try{gtag('event','mojisu_count');}catch(e){}}
+}
+$('t').addEventListener('input',run);$('lim').addEventListener('input',run);
+$('cl').onclick=()=>{$('t').value='';run();$('t').focus();};
+$('cp').onclick=async()=>{try{await navigator.clipboard.writeText($('t').value);$('cp').textContent='コピーしました';setTimeout(()=>$('cp').textContent='コピー',1500);}catch(e){$('t').select();}};
+run();
+</script>
+</body>
+</html>
