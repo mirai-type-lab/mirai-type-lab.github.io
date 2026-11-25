@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>貯金計算｜目標まで毎月いくら・何か月で貯まる・1年後いくら</title>
+<meta name="description" content="目標額と期間から毎月・毎週・毎日いくら貯めればいいか、毎月の額から目標まで何か月かかるか、今の積み立てで1年後・5年後・10年後いくらになるかを計算。ボーナスの上乗せ・今ある貯金にも対応。無料・保存なし。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/chokin/">
+<meta property="og:title" content="貯金計算｜目標まで毎月いくら・何か月で貯まる">
+<meta property="og:description" content="目標まで毎月いくら、何か月で貯まる、1年後・10年後いくら。ボーナス・今ある貯金にも対応。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/chokin/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"貯金計算","url":"https://mirai-type-lab.github.io/chokin/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"inLanguage":"ja"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"100万円貯めるには毎月いくら？","acceptedAnswer":{"@type":"Answer","text":"利息を考えない場合、1年なら毎月約83,334円、2年なら約41,667円、3年なら約27,778円、5年なら約16,667円です。"}},{"@type":"Question","name":"利息は入っている？","acceptedAnswer":{"@type":"Answer","text":"このページは利息や運用の増減を入れず、積み立てた額だけで計算します。"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"未来タイプ診断ラボ","item":"https://mirai-type-lab.github.io/"},{"@type":"ListItem","position":2,"name":"貯金計算","item":"https://mirai-type-lab.github.io/chokin/"}]}]}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#f7f9fd;color:#222;padding:24px 16px;line-height:1.8}
+.wrap{max-width:640px;margin:0 auto}
+h1{font-size:22px;text-align:center;letter-spacing:.04em;margin-top:8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:6px 0 16px}
+h2{font-size:16px;margin:24px 0 8px}
+.card{background:#fff;border:1px solid #e3e7ef;border-radius:12px;padding:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:14px;margin:6px 0}
+input,select{font-size:16px;padding:6px 8px;border:1px solid #ccc;border-radius:6px;font-family:inherit;background:#fff}
+input[type=number]{width:7em}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.grid div{background:#f3f6fb;border-radius:8px;padding:8px 10px;font-size:12px;color:#555;min-width:0}
+.grid b{display:block;font-size:18px;color:#222;word-break:break-all}
+@media(max-width:420px){.grid{grid-template-columns:1fr 1fr}}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+th,td{border-bottom:1px solid #e3e7ef;padding:5px 4px;text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+.faq dt{font-weight:700;font-size:14px;margin-top:10px}
+.faq dd{font-size:13px;color:#444}
+.note{font-size:12px;color:#666;margin-top:8px}
+.links a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
+footer a{color:#999}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>貯金計算</h1>
+<p class="sub">目標まで毎月いくら・何か月で貯まるかを、入れるそばから計算。</p>
+
+<h2>目標まで毎月いくら？</h2>
+<div class="card">
+<div class="row">目標 <input type="number" id="g" value="100" min="0" step="any" inputmode="decimal" aria-label="目標額（万円）"> 万円　今ある貯金 <input type="number" id="h" value="0" min="0" step="any" inputmode="decimal" style="width:5em" aria-label="今ある貯金（万円）"> 万円</div>
+<div class="row">期間 <input type="number" id="y" value="1" min="0" step="1" inputmode="numeric" style="width:4em" aria-label="年数"> 年 <input type="number" id="m" value="0" min="0" max="11" step="1" inputmode="numeric" style="width:3.5em" aria-label="月数"> か月　ボーナスで年2回 <input type="number" id="b" value="0" min="0" step="any" inputmode="decimal" style="width:5em" aria-label="ボーナス1回の上乗せ（万円）"> 万円ずつ</div>
+<div class="grid">
+<div>毎月<b id="oM">-</b></div>
+<div>毎週<b id="oW">-</b></div>
+<div>毎日<b id="oD">-</b></div>
+</div>
+<p class="note" id="oN"></p>
+</div>
+
+<h2>毎月の額で、目標まで何か月？</h2>
+<div class="card">
+<div class="row">毎月 <input type="number" id="pm" value="3" min="0" step="any" inputmode="decimal" style="width:5em" aria-label="毎月の積み立て（万円）"> 万円ずつ（目標・今ある貯金・ボーナスは上と同じ）</div>
+<div class="grid">
+<div>かかる期間<b id="tN">-</b></div>
+<div>貯まる月<b id="tD">-</b></div>
+<div>そのときの額<b id="tA">-</b></div>
+</div>
+</div>
+
+<h2>このまま続けると</h2>
+<div class="card tw">
+<table id="tb"><thead><tr><th>期間</th><th>貯まる額</th><th>うち積み立て</th></tr></thead><tbody></tbody></table>
+<p class="note">上の「毎月」の額・今ある貯金・ボーナスで計算。利息や運用の増減は入れていません。</p>
+</div>
+
+<h2>100万円・300万円を貯める早見表</h2>
+<div class="card tw">
+<table id="hy"><thead><tr><th>期間</th><th>100万円</th><th>300万円</th><th>500万円</th></tr></thead><tbody></tbody></table>
+<p class="note">今ある貯金0円・ボーナスなし・利息なしで、毎月の額（1円単位で切り上げ）。</p>
+</div>
+
+<h2>よくある質問</h2>
+<dl class="faq">
+<dt>利息は入っている？</dt><dd>入れていません。積み立てた額だけで計算します。預け先の利息や運用の増減は、それぞれの案内で確かめてください。</dd>
+<dt>毎週・毎日の額はどう出している？</dt><dd>毎週は1年を52週、毎日は1年を365日として、ボーナスの分を引いた額を割っています。</dd>
+<dt>ボーナスはいつ足される？</dt><dd>1年に2回、半年ごと（6か月目・12か月目…）に足すものとして計算します。</dd>
+<dt>入れた数字は保存される？</dt><dd>計算はこのページの中だけで行い、送ったり保存したりはしません。</dd>
+</dl>
+<p class="links"><a href="https://mirai-type-lab.github.io/shindan/money/?utm_source=chokin&amp;utm_medium=site&amp;utm_campaign=shindan_money">お金のクセ診断</a><a href="https://mirai-type-lab.github.io/loan/?utm_source=chokin&amp;utm_medium=site&amp;utm_campaign=loan">ローン返済計算</a><a href="https://mirai-type-lab.github.io/nissu/?utm_source=chokin&amp;utm_medium=site&amp;utm_campaign=nissu">日数計算</a><a href="https://mirai-type-lab.github.io/wariai/?utm_source=chokin&amp;utm_medium=site&amp;utm_campaign=wariai">パーセント計算</a><a href="https://mirai-type-lab.github.io/denkidai/?utm_source=chokin&amp;utm_medium=site&amp;utm_campaign=denkidai">電気代計算</a><a href="https://mirai-type-lab.github.io/news/?utm_source=chokin&amp;utm_medium=site&amp;utm_campaign=news">ネタぴよ（ニュース）</a></p>
+<footer>運営：未来タイプ診断ラボ／計算はこのページの中だけで行います。特定の貯め方や金融商品をすすめるものではありません。<br><a href="../about/">運営者情報</a>・<a href="../contact/">お問い合わせ</a>・<a href="../privacy/">プライバシーポリシー</a></footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const sent={};function ev(t){if(!sent[t]){sent[t]=true;try{gtag('event','chokin_'+t);}catch(e){}}}
+const num=id=>{const v=parseFloat($(id).value);return isFinite(v)&&v>=0?v:0;};
+const yen=n=>Math.ceil(n-1e-9).toLocaleString('ja-JP')+'円';
+const yenR=n=>Math.round(n).toLocaleString('ja-JP')+'円';
+function per(n){if(n<12)return n+'か月';const y=Math.floor(n/12),m=n%12;return y+'年'+(m?m+'か月':'');}
+function bonusIn(n,B){return Math.floor(n/6)*B;}
+function main(){
+ const G=num('g')*1e4,H=num('h')*1e4,B=num('b')*1e4,n=Math.floor(num('y'))*12+Math.min(11,Math.floor(num('m')));
+ const need=G-H-bonusIn(n,B);
+ if(G<=0||n<=0){['oM','oW','oD'].forEach(x=>$(x).textContent='-');$('oN').textContent='';}
+ else if(need<=0){['oM','oW','oD'].forEach(x=>$(x).textContent='0円');$('oN').textContent='今ある貯金とボーナスだけで目標に届きます。';}
+ else{const M=need/n,yr=need/(n/12);$('oM').textContent=yen(M);$('oW').textContent=yen(yr/52);$('oD').textContent=yen(yr/365);
+  $('oN').textContent='あと'+yenR(need)+'を'+per(n)+'（'+n+'回）で。'+(B>0?'ボーナスで'+yenR(bonusIn(n,B))+'を足した残り。':'');
+  if(!$('pm').dataset.t){$('pm').value=Math.ceil(M/1000)/10;}
+ }
+ time();table();ev('calc');
+}
+function time(){
+ const G=num('g')*1e4,H=num('h')*1e4,B=num('b')*1e4,P=num('pm')*1e4;
+ if(G<=0){['tN','tD','tA'].forEach(x=>$(x).textContent='-');return;}
+ let n=0,s=H;while(s<G&&n<1200){n++;s+=P;if(n%6==0)s+=B;}
+ if(s<G){['tN','tD','tA'].forEach(x=>$(x).textContent='-');$('tN').textContent='100年以上';return;}
+ $('tN').textContent=n?per(n):'もう届いています';
+ const d=new Date();d.setDate(1);d.setMonth(d.getMonth()+n);
+ $('tD').textContent=d.getFullYear()+'年'+(d.getMonth()+1)+'月';$('tA').textContent=yenR(s);
+}
+function table(){
+ const H=num('h')*1e4,B=num('b')*1e4,P=num('pm')*1e4;
+ $('tb').tBodies[0].innerHTML=[6,12,24,36,60,120,240].map(n=>{const s=P*n+bonusIn(n,B);return '<tr><td>'+per(n)+'</td><td>'+yenR(H+s)+'</td><td>'+yenR(s)+'</td></tr>';}).join('');
+}
+$('hy').tBodies[0].innerHTML=[6,12,24,36,60,120].map(n=>'<tr><td>'+per(n)+'</td>'+[100,300,500].map(g=>'<td>'+yen(g*1e4/n)+'</td>').join('')+'</tr>').join('');
+['g','h','y','m','b'].forEach(x=>$(x).addEventListener('input',main));
+$('pm').addEventListener('input',()=>{$('pm').dataset.t=1;time();table();ev('time');});
+main();for(const k in sent)delete sent[k];
+</script>
+</body>
+</html>
