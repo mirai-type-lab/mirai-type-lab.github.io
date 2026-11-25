@@ -36,6 +36,11 @@ label.item input{width:22px;height:22px;flex:none;margin-top:2px;accent-color:#1
 .btns button{font-size:12px;padding:6px 12px;border:1px solid #ccc;background:#fff;border-radius:6px;margin:4px}
 .cta{background:#fff;border:1px solid #e3e7ef;border-radius:10px;padding:14px;margin-top:16px;font-size:13px}
 .cta a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+
+.res{background:#fff;border:2px solid #1f9d6b;border-radius:12px;padding:14px;margin-top:18px}
+.rrow{margin:10px 0}.rrow b{font-size:14px}.rrow span{float:right;font-weight:700;font-size:14px}
+.rbar{height:9px;background:#e3e7ef;border-radius:6px;overflow:hidden;margin-top:4px}.rbar i{display:block;height:100%;transition:width .3s}
+.next{font-size:13px;margin-top:10px;background:#f2fbf6;border-radius:8px;padding:10px;line-height:1.6}
 footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
@@ -47,10 +52,11 @@ footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
 <p class="sub">停電・断水・大雪の前に、家でやることを1つずつ。済んだらチェック（この端末にだけ残ります）。</p>
 <div class="score"><div class="bar"><i id="bar"></i></div><p id="sc"></p></div>
 <div id="list"></div>
+<div class="res" id="res"><h2 style="margin-top:6px">何のそなえが何%できてる？</h2><div id="rbars"></div><p class="next" id="next"></p></div>
 
 <h2>ここに書いていないこと</h2>
 <p class="note">ここにあるのは公式のページに書かれた一般的な備えです。家族の人数・持病・赤ちゃんやペットの有無で必要な物は変わります。自分の地域の避難場所や雪の情報は、住んでいる市区町村のハザードマップと気象庁の注意報・警報で確かめてください。具合が悪い時は迷わず119番や医療機関へ。</p>
-<div class="btns"><button id="share">チェック数をシェア</button><button id="reset">チェックを全部外す</button></div>
+<div class="btns"><button id="share">結果をシェア</button><button id="reset">チェックを全部外す</button></div>
 
 <div class="cta">ほかにも：
 <a href="https://mirai-type-lab.github.io/news/c/bousai/?utm_source=sonae&amp;utm_medium=site&amp;utm_campaign=sonae">ネタぴよ 防災のニュース</a><a href="https://mirai-type-lab.github.io/tetsuzuki/?utm_source=sonae&amp;utm_medium=site&amp;utm_campaign=sonae">くらしの手続きカレンダー</a></div>
@@ -106,7 +112,7 @@ order.forEach(function(g){
   var c=document.createElement("input");c.type="checkbox";c.checked=!!S[k];
   var sp=document.createElement("span");sp.textContent=it[1];
   lb.appendChild(c);lb.appendChild(sp);if(c.checked)lb.classList.add("done");
-  c.onchange=function(){S[k]=c.checked;lb.classList.toggle("done",c.checked);save();up();
+  c.onchange=function(){S[k]=c.checked;lb.classList.toggle("done",c.checked);save();up();res();
    try{gtag('event','sonae_check',{item:k,on:c.checked?1:0})}catch(e){}};
   L.appendChild(lb);
  });
@@ -115,13 +121,32 @@ order.forEach(function(g){
  L.appendChild(p);
 });
 function cnt(){return all.filter(function(k){return S[k]}).length}
+/* 災害ごとに、関係するチェック項目から何%そなえができているかを出す */
+var TXT={};G.forEach(function(g){g.i.forEach(function(it){TXT[g.id+"-"+it[0]]=it[1]})});
+var D=[
+ ["🏚 地震",["basic-water","basic-food","basic-toilet","basic-bag","basic-light","basic-map","basic-171","basic-kagu"]],
+ ["🔌 停電",["basic-light","teiden-radio","teiden-konro","basic-food","basic-water","basic-171"]],
+ ["🚰 断水",["basic-water","teiden-seikatsu","basic-toilet","basic-food","teiden-konro"]],
+ ["❄️ 大雪（家）",["yuki-gaishutsu","yuki-ff","yuki-futari","yuki-inochi","yuki-hashigo","yuki-nokosu","yuki-muri","basic-water","basic-food","teiden-konro","basic-light"]],
+ ["🚗 冬の車",["kuruma-tire","kuruma-tsumu","kuruma-muffler","kuruma-kagi","kuruma-kyujo"]]
+];
+function res(){
+ var box=document.getElementById("rbars");box.innerHTML="";var worst=null;
+ D.forEach(function(d){var n=d[1].filter(function(k){return S[k]}).length,pc=Math.round(n/d[1].length*100);
+  var col=pc>=80?"#1f9d6b":pc>=50?"#e0a100":"#d9534f";
+  var r=document.createElement("div");r.className="rrow";r.innerHTML="<b></b><span></span><div class='rbar'><i></i></div>";
+  r.querySelector("b").textContent=d[0];r.querySelector("span").textContent=pc+"%";var i=r.querySelector("i");i.style.width=pc+"%";i.style.background=col;box.appendChild(r);
+  if(pc<100&&(!worst||pc<worst.pc))worst={name:d[0],pc:pc,k:d[1].filter(function(k){return !S[k]})[0]};});
+ var nx=document.getElementById("next");
+ nx.textContent=worst?("いちばん手薄なのは「"+worst.name.replace(/^\S+ /,"")+"」（"+worst.pc+"%）。次にやるなら："+TXT[worst.k]):"ぜんぶの災害で100%！このまま、年に1回は中身（水・食べ物の期限）を見直そう。";
+}
 function up(){var n=cnt();document.getElementById("bar").style.width=(n/all.length*100)+"%";
  document.getElementById("sc").textContent="チェック "+n+" / "+all.length+(n===all.length?"　全部できた！":"");}
-up();
+up();res();
 document.getElementById("reset").onclick=function(){if(!confirm("チェックを全部外しますか？"))return;S={};save();
- document.querySelectorAll("label.item input").forEach(function(c){c.checked=false;c.parentNode.classList.remove("done")});up();};
+ document.querySelectorAll("label.item input").forEach(function(c){c.checked=false;c.parentNode.classList.remove("done")});up();res();};
 document.getElementById("share").onclick=function(){
- var t="家のそなえチェック、"+cnt()+"/"+all.length+"できた。停電・断水・大雪の前に家でやること",u="https://mirai-type-lab.github.io/sonae/?utm_source=share&utm_medium=social&utm_campaign=sonae";
+ var t="家のそなえチェック、"+cnt()+"/"+all.length+"できた（"+D.map(function(d){return d[0].replace(/^\S+ /,"")+Math.round(d[1].filter(function(k){return S[k]}).length/d[1].length*100)+"%"}).join("・")+"）",u="https://mirai-type-lab.github.io/sonae/?utm_source=share&utm_medium=social&utm_campaign=sonae";
  try{gtag('event','sonae_share',{n:cnt()})}catch(e){}
  if(navigator.share){navigator.share({text:t,url:u}).catch(function(){})}else{window.open("https://x.com/intent/post?text="+encodeURIComponent(t)+"&url="+encodeURIComponent(u),"_blank")}
 };
