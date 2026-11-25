@@ -13,6 +13,7 @@ https://mirai-type-lab.github.io/mojisu/
 https://mirai-type-lab.github.io/zeikomi/
 https://mirai-type-lab.github.io/warikan/
 https://mirai-type-lab.github.io/wariai/
+https://mirai-type-lab.github.io/denkidai/
 https://mirai-type-lab.github.io/news/
 https://mirai-type-lab.github.io/news/c/bousai/
 https://mirai-type-lab.github.io/news/c/chui/
