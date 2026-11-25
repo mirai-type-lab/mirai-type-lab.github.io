@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>広さ換算｜坪・畳・平米（㎡）をすぐ変換（江戸間・京間・不動産の1.62㎡）</title>
+<meta name="description" content="坪・畳・平米（㎡）・アール・ヘクタール・反・エーカーを1つ入れると全部に換算。畳は江戸間・京間・中京間・団地間と不動産広告の1畳＝1.62㎡で比べられます。入れた数字はどこにも送りません。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/hirosa/">
+<meta property="og:title" content="広さ換算｜坪・畳・平米">
+<meta property="og:description" content="坪・畳・㎡・アール・反などを1つ入れると全部に換算。畳の種類の違いもひと目で。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/hirosa/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"広さ換算（坪・畳・平米）","url":"https://mirai-type-lab.github.io/hirosa/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"inLanguage":"ja"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"1坪は何平米？","acceptedAnswer":{"@type":"Answer","text":"1坪は400/121平方メートルで、約3.31㎡です。"}},{"@type":"Question","name":"1畳は何平米？","acceptedAnswer":{"@type":"Answer","text":"畳の大きさは地域や建物で違い、京間は約1.82㎡、中京間は約1.66㎡、江戸間は約1.55㎡、団地間は約1.45㎡です。不動産の広告では1畳を1.62㎡以上として部屋の畳数を表します。"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"未来タイプ診断ラボ","item":"https://mirai-type-lab.github.io/"},{"@type":"ListItem","position":2,"name":"広さ換算","item":"https://mirai-type-lab.github.io/hirosa/"}]}]}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#f7f9fd;color:#222;padding:24px 16px;line-height:1.8}
+.wrap{max-width:640px;margin:0 auto}
+h1{font-size:22px;text-align:center;letter-spacing:.04em;margin-top:8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:6px 0 16px}
+h2{font-size:16px;margin:24px 0 8px}
+.card{background:#fff;border:1px solid #e3e7ef;border-radius:12px;padding:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:14px;margin-bottom:8px}
+input,select{font-size:16px;padding:6px 8px;border:1px solid #ccc;border-radius:6px;max-width:100%;background:#fff}
+input[type=number]{width:6em}
+.res{font-size:14px;margin-top:6px}
+.res b{font-size:20px}
+.res .s{color:#666;font-size:13px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px;background:#fff}
+th,td{border-bottom:1px solid #eef0f5;padding:6px;text-align:left;white-space:nowrap}
+th{background:#eef3fb;font-size:12px}
+.hol{color:#d33}
+.faq dt{font-weight:700;font-size:14px;margin-top:10px}
+.faq dd{font-size:13px;color:#444}
+.note{font-size:12px;color:#666;margin-top:8px}
+.links a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
+
+.big input{width:9em}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>広さ換算</h1>
+<p class="sub">坪・畳・平米（㎡）などを1つ入れると全部に換算します。</p>
+
+<h2>数字と単位を入れる</h2>
+<div class="card">
+<div class="row big"><input type="number" id="v" value="20" step="any" inputmode="decimal" aria-label="広さ"> <select id="u" aria-label="単位"></select></div>
+<div class="row"><label>畳の大きさ <select id="t" aria-label="畳の種類"></select></label></div>
+<div class="tw"><table><thead><tr><th>単位</th><th>広さ</th></tr></thead><tbody id="out"></tbody></table></div>
+<p class="note" id="cmp"></p>
+</div>
+
+<h2>畳の種類で何畳になる？</h2>
+<div class="card"><div class="tw"><table><thead><tr><th>畳の種類</th><th>1畳</th><th>この広さだと</th></tr></thead><tbody id="tat"></tbody></table></div>
+<p class="note">同じ「6畳」でも、京間と団地間では広さが2割ほど違います。物件の広さは、まず平米（㎡）で比べるのが確実です。</p></div>
+
+<h2>よくある質問</h2>
+<dl class="faq">
+<dt>1坪は何平米？</dt><dd>1坪は400/121㎡（約3.31㎡）です。畳ならおおよそ2畳分です。</dd>
+<dt>1畳は何平米？</dt><dd>京間 約1.82㎡、中京間 約1.66㎡、江戸間 約1.55㎡、団地間 約1.45㎡と、地域や建物で違います。不動産の広告では、1畳を1.62㎡以上として部屋の畳数を書く決まりです（不動産の表示に関する公正競争規約）。</dd>
+<dt>アール・ヘクタール・反は？</dt><dd>1アール＝100㎡、1ヘクタール＝10,000㎡。反は田畑で使う古い単位で、1反＝300坪（約991.7㎡）、1町＝10反です。</dd>
+<dt>東京ドーム何個分？</dt><dd>東京ドームの建築面積 46,755㎡ を1個として計算しています。</dd>
+</dl>
+
+<p class="links"><a href="https://mirai-type-lab.github.io/nissu/?utm_source=hirosa&amp;utm_medium=site&amp;utm_campaign=nissu">日数計算</a><a href="https://mirai-type-lab.github.io/nenrei/?utm_source=hirosa&amp;utm_medium=site&amp;utm_campaign=nenrei">年齢早見表</a><a href="https://mirai-type-lab.github.io/tetsuzuki/?utm_source=hirosa&amp;utm_medium=site&amp;utm_campaign=tetsuzuki">くらしの手続きカレンダー</a><a href="https://mirai-type-lab.github.io/news/?utm_source=hirosa&amp;utm_medium=site&amp;utm_campaign=news">ネタぴよ（ニュース）</a></p>
+<footer>運営：未来タイプ診断ラボ／計算はこのページの中だけで行い、入れた数字は送りません。畳の大きさは代表的な寸法で、実際の部屋とは違うことがあります。</footer>
+</div>
+<script>
+const TSUBO=400/121;
+const T=[['fudosan','不動産広告（1.62㎡）',1.62],['kyo','京間（191×95.5cm）',1.82405],['chukyo','中京間（182×91cm）',1.6562],['edo','江戸間（176×88cm）',1.5488],['danchi','団地間（170×85cm）',1.445]];
+const U=[['m2','平米（㎡）',1],['tsubo','坪',TSUBO],['jo','畳',null],['a','アール',100],['ha','ヘクタール',10000],['tan','反',300*TSUBO],['cho','町',3000*TSUBO],['acre','エーカー',4046.8564224],['ft2','平方フィート',0.09290304],['km2','平方キロメートル',1e6],['dome','東京ドーム',46755]];
+const $=id=>document.getElementById(id);
+U.forEach(x=>$('u').add(new Option(x[1],x[0])));
+T.forEach(x=>$('t').add(new Option(x[1],x[0])));
+$('u').value='m2';
+const f=n=>{if(!isFinite(n))return'—';const a=Math.abs(n);const d=a>=1000?1:a>=10?2:a>=0.01?3:6;return n.toLocaleString('ja-JP',{maximumFractionDigits:d})};
+function jo(){return T.find(x=>x[0]==$('t').value)[2]}
+function calc(){
+ const v=parseFloat($('v').value);const u=U.find(x=>x[0]==$('u').value);
+ const k=u[0]=='jo'?jo():u[2];const m2=v*k;
+ $('out').innerHTML=U.map(x=>`<tr><td>${x[1]}</td><td><b>${f(m2/(x[0]=='jo'?jo():x[2]))}</b></td></tr>`).join('');
+ $('tat').innerHTML=T.map(x=>`<tr><td>${x[1]}</td><td>${x[2].toFixed(2)}㎡</td><td>${f(m2/x[2])} 畳</td></tr>`).join('');
+ $('cmp').textContent=isFinite(m2)&&m2>0?`${f(m2)}㎡ ＝ 約${f(m2/TSUBO)}坪。`+(m2<200?`6畳間（1.62㎡で約9.72㎡）の約${f(m2/9.72)}部屋分。`:`テニスコート（ダブルス 約261㎡）約${f(m2/260.76)}面分。`):'';
+}
+let tm;['v','u','t'].forEach(id=>$(id).addEventListener('input',()=>{calc();clearTimeout(tm);tm=setTimeout(()=>{try{gtag('event','hirosa_calc',{unit:$('u').value})}catch(e){}},1500)}));
+calc();
+</script>
+</body>
+</html>
