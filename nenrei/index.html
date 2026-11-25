@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>年齢早見表｜西暦・和暦・干支・学年がひと目で（2026年版・毎年自動で更新）</title>
+<meta name="description" content="生まれ年から今年の年齢・和暦・干支がひと目でわかる年齢早見表。生年月日を入れると、満年齢・小学校〜大学の入学と卒業の年・還暦などの年祝いの年も計算します。毎年1月1日に自動で次の年の表になります。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/nenrei/">
+<meta property="og:title" content="年齢早見表｜西暦・和暦・干支・学年がひと目で">
+<meta property="og:description" content="生まれ年→今年の年齢・和暦・干支。生年月日から入学・卒業の年も。毎年自動で更新。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/nenrei/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"年齢早見表","url":"https://mirai-type-lab.github.io/nenrei/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"inLanguage":"ja"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"令和元年は西暦何年？","acceptedAnswer":{"@type":"Answer","text":"令和元年は2019年です（5月1日から）。同じ2019年の4月30日までは平成31年です。"}},{"@type":"Question","name":"平成元年は西暦何年？","acceptedAnswer":{"@type":"Answer","text":"平成元年は1989年です（1月8日から）。1月7日までは昭和64年です。"}},{"@type":"Question","name":"早生まれの入学の年は？","acceptedAnswer":{"@type":"Answer","text":"1月1日〜4月1日生まれ（早生まれ）は、生まれた年の6年後の4月に小学校へ入学します。4月2日〜12月31日生まれは7年後の4月です。"}},{"@type":"Question","name":"還暦は何歳？","acceptedAnswer":{"@type":"Answer","text":"還暦は満60歳（数え年61歳）の年です。この表では満年齢で、古希70・喜寿77・傘寿80・米寿88・卒寿90・白寿99歳の年も出します。"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"未来タイプ診断ラボ","item":"https://mirai-type-lab.github.io/"},{"@type":"ListItem","position":2,"name":"年齢早見表","item":"https://mirai-type-lab.github.io/nenrei/"}]}]}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#f7f9fd;color:#222;padding:24px 16px;line-height:1.8}
+.wrap{max-width:640px;margin:0 auto}
+h1{font-size:22px;text-align:center;letter-spacing:.04em;margin-top:8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:6px 0 16px}
+h2{font-size:16px;margin:24px 0 8px}
+.card{background:#fff;border:1px solid #e3e7ef;border-radius:12px;padding:14px}
+.calc{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:14px}
+.calc input{font-size:16px;padding:6px 8px;border:1px solid #ccc;border-radius:6px;max-width:100%}
+#out{margin-top:10px;font-size:14px}
+#out dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
+#out dt{color:#666}
+#out dd b{font-size:16px}
+.find{font-size:14px;margin-bottom:8px}
+.find input{font-size:16px;padding:4px 8px;width:7em;border:1px solid #ccc;border-radius:6px}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:13px;background:#fff;min-width:420px}
+th,td{border-bottom:1px solid #eef0f5;padding:6px 6px;text-align:left;white-space:nowrap}
+th{position:sticky;top:0;background:#eef3fb;font-size:12px}
+tr.hit{background:#fff6d6}
+td b{font-size:14px}
+.faq dt{font-weight:700;font-size:14px;margin-top:10px}
+.faq dd{font-size:13px;color:#444}
+.note{font-size:12px;color:#666;margin-top:8px}
+.links a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>年齢早見表</h1>
+<p class="sub"><span id="yy">2026</span>年の年齢・和暦・干支。毎年1月1日に自動で次の年の表になります。</p>
+
+<h2>生年月日から計算</h2>
+<div class="card">
+<div class="calc"><label for="bd">生年月日</label><input type="date" id="bd" min="1900-01-01"></div>
+<div id="out"><p class="note">生年月日を入れると、今日の満年齢・和暦・干支・入学と卒業の年・年祝いの年が出ます（入れた日付はどこにも送りません）。</p></div>
+</div>
+
+<h2><span id="yy2">2026</span>年の年齢早見表</h2>
+<p class="find">生まれ年で探す：<input id="fy" inputmode="numeric" placeholder="例 1990"></p>
+<div class="tw"><table><thead><tr><th>生まれ年</th><th>和暦</th><th>干支</th><th>誕生日後</th><th>誕生日前</th></tr></thead><tbody id="tb"><tr><td>2026</td><td>令和8年</td><td>午（うま）</td><td><b>0</b>歳</td><td>-歳</td></tr><tr><td>2025</td><td>令和7年</td><td>巳（へび）</td><td><b>1</b>歳</td><td>0歳</td></tr><tr><td>2024</td><td>令和6年</td><td>辰（たつ）</td><td><b>2</b>歳</td><td>1歳</td></tr><tr><td>2023</td><td>令和5年</td><td>卯（うさぎ）</td><td><b>3</b>歳</td><td>2歳</td></tr><tr><td>2022</td><td>令和4年</td><td>寅（とら）</td><td><b>4</b>歳</td><td>3歳</td></tr><tr><td>2021</td><td>令和3年</td><td>丑（うし）</td><td><b>5</b>歳</td><td>4歳</td></tr><tr><td>2020</td><td>令和2年</td><td>子（ねずみ）</td><td><b>6</b>歳</td><td>5歳</td></tr><tr><td>2019</td><td>令和元年／平成31年</td><td>亥（いのしし）</td><td><b>7</b>歳</td><td>6歳</td></tr><tr><td>2018</td><td>平成30年</td><td>戌（いぬ）</td><td><b>8</b>歳</td><td>7歳</td></tr><tr><td>2017</td><td>平成29年</td><td>酉（とり）</td><td><b>9</b>歳</td><td>8歳</td></tr><tr><td>2016</td><td>平成28年</td><td>申（さる）</td><td><b>10</b>歳</td><td>9歳</td></tr><tr><td>2015</td><td>平成27年</td><td>未（ひつじ）</td><td><b>11</b>歳</td><td>10歳</td></tr><tr><td>2014</td><td>平成26年</td><td>午（うま）</td><td><b>12</b>歳</td><td>11歳</td></tr><tr><td>2013</td><td>平成25年</td><td>巳（へび）</td><td><b>13</b>歳</td><td>12歳</td></tr><tr><td>2012</td><td>平成24年</td><td>辰（たつ）</td><td><b>14</b>歳</td><td>13歳</td></tr><tr><td>2011</td><td>平成23年</td><td>卯（うさぎ）</td><td><b>15</b>歳</td><td>14歳</td></tr><tr><td>2010</td><td>平成22年</td><td>寅（とら）</td><td><b>16</b>歳</td><td>15歳</td></tr><tr><td>2009</td><td>平成21年</td><td>丑（うし）</td><td><b>17</b>歳</td><td>16歳</td></tr><tr><td>2008</td><td>平成20年</td><td>子（ねずみ）</td><td><b>18</b>歳</td><td>17歳</td></tr><tr><td>2007</td><td>平成19年</td><td>亥（いのしし）</td><td><b>19</b>歳</td><td>18歳</td></tr><tr><td>2006</td><td>平成18年</td><td>戌（いぬ）</td><td><b>20</b>歳</td><td>19歳</td></tr><tr><td>2005</td><td>平成17年</td><td>酉（とり）</td><td><b>21</b>歳</td><td>20歳</td></tr><tr><td>2004</td><td>平成16年</td><td>申（さる）</td><td><b>22</b>歳</td><td>21歳</td></tr><tr><td>2003</td><td>平成15年</td><td>未（ひつじ）</td><td><b>23</b>歳</td><td>22歳</td></tr><tr><td>2002</td><td>平成14年</td><td>午（うま）</td><td><b>24</b>歳</td><td>23歳</td></tr><tr><td>2001</td><td>平成13年</td><td>巳（へび）</td><td><b>25</b>歳</td><td>24歳</td></tr><tr><td>2000</td><td>平成12年</td><td>辰（たつ）</td><td><b>26</b>歳</td><td>25歳</td></tr><tr><td>1999</td><td>平成11年</td><td>卯（うさぎ）</td><td><b>27</b>歳</td><td>26歳</td></tr><tr><td>1998</td><td>平成10年</td><td>寅（とら）</td><td><b>28</b>歳</td><td>27歳</td></tr><tr><td>1997</td><td>平成9年</td><td>丑（うし）</td><td><b>29</b>歳</td><td>28歳</td></tr><tr><td>1996</td><td>平成8年</td><td>子（ねずみ）</td><td><b>30</b>歳</td><td>29歳</td></tr><tr><td>1995</td><td>平成7年</td><td>亥（いのしし）</td><td><b>31</b>歳</td><td>30歳</td></tr><tr><td>1994</td><td>平成6年</td><td>戌（いぬ）</td><td><b>32</b>歳</td><td>31歳</td></tr><tr><td>1993</td><td>平成5年</td><td>酉（とり）</td><td><b>33</b>歳</td><td>32歳</td></tr><tr><td>1992</td><td>平成4年</td><td>申（さる）</td><td><b>34</b>歳</td><td>33歳</td></tr><tr><td>1991</td><td>平成3年</td><td>未（ひつじ）</td><td><b>35</b>歳</td><td>34歳</td></tr><tr><td>1990</td><td>平成2年</td><td>午（うま）</td><td><b>36</b>歳</td><td>35歳</td></tr><tr><td>1989</td><td>平成元年／昭和64年</td><td>巳（へび）</td><td><b>37</b>歳</td><td>36歳</td></tr><tr><td>1988</td><td>昭和63年</td><td>辰（たつ）</td><td><b>38</b>歳</td><td>37歳</td></tr><tr><td>1987</td><td>昭和62年</td><td>卯（うさぎ）</td><td><b>39</b>歳</td><td>38歳</td></tr><tr><td>1986</td><td>昭和61年</td><td>寅（とら）</td><td><b>40</b>歳</td><td>39歳</td></tr><tr><td>1985</td><td>昭和60年</td><td>丑（うし）</td><td><b>41</b>歳</td><td>40歳</td></tr><tr><td>1984</td><td>昭和59年</td><td>子（ねずみ）</td><td><b>42</b>歳</td><td>41歳</td></tr><tr><td>1983</td><td>昭和58年</td><td>亥（いのしし）</td><td><b>43</b>歳</td><td>42歳</td></tr><tr><td>1982</td><td>昭和57年</td><td>戌（いぬ）</td><td><b>44</b>歳</td><td>43歳</td></tr><tr><td>1981</td><td>昭和56年</td><td>酉（とり）</td><td><b>45</b>歳</td><td>44歳</td></tr><tr><td>1980</td><td>昭和55年</td><td>申（さる）</td><td><b>46</b>歳</td><td>45歳</td></tr><tr><td>1979</td><td>昭和54年</td><td>未（ひつじ）</td><td><b>47</b>歳</td><td>46歳</td></tr><tr><td>1978</td><td>昭和53年</td><td>午（うま）</td><td><b>48</b>歳</td><td>47歳</td></tr><tr><td>1977</td><td>昭和52年</td><td>巳（へび）</td><td><b>49</b>歳</td><td>48歳</td></tr><tr><td>1976</td><td>昭和51年</td><td>辰（たつ）</td><td><b>50</b>歳</td><td>49歳</td></tr><tr><td>1975</td><td>昭和50年</td><td>卯（うさぎ）</td><td><b>51</b>歳</td><td>50歳</td></tr><tr><td>1974</td><td>昭和49年</td><td>寅（とら）</td><td><b>52</b>歳</td><td>51歳</td></tr><tr><td>1973</td><td>昭和48年</td><td>丑（うし）</td><td><b>53</b>歳</td><td>52歳</td></tr><tr><td>1972</td><td>昭和47年</td><td>子（ねずみ）</td><td><b>54</b>歳</td><td>53歳</td></tr><tr><td>1971</td><td>昭和46年</td><td>亥（いのしし）</td><td><b>55</b>歳</td><td>54歳</td></tr><tr><td>1970</td><td>昭和45年</td><td>戌（いぬ）</td><td><b>56</b>歳</td><td>55歳</td></tr><tr><td>1969</td><td>昭和44年</td><td>酉（とり）</td><td><b>57</b>歳</td><td>56歳</td></tr><tr><td>1968</td><td>昭和43年</td><td>申（さる）</td><td><b>58</b>歳</td><td>57歳</td></tr><tr><td>1967</td><td>昭和42年</td><td>未（ひつじ）</td><td><b>59</b>歳</td><td>58歳</td></tr><tr><td>1966</td><td>昭和41年</td><td>午（うま）</td><td><b>60</b>歳</td><td>59歳</td></tr><tr><td>1965</td><td>昭和40年</td><td>巳（へび）</td><td><b>61</b>歳</td><td>60歳</td></tr><tr><td>1964</td><td>昭和39年</td><td>辰（たつ）</td><td><b>62</b>歳</td><td>61歳</td></tr><tr><td>1963</td><td>昭和38年</td><td>卯（うさぎ）</td><td><b>63</b>歳</td><td>62歳</td></tr><tr><td>1962</td><td>昭和37年</td><td>寅（とら）</td><td><b>64</b>歳</td><td>63歳</td></tr><tr><td>1961</td><td>昭和36年</td><td>丑（うし）</td><td><b>65</b>歳</td><td>64歳</td></tr><tr><td>1960</td><td>昭和35年</td><td>子（ねずみ）</td><td><b>66</b>歳</td><td>65歳</td></tr><tr><td>1959</td><td>昭和34年</td><td>亥（いのしし）</td><td><b>67</b>歳</td><td>66歳</td></tr><tr><td>1958</td><td>昭和33年</td><td>戌（いぬ）</td><td><b>68</b>歳</td><td>67歳</td></tr><tr><td>1957</td><td>昭和32年</td><td>酉（とり）</td><td><b>69</b>歳</td><td>68歳</td></tr><tr><td>1956</td><td>昭和31年</td><td>申（さる）</td><td><b>70</b>歳</td><td>69歳</td></tr><tr><td>1955</td><td>昭和30年</td><td>未（ひつじ）</td><td><b>71</b>歳</td><td>70歳</td></tr><tr><td>1954</td><td>昭和29年</td><td>午（うま）</td><td><b>72</b>歳</td><td>71歳</td></tr><tr><td>1953</td><td>昭和28年</td><td>巳（へび）</td><td><b>73</b>歳</td><td>72歳</td></tr><tr><td>1952</td><td>昭和27年</td><td>辰（たつ）</td><td><b>74</b>歳</td><td>73歳</td></tr><tr><td>1951</td><td>昭和26年</td><td>卯（うさぎ）</td><td><b>75</b>歳</td><td>74歳</td></tr><tr><td>1950</td><td>昭和25年</td><td>寅（とら）</td><td><b>76</b>歳</td><td>75歳</td></tr><tr><td>1949</td><td>昭和24年</td><td>丑（うし）</td><td><b>77</b>歳</td><td>76歳</td></tr><tr><td>1948</td><td>昭和23年</td><td>子（ねずみ）</td><td><b>78</b>歳</td><td>77歳</td></tr><tr><td>1947</td><td>昭和22年</td><td>亥（いのしし）</td><td><b>79</b>歳</td><td>78歳</td></tr><tr><td>1946</td><td>昭和21年</td><td>戌（いぬ）</td><td><b>80</b>歳</td><td>79歳</td></tr><tr><td>1945</td><td>昭和20年</td><td>酉（とり）</td><td><b>81</b>歳</td><td>80歳</td></tr><tr><td>1944</td><td>昭和19年</td><td>申（さる）</td><td><b>82</b>歳</td><td>81歳</td></tr><tr><td>1943</td><td>昭和18年</td><td>未（ひつじ）</td><td><b>83</b>歳</td><td>82歳</td></tr><tr><td>1942</td><td>昭和17年</td><td>午（うま）</td><td><b>84</b>歳</td><td>83歳</td></tr><tr><td>1941</td><td>昭和16年</td><td>巳（へび）</td><td><b>85</b>歳</td><td>84歳</td></tr><tr><td>1940</td><td>昭和15年</td><td>辰（たつ）</td><td><b>86</b>歳</td><td>85歳</td></tr><tr><td>1939</td><td>昭和14年</td><td>卯（うさぎ）</td><td><b>87</b>歳</td><td>86歳</td></tr><tr><td>1938</td><td>昭和13年</td><td>寅（とら）</td><td><b>88</b>歳</td><td>87歳</td></tr><tr><td>1937</td><td>昭和12年</td><td>丑（うし）</td><td><b>89</b>歳</td><td>88歳</td></tr><tr><td>1936</td><td>昭和11年</td><td>子（ねずみ）</td><td><b>90</b>歳</td><td>89歳</td></tr><tr><td>1935</td><td>昭和10年</td><td>亥（いのしし）</td><td><b>91</b>歳</td><td>90歳</td></tr><tr><td>1934</td><td>昭和9年</td><td>戌（いぬ）</td><td><b>92</b>歳</td><td>91歳</td></tr><tr><td>1933</td><td>昭和8年</td><td>酉（とり）</td><td><b>93</b>歳</td><td>92歳</td></tr><tr><td>1932</td><td>昭和7年</td><td>申（さる）</td><td><b>94</b>歳</td><td>93歳</td></tr><tr><td>1931</td><td>昭和6年</td><td>未（ひつじ）</td><td><b>95</b>歳</td><td>94歳</td></tr><tr><td>1930</td><td>昭和5年</td><td>午（うま）</td><td><b>96</b>歳</td><td>95歳</td></tr><tr><td>1929</td><td>昭和4年</td><td>巳（へび）</td><td><b>97</b>歳</td><td>96歳</td></tr><tr><td>1928</td><td>昭和3年</td><td>辰（たつ）</td><td><b>98</b>歳</td><td>97歳</td></tr><tr><td>1927</td><td>昭和2年</td><td>卯（うさぎ）</td><td><b>99</b>歳</td><td>98歳</td></tr><tr><td>1926</td><td>昭和元年／大正15年</td><td>寅（とら）</td><td><b>100</b>歳</td><td>99歳</td></tr></tbody></table></div>
+<p class="note">年齢は満年齢です。改元の年は2つの和暦を並べています（令和元年は2019年5月1日から、平成元年は1989年1月8日から、昭和元年は1926年12月25日から）。</p>
+
+<h2>よくある質問</h2>
+<dl class="faq">
+<dt>令和元年は西暦何年？</dt><dd>2019年です（5月1日から）。同じ2019年の4月30日までは平成31年です。令和の年は「西暦−2018」で出せます。</dd>
+<dt>平成・昭和を西暦にするには？</dt><dd>平成は「＋1988」、昭和は「＋1925」です。例：平成2年＝1990年、昭和60年＝1985年。</dd>
+<dt>早生まれの入学の年は？</dt><dd>1月1日〜4月1日生まれは、生まれた年の6年後の4月に小学校へ入学します。4月2日〜12月31日生まれは7年後の4月です（4月1日生まれが前の学年になるのは、法律では誕生日の前日に年をとるため）。</dd>
+<dt>還暦・古希・喜寿は何歳？</dt><dd>満年齢で、還暦60・古希70・喜寿77・傘寿80・米寿88・卒寿90・白寿99歳です（還暦は数え年61歳と同じ年）。お祝いを数え年でする地域や家もあります。</dd>
+</dl>
+
+<h2>ほかのページ</h2>
+<p class="links"><a href="https://mirai-type-lab.github.io/tetsuzuki/?utm_source=nenrei&amp;utm_medium=site&amp;utm_campaign=tetsuzuki">くらしの手続きカレンダー</a><a href="https://mirai-type-lab.github.io/sonae/?utm_source=nenrei&amp;utm_medium=site&amp;utm_campaign=sonae">家のそなえチェック</a><a href="https://mirai-type-lab.github.io/news/?utm_source=nenrei&amp;utm_medium=site&amp;utm_campaign=news">ネタぴよ（ニュース）</a></p>
+<footer>運営：未来タイプ診断ラボ／計算はこのページの中だけで行い、入れた日付は送りません。</footer>
+</div>
+<script>
+var ERAS=[[2019,5,1,"令和"],[1989,1,8,"平成"],[1926,12,25,"昭和"],[1912,7,30,"大正"],[1868,10,23,"明治"]];
+var ETO="子丑寅卯辰巳午未申酉戌亥",ANI=["ねずみ","うし","とら","うさぎ","たつ","へび","うま","ひつじ","さる","とり","いぬ","いのしし"];
+function waY(y){for(var i=0;i<ERAS.length;i++){var e=ERAS[i];if(y>=e[0]){var k=y-e[0]+1,s=e[3]+(k==1?"元":k)+"年";if(k==1&&ERAS[i+1]){var p=ERAS[i+1];s+="／"+p[3]+(y-p[0]+1)+"年"}return s}}return ""}
+function waD(y,m,d){for(var i=0;i<ERAS.length;i++){var e=ERAS[i];if(y>e[0]||(y==e[0]&&(m>e[1]||(m==e[1]&&d>=e[2])))){var k=y-e[0]+1;return e[3]+(k==1?"元":k)+"年"}}return ""}
+function eto(y){var i=((y-4)%12+12)%12;return ETO[i]+"（"+ANI[i]+"）"}
+var now=new Date(),Y=now.getFullYear();
+document.getElementById("yy").textContent=Y;document.getElementById("yy2").textContent=Y;
+if(Y!=2026){document.title=document.title.replace("2026年版",Y+"年版");var h="";for(var y=Y;y>=1926;y--){h+="<tr><td>"+y+"</td><td>"+waY(y)+"</td><td>"+eto(y)+"</td><td><b>"+(Y-y)+"</b>歳</td><td>"+(y<Y?(Y-y-1)+"歳":"-")+"</td></tr>"}document.getElementById("tb").innerHTML=h}
+document.getElementById("fy").addEventListener("input",function(){var v=parseInt(this.value,10);document.querySelectorAll("#tb tr").forEach(function(r){r.classList.remove("hit")});
+ if(v>=1926&&v<=Y){var r=document.querySelectorAll("#tb tr")[Y-v];if(r){r.classList.add("hit");r.scrollIntoView({block:"center",behavior:"smooth"})}}});
+var IWAI=[[60,"還暦"],[70,"古希"],[77,"喜寿"],[80,"傘寿"],[88,"米寿"],[90,"卒寿"],[99,"白寿"]];
+function calc(){var v=document.getElementById("bd").value;if(!v)return;var a=v.split("-").map(Number),y=a[0],m=a[1],d=a[2];
+ var t=new Date(),ty=t.getFullYear(),tm=t.getMonth()+1,td=t.getDate();if(y<1900||y>ty)return;
+ var age=ty-y-((tm<m||(tm==m&&td<d))?1:0);if(age<0)return;
+ var hay=(m<4||(m==4&&d==1)),e=y+(hay?6:7);
+ var sch=[["小学校 入学",e],["小学校 卒業・中学校 入学",e+6],["中学校 卒業・高校 入学",e+9],["高校 卒業・大学 入学（ストレートの場合）",e+12]];
+ var h="<dl><dt>今日の年齢</dt><dd><b>"+age+"歳</b></dd><dt>和暦</dt><dd>"+waD(y,m,d)+m+"月"+d+"日生まれ</dd><dt>干支</dt><dd>"+eto(y)+"年</dd><dt>学年</dt><dd>"+(hay?"早生まれ（1/1〜4/1）":"4/2〜12/31生まれ")+"</dd>";
+ sch.forEach(function(s){h+="<dt>"+s[0]+"</dt><dd>"+s[1]+"年4月（"+waY(s[1]).split("／")[0]+"）</dd>"});
+ var nx=IWAI.filter(function(w){return y+w[0]>=ty})[0];if(nx)h+="<dt>次の年祝い</dt><dd>"+nx[1]+"（満"+nx[0]+"歳）＝"+(y+nx[0])+"年</dd>";
+ h+="</dl>";document.getElementById("out").innerHTML=h;try{gtag('event','nenrei_calc',{age:age})}catch(e){}}
+document.getElementById("bd").addEventListener("change",calc);
+</script>
+</body>
+</html>
