@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>割り勘計算｜人数で割る・100円単位・多め少なめの傾斜もすぐ</title>
+<meta name="description" content="合計金額と人数を入れるだけで、1人いくらかをその場で計算。10円・100円・500円・1000円単位の切り上げ、幹事の端数の負担や余り、上司は多め・学生は少なめの傾斜割り勘、払う額の一覧のコピーも。">
+<link rel="canonical" href="https://mirai-type-lab.github.io/warikan/">
+<meta property="og:title" content="割り勘計算｜1人いくら？100円単位・傾斜もすぐ">
+<meta property="og:description" content="合計と人数を入れるだけ。100円単位の切り上げ、幹事の余り、多め・少なめの傾斜割り勘まで。">
+<meta property="og:url" content="https://mirai-type-lab.github.io/warikan/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="未来タイプ診断ラボ">
+<meta property="og:image" content="https://mirai-type-lab.github.io/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"割り勘計算","url":"https://mirai-type-lab.github.io/warikan/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"inLanguage":"ja"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"割り切れないときはどうする？","acceptedAnswer":{"@type":"Answer","text":"1人分を100円単位などで切り上げて集め、余りは幹事があずかるか次回に回すのがよくあるやり方です。切り捨てて足りない分を幹事が出す方法もあります。"}},{"@type":"Question","name":"傾斜割り勘はどう計算する？","acceptedAnswer":{"@type":"Answer","text":"人ごとに比率（ふつう1、多め1.5、少なめ0.5など）を決め、合計を比率の合計で割って1あたりの額を出し、各自の比率をかけます。"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"未来タイプ診断ラボ","item":"https://mirai-type-lab.github.io/"},{"@type":"ListItem","position":2,"name":"割り勘計算","item":"https://mirai-type-lab.github.io/warikan/"}]}]}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:#f7f9fd;color:#222;padding:24px 16px;line-height:1.8}
+.wrap{max-width:640px;margin:0 auto}
+h1{font-size:22px;text-align:center;letter-spacing:.04em;margin-top:8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:6px 0 16px}
+h2{font-size:16px;margin:24px 0 8px}
+.card{background:#fff;border:1px solid #e3e7ef;border-radius:12px;padding:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:14px;margin:6px 0}
+input,select{font-size:16px;padding:6px 8px;border:1px solid #ccc;border-radius:6px;font-family:inherit;background:#fff}
+input[type=number]{width:9em}
+.seg label{display:inline-block;border:1px solid #ccc;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:14px;background:#fff}
+.seg input{display:none}
+.seg input:checked+span{font-weight:700;color:#1554c0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.grid div{background:#f3f6fb;border-radius:8px;padding:8px 10px;font-size:12px;color:#555;min-width:0}
+.grid b{display:block;font-size:19px;color:#222;word-break:break-all}
+@media(max-width:420px){.grid{grid-template-columns:1fr 1fr}}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+th,td{border-bottom:1px solid #e3e7ef;padding:5px 4px;text-align:right}
+th:first-child,td:first-child{text-align:left}
+.faq dt{font-weight:700;font-size:14px;margin-top:10px}
+.faq dd{font-size:13px;color:#444}
+.note{font-size:12px;color:#666;margin-top:8px}
+.links a{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;font-size:13px}
+footer{font-size:11px;color:#999;text-align:center;margin:28px 0 8px}
+footer a{color:#999}
+.grp{display:grid;grid-template-columns:1fr 5em 5em 2em;gap:6px;align-items:center;margin:6px 0}
+.grp input{width:100%}
+.grp button,.add{font-size:14px;border:1px solid #ccc;background:#fff;border-radius:6px;padding:4px 8px;cursor:pointer;font-family:inherit}
+.hd{font-size:11px;color:#777}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSHZSB36VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSHZSB36VV',{allow_google_signals:false,allow_ad_personalization_signals:false});</script>
+</head>
+<body>
+<div class="wrap">
+<h1>割り勘計算</h1>
+<p class="sub">合計と人数を入れるだけで、1人いくらかをその場で計算します。</p>
+
+<div class="card">
+<div class="row">合計 <input type="number" id="tot" value="23800" min="0" inputmode="numeric" aria-label="合計金額"> 円 を <input type="number" id="n" value="6" min="1" inputmode="numeric" style="width:5em" aria-label="人数"> 人で</div>
+<div class="row">単位 <select id="unit" aria-label="集める単位"><option value="1">1円</option><option value="10">10円</option><option value="100" selected>100円</option><option value="500">500円</option><option value="1000">1000円</option></select>
+<span class="seg"><label><input type="radio" name="way" value="ceil" checked><span>切り上げ（余りは幹事）</span></label> <label><input type="radio" name="way" value="floor"><span>切り捨て（不足は幹事）</span></label></span></div>
+<div class="grid">
+<div>1人<b id="o1">-</b></div>
+<div>集まる額<b id="o2">-</b></div>
+<div id="o3l">余り<b id="o3">-</b></div>
+</div>
+<p class="note" id="o4"></p>
+</div>
+
+<h2>傾斜割り勘（多め・少なめ）</h2>
+<div class="card">
+<p class="note" style="margin-top:0">比率は「ふつう＝1」。多めの人は1.5や2、少なめの人は0.5など。上の合計と単位を使います。</p>
+<div class="grp hd"><span>呼び名</span><span>人数</span><span>比率</span><span></span></div>
+<div id="gs"></div>
+<button class="add" id="add" type="button">＋ 組を足す</button>
+<table><thead><tr><th>組</th><th>1人</th><th>人数</th><th>小計</th></tr></thead><tbody id="gt"></tbody></table>
+<p class="note" id="gn"></p>
+<p class="row"><button class="add" id="cp" type="button">払う額の一覧をコピー</button> <span id="cpm" class="note" style="margin:0"></span></p>
+</div>
+
+<h2>よくある質問</h2>
+<dl class="faq">
+<dt>割り切れないときはどうする？</dt><dd>1人分を100円単位などで切り上げて集め、余りは幹事があずかるか次の会に回すのがよくあるやり方です。「切り捨て」を選ぶと、足りない分を幹事が出す計算になります。</dd>
+<dt>傾斜割り勘はどう計算する？</dt><dd>人ごとに比率を決め、合計を比率の合計（人数×比率を足したもの）で割って「比率1あたりの額」を出し、各自の比率をかけます。例：合計30,000円、ふつう4人（1）と多め2人（1.5）なら、比率の合計は7、1あたり約4,286円で、ふつうは約4,300円・多めは約6,500円（100円単位で切り上げ）。</dd>
+<dt>幹事の分を無料にしたいときは？</dt><dd>傾斜の組で「幹事」を作り、比率を0にしてください。</dd>
+<dt>入れた金額は保存される？</dt><dd>計算はこのページの中だけで行い、金額を送ったり保存したりはしません。</dd>
+</dl>
+<p class="links"><a href="https://mirai-type-lab.github.io/zeikomi/?utm_source=warikan&amp;utm_medium=site&amp;utm_campaign=zeikomi">消費税計算</a><a href="https://mirai-type-lab.github.io/mojisu/?utm_source=warikan&amp;utm_medium=site&amp;utm_campaign=mojisu">文字数カウント</a><a href="https://mirai-type-lab.github.io/nissu/?utm_source=warikan&amp;utm_medium=site&amp;utm_campaign=nissu">日数計算</a><a href="https://mirai-type-lab.github.io/keiryo/?utm_source=warikan&amp;utm_medium=site&amp;utm_campaign=keiryo">計量換算</a><a href="https://mirai-type-lab.github.io/tetsuzuki/?utm_source=warikan&amp;utm_medium=site&amp;utm_campaign=tetsuzuki">くらしの手続きカレンダー</a><a href="https://mirai-type-lab.github.io/news/?utm_source=warikan&amp;utm_medium=site&amp;utm_campaign=news">ネタぴよ（ニュース）</a></p>
+<footer>運営：未来タイプ診断ラボ／計算はこのページの中だけで行います。<br><a href="../about/">運営者情報</a>・<a href="../contact/">お問い合わせ</a>・<a href="../privacy/">プライバシーポリシー</a></footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const yen=n=>isFinite(n)?Math.round(n).toLocaleString()+' 円':'-';
+const num=v=>{const n=parseFloat(v);return isFinite(n)&&n>=0?n:NaN;};
+const way=()=>document.querySelector('input[name=way]:checked').value;
+const rnd=(x,u)=>{const f=way()==='ceil'?Math.ceil:Math.floor;return f(+(x/u).toFixed(6))*u;};
+let sent=false;
+function ev(){if(!sent){sent=true;try{gtag('event','warikan_calc');}catch(e){}}}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function simple(){
+  const t=num($('tot').value),n=Math.floor(num($('n').value)),u=+$('unit').value;
+  if(isNaN(t)||!(n>=1)){['o1','o2','o3'].forEach(i=>$(i).textContent='-');$('o4').textContent='';return;}
+  const p=rnd(t/n,u),c=p*n,d=c-t;
+  $('o1').textContent=yen(p);$('o2').textContent=yen(c);
+  $('o3l').firstChild.textContent=d>=0?'余り':'不足';$('o3').textContent=yen(Math.abs(d));
+  $('o4').textContent='ちょうど割ると1人 '+(Math.round(t/n*100)/100).toLocaleString()+' 円。'+(d>0?'余り '+d.toLocaleString()+' 円は幹事があずかる分です。':d<0?'足りない '+(-d).toLocaleString()+' 円は幹事が出す分です。':'ぴったり割り切れます。');
+}
+const G=[{l:'ふつう',n:4,w:1},{l:'多め',n:2,w:1.5}];
+function drawG(){
+  $('gs').innerHTML=G.map((g,i)=>'<div class="grp"><input data-i="'+i+'" data-k="l" value="'+esc(g.l)+'" aria-label="呼び名"><input type="number" min="0" inputmode="numeric" data-i="'+i+'" data-k="n" value="'+g.n+'" aria-label="人数"><input type="number" min="0" step="0.1" inputmode="decimal" data-i="'+i+'" data-k="w" value="'+g.w+'" aria-label="比率"><button type="button" data-del="'+i+'" aria-label="この組を消す">×</button></div>').join('');
+  $('gs').querySelectorAll('input').forEach(e=>e.addEventListener('input',()=>{const g=G[+e.dataset.i];g[e.dataset.k]=e.dataset.k==='l'?e.value:e.value;calcG();ev();}));
+  $('gs').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{G.splice(+b.dataset.del,1);drawG();calcG();}));
+}
+let lines=[];
+function calcG(){
+  const t=num($('tot').value),u=+$('unit').value;lines=[];
+  let sw=0;G.forEach(g=>{const n=Math.floor(num(g.n)),w=num(g.w);if(n>0&&w>=0)sw+=n*w;});
+  if(isNaN(t)||sw<=0){$('gt').innerHTML='';$('gn').textContent='人数と比率を入れてください。';return;}
+  const per=t/sw;let h='',c=0;
+  G.forEach(g=>{const n=Math.floor(num(g.n)),w=num(g.w);if(!(n>0)||isNaN(w))return;const p=rnd(per*w,u);c+=p*n;
+    h+='<tr><td>'+esc(g.l||'-')+'</td><td>'+p.toLocaleString()+'</td><td>'+n+'</td><td>'+(p*n).toLocaleString()+'</td></tr>';lines.push((g.l||'-')+'：1人 '+p.toLocaleString()+' 円 × '+n+'人');});
+  const d=c-t;
+  h+='<tr><th>合計</th><th></th><th></th><th>'+c.toLocaleString()+'</th></tr>';
+  $('gt').innerHTML=h;
+  $('gn').textContent='比率1あたり '+(Math.round(per)).toLocaleString()+' 円。'+(d>0?'集まる額は合計より '+d.toLocaleString()+' 円多い（余り）。':d<0?'集まる額は合計より '+(-d).toLocaleString()+' 円少ない（不足）。':'ぴったりです。');
+  lines.push('合計 '+t.toLocaleString()+' 円'+(d?'（'+(d>0?'余り ':'不足 ')+Math.abs(d).toLocaleString()+' 円）':''));
+}
+$('add').addEventListener('click',()=>{G.push({l:'少なめ',n:1,w:0.5});drawG();calcG();});
+$('cp').addEventListener('click',()=>{const s=lines.join('\n');try{navigator.clipboard.writeText(s).then(()=>{$('cpm').textContent='コピーしました';},()=>{$('cpm').textContent=s;});}catch(e){$('cpm').textContent=s;}});
+document.querySelectorAll('#tot,#n,#unit').forEach(e=>e.addEventListener('input',()=>{simple();calcG();ev();}));
+document.querySelectorAll('input[name=way]').forEach(e=>e.addEventListener('change',()=>{simple();calcG();ev();}));
+drawG();simple();calcG();
+</script>
+</body>
+</html>
